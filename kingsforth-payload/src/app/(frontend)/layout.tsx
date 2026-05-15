@@ -1,0 +1,185 @@
+import type { Metadata } from 'next'
+import { Syne, Onest, JetBrains_Mono } from 'next/font/google'
+import React from 'react'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+import { headers as getHeaders } from 'next/headers'
+import { unstable_cache } from 'next/cache'
+
+import { ThemeProvider } from '@/components/theme/ThemeProvider'
+import { SmartBackground } from '@/components/background/SmartBackground'
+import { SiteWrapper } from '@/components/layout/SiteWrapper'
+import './globals.css'
+
+const syne = Syne({ subsets: ['latin'], variable: '--font-syne', display: 'optional' })
+const onest = Onest({ subsets: ['latin'], variable: '--font-onest', display: 'optional' })
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'optional' })
+
+// force-dynamic keeps auth() reading fresh cookies; nav data is cached separately
+export const dynamic = 'force-dynamic'
+
+const getLayoutData = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config: configPromise })
+    const [servicesResult, solutionsResult, resourcesResult] = await Promise.all([
+      payload.find({ collection: 'services', limit: 10, sort: 'order' }).catch(() => ({ docs: [] as any[] })),
+      payload.find({ collection: 'solutions', limit: 10 }).catch(() => ({ docs: [] as any[] })),
+      payload.find({ collection: 'resources', limit: 6 }).catch(() => ({ docs: [] as any[] })),
+    ])
+    return {
+      services: servicesResult.docs,
+      solutions: solutionsResult.docs,
+      resources: resourcesResult.docs,
+    }
+  },
+  ['layout-nav-data'],
+  { revalidate: 60 }
+)
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://kingsforth.net'),
+  title: {
+    default: 'Kingsforth | Elite AI Surveillance & Intelligent Security Operations',
+    template: '%s | Kingsforth Enterprise Security',
+  },
+  description: 'We are Kingsforth. We forge the future of autonomous enterprise security. Industry-leading AI Ops, AI Surveillance, intelligent CC Camera systems, threat detection, and unparalleled client service. Transform your security operations with our cognitive intelligence platform.',
+  keywords: [
+    'Kingsforth', 'we are Kingsforth', 'we forge', 'AI Ops', 'AI Surveillance', 
+    'CC Camera', 'client service', 'security cameras', 'enterprise security', 
+    'intelligent surveillance', 'threat detection', 'autonomous security', 
+    'CCTV AI', 'smart camera systems', 'corporate security', 'facility monitoring',
+    'real-time threat analysis', 'security operations center', 'SOC automation',
+    'video analytics', 'facial recognition security', 'perimeter defense',
+    'IoT orchestration', 'automated incident response', 'cognitive surveillance',
+    'predictive policing', 'access control integration', 'military grade security',
+    'commercial security systems', 'business surveillance solutions',
+    'footfall count', 'automated attendance', 'incident tracking', 'theft prevention',
+    'security SaaS', 'tech solutions', 'factory surveillance', 'office security',
+    'Gulshan security', 'Dhaka AI surveillance', 'AI security Bangladesh', 'AI'
+  ],
+  authors: [{ name: 'Kingsforth Team' }],
+  creator: 'Kingsforth',
+  publisher: 'Kingsforth Intelligence Solutions',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: 'Kingsforth | Elite AI Surveillance & Intelligent Security Operations',
+    description: 'We are Kingsforth. We forge the future of autonomous enterprise security. Industry-leading AI Ops, AI Surveillance, and intelligent CC Camera systems.',
+    url: 'https://kingsforth.net',
+    siteName: 'Kingsforth',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Kingsforth Enterprise Intelligence Platform',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kingsforth | Elite AI Surveillance',
+    description: 'We are Kingsforth. We forge the future of autonomous enterprise security. Discover our AI Ops and surveillance platforms.',
+    creator: '@kingsforth',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
+async function getAuthUser(headers: Headers): Promise<any> {
+  const payload = await getPayload({ config: configPromise })
+  let user: any = null
+  try {
+    const authRes = await payload.auth({ headers })
+    user = authRes?.user || null
+  } catch (err) {
+    console.error('Payload native auth error:', err)
+  }
+  if (!user) {
+    try {
+      const { cookies } = await import('next/headers')
+      const cookieStore = await cookies()
+      const token = cookieStore.get('payload-token')?.value
+      if (token) {
+        const base64Url = token.split('.')[1]
+        if (base64Url) {
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+          const jsonPayload = Buffer.from(base64, 'base64').toString('utf-8')
+          const decoded = JSON.parse(jsonPayload)
+          const now = Math.floor(Date.now() / 1000)
+          if (decoded.id && decoded.collection === 'users' && (!decoded.exp || decoded.exp > now)) {
+            user = await payload.findByID({ collection: 'users', id: decoded.id })
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Manual token decode error:', err)
+    }
+  }
+  return user
+}
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headers = await getHeaders()
+
+  const [{ services, solutions, resources }, user] = await Promise.all([
+    getLayoutData(),
+    getAuthUser(headers),
+  ])
+
+  // Fetch siteSettings fresh on every request (force-dynamic) with depth:1
+  // so that upload fields (siteLogo, heroImageDay, heroImageNight) are fully
+  // resolved to { url, ... } objects instead of bare IDs.
+  let siteSettings: any = null;
+  try {
+    const payload = await getPayload({ config: configPromise });
+    siteSettings = await payload.findGlobal({ slug: 'site-settings', depth: 1 });
+  } catch {}
+
+  const llmLinks = (siteSettings?.llmLinks ?? []).filter((l: any) => l.enabled !== false);
+  const llmSectionHeading = siteSettings?.llmSectionHeading ?? '';
+
+  const contactInfo = siteSettings?.contactInfo || null
+
+  return (
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+      <body suppressHydrationWarning className={`${syne.variable} ${onest.variable} ${jetbrainsMono.variable} font-sans antialiased text-foreground bg-background transition-colors duration-1000`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange={false}>
+          <SmartBackground 
+            dayImageUrl={siteSettings?.heroImageDay?.url ?? null}
+            nightImageUrl={siteSettings?.heroImageNight?.url ?? null}
+          />
+          <SiteWrapper 
+            user={user} 
+            services={services} 
+            solutions={solutions} 
+            resources={resources}
+            logoUrl={siteSettings?.siteLogo?.url ?? null}
+            siteName={siteSettings?.siteName ?? null}
+            socialLinks={siteSettings?.socialLinks}
+            contactInfo={contactInfo}
+            llmLinks={llmLinks}
+            llmSectionHeading={llmSectionHeading}
+          >
+            {children}
+          </SiteWrapper>
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
