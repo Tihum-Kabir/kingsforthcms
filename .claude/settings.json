@@ -7,15 +7,7 @@
       "Bash(git push *)",
       "Skill(caveman)",
       "Skill(caveman:*)",
-      "Bash(rm -rf \"c:\\\\Users\\\\User\\\\Downloads\\\\Kingsforth.net Landing Page Design/.git\")",
-      "PowerShell(Get-Content graphify-out\\\\.graphify_uncached.txt | Where-Object { $_ -notmatch '\\\\.\\(ts|tsx|js|jsx|mts|mjs|cjs\\)$' })",
-      "Bash(python -c ' *)",
-      "Bash(python -c \"import json; g=json.load\\(open\\(r'C:\\\\Users\\\\User\\\\Downloads\\\\Kingsforth.net Landing Page Design\\\\graphify-out\\\\graph.json','r',encoding='utf-8'\\)\\); ids=[n['id'] for n in g.get\\('nodes',[]\\)]; print\\('\\\\n'.join\\(ids[:40]\\)\\)\")",
-      "Bash(not exist *)",
-      "Bash(python -c \"import json; g=json.load\\(open\\(r'C:\\\\Users\\\\User\\\\Downloads\\\\Kingsforth.net Landing Page Design\\\\graphify-out\\\\graph.json','r',encoding='utf-8'\\)\\); ids=[n['id'] for n in g.get\\('nodes',[]\\)]; matches=[i for i in ids if 'hero' in i.lower\\(\\) or 'media' in i.lower\\(\\) or 'image' in i.lower\\(\\) or 'landing' in i.lower\\(\\) or 'kingseye' in i.lower\\(\\) or 'kingsforth' in i.lower\\(\\)]; print\\('\\\\n'.join\\(matches\\)\\)\")",
-      "Bash(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\User\\\\Downloads\\\\Kingsforth.net Landing Page Design\\\\graphify-out\")",
-      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\User\\\\Downloads\\\\Kingsforth.net Landing Page Design\\\\graphify-out\")",
-      "Bash(python -c \"import sys; sys.stdout.buffer.write\\(sys.stdin.buffer.read\\(\\)\\)\")"
+      "Bash(rm -rf \"c:\\\\Users\\\\User\\\\Downloads\\\\Kingsforth.net Landing Page Design/.git\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\User\\Downloads\\Kingsforth.net Landing Page Design\\.git"
