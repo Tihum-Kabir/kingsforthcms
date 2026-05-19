@@ -99,32 +99,25 @@ export async function autoSeedAll(payload: Payload) {
             payload.logger.info('[auto-seed] No team members found — seeding...');
             const TEAM = [
                 {
-                    name: 'Tihum Kabir',
-                    role: 'CEO & Co-Founder',
-                    motto: 'Intelligence without surveillance is just noise.',
+                    name: 'Asif Mahbub',
+                    role: 'Co-Founder & CEO',
+                    motto: 'Intelligence without action is just observation.',
                     bio: 'Leading Kingsforth\'s vision for autonomous enterprise intelligence. Deep expertise in cognitive AI systems, enterprise security architecture, and scalable infrastructure across South Asia.',
                     sortOrder: 1,
                 },
                 {
-                    name: 'Rifat Hossain',
-                    role: 'CTO & Co-Founder',
+                    name: 'Shoaib Bin Noor',
+                    role: 'Co-Founder & CTO',
                     motto: 'The best security system is one that never sleeps.',
                     bio: 'Architect of Kingsforth\'s core AI inference engine. Specialist in real-time video analytics, distributed sensor networks, and edge computing deployments.',
                     sortOrder: 2,
                 },
                 {
-                    name: 'Nadia Islam',
-                    role: 'Head of AI Research',
-                    motto: 'Data tells the story. We just learn to listen.',
-                    bio: 'Leading the R&D division with focus on behavioral pattern recognition, threat classification models, and next-generation autonomous response systems.',
-                    sortOrder: 3,
-                },
-                {
-                    name: 'Arif Rahman',
-                    role: 'Head of Enterprise Operations',
+                    name: 'Arifin Islam',
+                    role: 'Co-Founder & COO',
                     motto: 'Execution separates vision from reality.',
                     bio: 'Overseeing enterprise client deployments, partner integrations, and operational excellence across all active Kingsforth installations in the region.',
-                    sortOrder: 4,
+                    sortOrder: 3,
                 },
             ];
             for (const member of TEAM) {

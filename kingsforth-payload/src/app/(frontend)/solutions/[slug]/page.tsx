@@ -19,17 +19,18 @@ const ICON_MAP: Record<string, React.ElementType> = {
     shield: Shield, zap: Zap, brain: Brain, network: Network, eye: Eye, bot: Bot,
 };
 
-/* Violet-anchored theme — matches solutions brand color */
 const THEME = {
-    from: 'from-violet-950', via: 'via-slate-950', to: 'to-slate-950',
+    from: 'from-violet-50 dark:from-violet-950',
+    via: 'via-white dark:via-slate-950',
+    to: 'to-white dark:to-slate-950',
     ring: 'ring-violet-500/20',
-    text: 'text-violet-400',
-    bg: 'bg-violet-500/10',
-    border: 'border-violet-500/20',
-    badge: 'bg-violet-500/10 border-violet-500/30 text-violet-400',
-    badgeDot: 'bg-violet-400',
-    statBorder: 'border-violet-500/20 hover:border-violet-500/40',
-    featBorder: 'hover:border-violet-500/40',
+    text: 'text-violet-600 dark:text-violet-400',
+    bg: 'bg-violet-100 dark:bg-violet-500/10',
+    border: 'border-violet-300 dark:border-violet-500/20',
+    badge: 'bg-violet-100 border-violet-300 text-violet-600 dark:bg-violet-500/10 dark:border-violet-500/30 dark:text-violet-400',
+    badgeDot: 'bg-violet-500 dark:bg-violet-400',
+    statBorder: 'border-violet-300 dark:border-violet-500/20 hover:border-violet-500 dark:hover:border-violet-500/40',
+    featBorder: 'hover:border-violet-400/60 dark:hover:border-violet-500/40',
 };
 
 function lex(text: string) {
@@ -104,13 +105,13 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
     const MainIcon = ICON_MAP[slug] ?? Crosshair;
 
     return (
-        <main className="min-h-screen bg-slate-950 relative z-10 pb-24">
+        <main className="min-h-screen bg-white dark:bg-slate-950 relative z-10 pb-24">
 
             {/* ── BACK ── */}
             <div className="max-w-7xl mx-auto px-6 pt-28 pb-6">
                 <Link href="/solutions"
-                    className="inline-flex items-center gap-2.5 text-sm font-semibold text-slate-400 hover:text-white transition-colors group">
-                    <div className="p-1 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors">
+                    className="inline-flex items-center gap-2.5 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group">
+                    <div className="p-1 rounded-full bg-slate-100 dark:bg-white/5 group-hover:bg-slate-200 dark:group-hover:bg-white/10 transition-colors">
                         <ArrowLeft className="w-3.5 h-3.5" />
                     </div>
                     All Solutions
@@ -120,10 +121,10 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
             {/* ── HERO ── */}
             <section className={`relative overflow-hidden bg-linear-to-br ${THEME.from} ${THEME.via} ${THEME.to}`}>
                 {/* Glow */}
-                <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-225 h-125 rounded-full blur-[120px] opacity-20 ${THEME.bg}`} />
+                <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-225 h-125 rounded-full blur-[120px] opacity-10 dark:opacity-20 ${THEME.bg}`} />
 
                 {/* Grid lines */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+                <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04] dark:opacity-10">
                     <div className="absolute inset-0 service-grid-lines" />
                 </div>
 
@@ -142,19 +143,19 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
                             <div className={`w-16 h-16 rounded-2xl ${THEME.bg} border ${THEME.border} flex items-center justify-center mb-6`}>
                                 <MainIcon className={`w-8 h-8 ${THEME.text}`} />
                             </div>
-                            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-[1.05] mb-5">
+                            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.05] mb-5">
                                 {sol.title}
                             </h1>
-                            <p className="text-xl text-white/60 max-w-2xl leading-relaxed mb-8">
+                            <p className="text-xl text-slate-600 dark:text-white/60 max-w-2xl leading-relaxed mb-8">
                                 {sol.subtitle}
                             </p>
                             <div className="flex flex-wrap gap-4">
                                 <Link href="/contact"
-                                    className="inline-flex items-center gap-2.5 h-13 px-8 py-3.5 bg-white text-slate-900 font-bold rounded-full hover:scale-[1.03] transition-transform shadow-xl">
+                                    className="inline-flex items-center gap-2.5 h-13 px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold rounded-full hover:scale-[1.03] transition-transform shadow-xl">
                                     <PhoneCall className="w-4 h-4" /> Book a Demo
                                 </Link>
                                 <Link href="#capabilities"
-                                    className={`inline-flex items-center gap-2 text-sm font-semibold ${THEME.text} hover:text-white transition-colors`}>
+                                    className={`inline-flex items-center gap-2 text-sm font-semibold ${THEME.text} hover:text-slate-900 dark:hover:text-white transition-colors`}>
                                     Explore Details <ArrowRight className="w-4 h-4" />
                                 </Link>
                             </div>
@@ -164,9 +165,9 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
                         {stats.length > 0 && (
                             <div className="grid grid-cols-2 gap-3 lg:w-72">
                                 {stats.map((s, i) => (
-                                    <div key={i} className={`bg-white/5 rounded-2xl p-5 border ${THEME.statBorder} transition-colors`}>
+                                    <div key={i} className={`bg-slate-50 dark:bg-white/5 rounded-2xl p-5 border ${THEME.statBorder} transition-colors`}>
                                         <div className={`text-3xl font-black ${THEME.text} mb-1`}>{s.value}</div>
-                                        <div className="text-xs text-white/50 uppercase tracking-wider font-semibold leading-tight">{s.label}</div>
+                                        <div className="text-xs text-slate-500 dark:text-white/50 uppercase tracking-wider font-semibold leading-tight">{s.label}</div>
                                     </div>
                                 ))}
                             </div>
@@ -178,10 +179,10 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
             {/* ── HERO IMAGE ── */}
             {heroImageUrl && (
                 <div className="max-w-7xl mx-auto px-6 -mt-4">
-                    <div className="relative rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl">
+                    <div className="relative rounded-3xl overflow-hidden ring-1 ring-slate-200 dark:ring-white/10 shadow-2xl">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={heroImageUrl} alt={sol.title} className="w-full aspect-21/9 object-cover" />
-                        <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-slate-900/40 dark:from-slate-950/60 to-transparent" />
                     </div>
                 </div>
             )}
@@ -191,7 +192,7 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
                 <section className="max-w-5xl mx-auto px-6 py-14">
                     <div className="relative group">
                         <div className={`absolute -inset-3 ${THEME.bg} rounded-4xl blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none`} />
-                        <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl">
+                        <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-slate-200 dark:ring-white/10 shadow-xl">
                             <iframe src={embedUrl} title={`${sol.title} Overview`}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen loading="lazy" className="w-full h-full border-0" />
@@ -206,7 +207,7 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
                     <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-6 ${THEME.badge}`}>
                         <span className="text-[10px] font-bold tracking-[0.18em] uppercase">Overview</span>
                     </div>
-                    <div className="prose prose-lg prose-invert max-w-none prose-p:text-white/60 prose-p:leading-relaxed prose-headings:text-white prose-a:text-violet-400">
+                    <div className="prose prose-lg dark:prose-invert max-w-none prose-p:text-slate-600 dark:prose-p:text-white/60 prose-p:leading-relaxed prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-violet-600 dark:prose-a:text-violet-400">
                         <RichText data={descriptionRich} />
                     </div>
                 </section>
@@ -219,17 +220,17 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
                         <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-4 ${THEME.badge}`}>
                             <span className="text-xs font-bold tracking-[0.2em] uppercase">Capabilities</span>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Key Capabilities</h2>
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Key Capabilities</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {features.map((feat, i) => (
-                            <div key={i} className={`group bg-white/2 border border-white/[0.07] rounded-2xl p-8 ${THEME.featBorder} hover:bg-white/5 transition-all duration-300`}>
+                            <div key={i} className={`group bg-slate-50 border border-slate-200 dark:bg-white/2 dark:border-white/[0.07] rounded-2xl p-8 ${THEME.featBorder} hover:bg-violet-50/50 dark:hover:bg-white/5 transition-all duration-300`}>
                                 <div className={`w-12 h-12 rounded-xl ${THEME.bg} border ${THEME.border} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
                                     <CheckCircle className={`w-5 h-5 ${THEME.text}`} />
                                 </div>
-                                <h3 className="text-lg font-bold text-white mb-3">{feat.title}</h3>
+                                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">{feat.title}</h3>
                                 {feat.description && (
-                                    <p className="text-sm text-white/50 leading-relaxed">{feat.description}</p>
+                                    <p className="text-sm text-slate-500 dark:text-white/50 leading-relaxed">{feat.description}</p>
                                 )}
                             </div>
                         ))}
@@ -246,16 +247,16 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
                                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[10px] font-bold tracking-[0.15em] uppercase ${THEME.badge}`}>
                                     Feature {String(i + 1).padStart(2, '0')}
                                 </span>
-                                <h3 className="text-2xl md:text-3xl font-black text-white leading-tight">{section.title}</h3>
+                                <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-tight">{section.title}</h3>
                                 {section.description && (
-                                    <p className="text-white/50 leading-relaxed">{section.description}</p>
+                                    <p className="text-slate-500 dark:text-white/50 leading-relaxed">{section.description}</p>
                                 )}
                             </div>
                             <div className="w-full md:w-1/2">
-                                <div className="bg-white/3 border border-white/8 rounded-2xl p-7">
+                                <div className="bg-slate-50 border border-slate-200 dark:bg-white/3 dark:border-white/8 rounded-2xl p-7">
                                     <ul className="space-y-3">
                                         {(section.points ?? []).map((p: any, pi: number) => (
-                                            <li key={pi} className="flex items-start gap-3 text-white/60 text-sm">
+                                            <li key={pi} className="flex items-start gap-3 text-slate-600 dark:text-white/60 text-sm">
                                                 <CheckCircle className={`w-4 h-4 ${THEME.text} mt-0.5 shrink-0`} />
                                                 <span>{p.point}</span>
                                             </li>
@@ -271,15 +272,15 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
             {/* ── FAQs ── */}
             {sol.faqs?.length > 0 && (
                 <section className="max-w-4xl mx-auto px-6 mb-16">
-                    <h2 className="text-3xl font-black text-white mb-8 text-center">Frequently Asked Questions</h2>
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-8 text-center">Frequently Asked Questions</h2>
                     <div className="space-y-3">
                         {sol.faqs.map((faq: any, i: number) => (
-                            <details key={i} className="group bg-white/2 border border-white/[0.07] rounded-2xl overflow-hidden">
-                                <summary className="px-7 py-5 cursor-pointer text-white font-semibold flex items-center justify-between hover:text-violet-400 transition-colors list-none">
+                            <details key={i} className="group bg-slate-50 border border-slate-200 dark:bg-white/2 dark:border-white/[0.07] rounded-2xl overflow-hidden">
+                                <summary className="px-7 py-5 cursor-pointer text-slate-800 dark:text-white font-semibold flex items-center justify-between hover:text-violet-600 dark:hover:text-violet-400 transition-colors list-none">
                                     {faq.question}
-                                    <span className="text-white/40 group-open:rotate-180 transition-transform duration-300 ml-4 shrink-0">▾</span>
+                                    <span className="text-slate-400 dark:text-white/40 group-open:rotate-180 transition-transform duration-300 ml-4 shrink-0">▾</span>
                                 </summary>
-                                <div className="px-7 pb-6 text-white/50 leading-relaxed border-t border-white/5 pt-4">
+                                <div className="px-7 pb-6 text-slate-600 dark:text-white/50 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4">
                                     {faq.answer}
                                 </div>
                             </details>
@@ -290,26 +291,26 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
 
             {/* ── CTA ── */}
             <section className="max-w-5xl mx-auto px-6 mt-8">
-                <div className={`relative rounded-3xl overflow-hidden bg-linear-to-br ${THEME.from} ${THEME.via} ${THEME.to} border border-white/8 p-12 md:p-20 text-center`}>
+                <div className={`relative rounded-3xl overflow-hidden bg-linear-to-br ${THEME.from} ${THEME.via} ${THEME.to} border border-violet-200 dark:border-white/8 p-12 md:p-20 text-center`}>
                     <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-150 h-75 rounded-full blur-[80px] opacity-15 ${THEME.bg} pointer-events-none`} />
                     <div className="relative z-10">
                         <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6 ${THEME.badge}`}>
                             <MessageSquare className={`w-3.5 h-3.5 ${THEME.text}`} />
                             <span className="text-xs font-bold tracking-[0.2em] uppercase">Talk to an Expert</span>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight tracking-tight">
+                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 leading-tight tracking-tight">
                             See {sol.title} in action?
                         </h2>
-                        <p className="text-white/50 text-lg mb-10 max-w-xl mx-auto">
+                        <p className="text-slate-600 dark:text-white/50 text-lg mb-10 max-w-xl mx-auto">
                             {`Talk to our architects and get a live walkthrough of Kingsforth ${sol.title} for your organization.`}
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/contact"
-                                className="inline-flex items-center justify-center gap-2.5 h-14 px-8 bg-white text-slate-900 font-bold text-base rounded-full shadow-xl hover:scale-105 transition-all duration-300">
+                                className="inline-flex items-center justify-center gap-2.5 h-14 px-8 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-base rounded-full shadow-xl hover:scale-105 transition-all duration-300">
                                 <PhoneCall className="w-4 h-4" /> Book a Demo
                             </Link>
                             <Link href="/contact"
-                                className="inline-flex items-center justify-center gap-2.5 h-14 px-8 bg-white/10 text-white font-bold text-base rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300">
+                                className="inline-flex items-center justify-center gap-2.5 h-14 px-8 bg-slate-100 text-slate-800 border border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/20 font-bold text-base rounded-full hover:bg-slate-200 dark:hover:bg-white/20 transition-all duration-300">
                                 <MessageSquare className="w-4 h-4" /> Contact Sales
                             </Link>
                         </div>

@@ -275,7 +275,7 @@ export function Navigation({ user, services = [], solutions = [], resources = []
                             className={`lg:hidden p-2 rounded-lg transition-colors ${
                                 showSolid
                                     ? 'text-[#111827] dark:text-white hover:bg-[#f3f4f6] dark:hover:bg-white/6'
-                                    : 'text-white hover:bg-white/10'
+                                    : 'text-[#111827] dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
                             }`}
                         >
                             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

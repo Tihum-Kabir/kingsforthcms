@@ -44,7 +44,7 @@ export function CityScapeBackground({ dayImageUrl, nightImageUrl }: CityScapeBac
                 loading="eager"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover object-center"
-                style={{ opacity: isNight ? 1 : 0, transition: 'opacity 1s ease-in-out' }}
+                style={{ opacity: isNight ? 1 : 0, transition: 'opacity 1s ease-in-out', height: '100%', maxWidth: 'none' }}
             />
 
             {/* Day — hidden initially, lazy-load until user switches to light mode */}
@@ -56,7 +56,7 @@ export function CityScapeBackground({ dayImageUrl, nightImageUrl }: CityScapeBac
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover object-center"
-                style={{ opacity: isNight ? 0 : 1, transition: 'opacity 1s ease-in-out' }}
+                style={{ opacity: isNight ? 0 : 1, transition: 'opacity 1s ease-in-out', height: '100%', maxWidth: 'none' }}
             />
 
             {/* CSS animated ambient glow orbs — zero JS cost */}
