@@ -1,5 +1,6 @@
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
+import { unstable_cache } from 'next/cache';
 import { CoreCapabilitiesClient } from './CoreCapabilitiesClient';
 
 const gradientMap: Record<string, string> = {
@@ -17,26 +18,32 @@ const gradientMap: Record<string, string> = {
     rose: 'from-rose-600 to-pink-500',
 };
 
-export async function CoreCapabilities({ settings }: { settings?: any }) {
-    let capabilities: any[] = [];
-    try {
-        const payload = await getPayload({ config: configPromise });
-        const { docs: services } = await payload.find({
-            collection: 'services',
-            limit: 6,
-            depth: 1,
-        });
-        capabilities = (services ?? []).map((service: any) => ({
-            iconName: service.icon || 'Database',
-            title: service.title,
-            description: service.subtitle || '',
-            href: `/services/${service.slug}`,
-            gradient: gradientMap[service.colorTheme || service.category || 'surveillance'] || 'from-blue-600 to-cyan-500',
-            mediaUrl: typeof service.heroImage === 'object' ? service.heroImage?.url : undefined,
-        }));
-    } catch (err) {
-        console.error('[CoreCapabilities] payload.find failed:', err);
-    }
+const getCapabilities = unstable_cache(
+    async () => {
+        try {
+            const payload = await getPayload({ config: configPromise });
+            const { docs: services } = await payload.find({
+                collection: 'services',
+                limit: 6,
+                depth: 1,
+            });
+            return (services ?? []).map((service: any) => ({
+                iconName: service.icon || 'Database',
+                title: service.title,
+                description: service.subtitle || '',
+                href: `/services/${service.slug}`,
+                gradient: gradientMap[service.colorTheme || service.category || 'surveillance'] || 'from-blue-600 to-cyan-500',
+                mediaUrl: typeof service.heroImage === 'object' ? service.heroImage?.url : undefined,
+            }));
+        } catch {
+            return [];
+        }
+    },
+    ['core-capabilities'],
+    { revalidate: 60 }
+);
 
+export async function CoreCapabilities({ settings }: { settings?: any }) {
+    const capabilities = await getCapabilities();
     return <CoreCapabilitiesClient capabilities={capabilities} settings={settings} />;
 }

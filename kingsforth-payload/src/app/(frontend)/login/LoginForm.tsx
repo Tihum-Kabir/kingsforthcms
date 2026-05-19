@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { Shield, Mail, Lock, User, CheckCircle, Phone, MapPin, KeyRound, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
@@ -111,8 +112,7 @@ export function LoginForm({ branding }: { branding?: { logoUrl?: string | null, 
                 <Link href="/" className="flex items-center justify-center gap-3 mb-8">
                     {branding?.logoUrl ? (
                         <div className="h-12 w-auto relative flex items-center justify-center">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={branding.logoUrl} alt={branding.siteName || "Kingsforth"} className="max-h-12 w-auto object-contain drop-shadow-md" />
+                            <Image src={branding.logoUrl} alt={branding.siteName || "Kingsforth"} height={48} width={0} style={{width: 'auto'}} className="object-contain drop-shadow-md" />
                         </div>
                     ) : (
                         <div className="w-12 h-12 bg-linear-to-br from-violet-600 to-cyan-600 rounded-lg flex items-center justify-center shadow-lg shadow-violet-500/20">

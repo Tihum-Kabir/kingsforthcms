@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Hero } from "@/components/marketing/Hero";
 import { ParadigmShift } from "@/components/marketing/ParadigmShift";
 import { ProductShowcase } from "@/components/marketing/ProductShowcase";
@@ -35,7 +36,7 @@ const getHomePageData = unstable_cache(
     return { siteSettings, partnerLogos };
   },
   ['home-page-data'],
-  { revalidate: 30 }
+  { revalidate: 60 }
 );
 
 export default async function Home() {
@@ -74,10 +75,14 @@ export default async function Home() {
         logoScrollSettings={logoScrollSettings}
       />
       <ParadigmShift settings={whyKingsforthSection} />
-      <ProductShowcase settings={productShowcaseSection} />
+      <Suspense>
+        <ProductShowcase settings={productShowcaseSection} />
+      </Suspense>
       <StatsSection settings={statsSection} />
       <HowItWorks settings={howItWorksSection} steps={howItWorksSection?.steps} />
-      <CoreCapabilities settings={coreCapabilitiesSection} />
+      <Suspense>
+        <CoreCapabilities settings={coreCapabilitiesSection} />
+      </Suspense>
       <FinalCTA settings={finalCtaSection} />
     </main>
   );

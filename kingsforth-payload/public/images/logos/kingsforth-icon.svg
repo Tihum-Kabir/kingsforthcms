@@ -1,13 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 131">
   <defs>
-    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#9b72fa"/>
-      <stop offset="50%" stop-color="#4292f5"/>
-      <stop offset="100%" stop-color="#26cceb"/>
-    </linearGradient>
+    <clipPath id="lh"><rect width="50" height="131"/></clipPath>
+    <clipPath id="rh"><rect x="50" width="50" height="131"/></clipPath>
   </defs>
-  <!-- Castle/Tower shape matching Kingsforth branding -->
-  <path d="M50 0 L30 20 L30 40 L20 40 L20 20 L0 40 L0 100 L50 120 L100 100 L100 40 L80 20 L80 40 L70 40 L70 20 Z" fill="url(#logoGrad)"/>
-  <!-- Center cut for depth -->
-  <path d="M50 0 L50 120 L100 100 L100 40 L80 20 L80 40 L70 40 L70 20 Z" fill="url(#logoGrad)" opacity="0.75"/>
+  <!--
+    Castle silhouette — left=purple, right=cyan.
+    Path: center spire → left shoulder → inner wall down → crenel floor left →
+    outer tower right face up → outer tower top → outer tower down → bottom apex → mirror right.
+  -->
+  <path clip-path="url(#lh)" fill="#9333EA"
+    d="M50,0 L40,33 L40,46 L27,46 L27,27 L8,27 L8,115 L50,131 L92,115 L92,27 L73,27 L73,46 L60,46 L60,33 Z"/>
+  <path clip-path="url(#rh)" fill="#22D3EE"
+    d="M50,0 L40,33 L40,46 L27,46 L27,27 L8,27 L8,115 L50,131 L92,115 L92,27 L73,27 L73,46 L60,46 L60,33 Z"/>
 </svg>

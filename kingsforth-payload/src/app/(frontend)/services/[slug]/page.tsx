@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
     ArrowLeft, ArrowRight, PhoneCall, MessageSquare,
@@ -34,64 +35,64 @@ const THEME: Record<string, {
     statBorder: string; featBorder: string
 }> = {
     cyan: {
-        from: 'from-cyan-950', via: 'via-slate-950', to: 'to-slate-950',
-        ring: 'ring-cyan-500/20', text: 'text-cyan-400',
-        bg: 'bg-cyan-500/10', border: 'border-cyan-500/20',
-        badge: 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400',
-        badgeDot: 'bg-cyan-400',
-        stepBg: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400',
-        statBorder: 'border-cyan-500/20 hover:border-cyan-500/40',
-        featBorder: 'hover:border-cyan-500/40 dark:hover:border-cyan-400/40',
+        from: 'from-cyan-50 dark:from-cyan-950', via: 'via-white dark:via-slate-950', to: 'to-white dark:to-slate-950',
+        ring: 'ring-cyan-500/20', text: 'text-cyan-600 dark:text-cyan-400',
+        bg: 'bg-cyan-100 dark:bg-cyan-500/10', border: 'border-cyan-300 dark:border-cyan-500/20',
+        badge: 'bg-cyan-100 border-cyan-300 text-cyan-600 dark:bg-cyan-500/10 dark:border-cyan-500/30 dark:text-cyan-400',
+        badgeDot: 'bg-cyan-500 dark:bg-cyan-400',
+        stepBg: 'bg-cyan-100 border-cyan-300 text-cyan-600 dark:bg-cyan-500/10 dark:border-cyan-500/20 dark:text-cyan-400',
+        statBorder: 'border-cyan-300 dark:border-cyan-500/20 hover:border-cyan-500 dark:hover:border-cyan-500/40',
+        featBorder: 'hover:border-cyan-400/60 dark:hover:border-cyan-400/40',
     },
     violet: {
-        from: 'from-violet-950', via: 'via-slate-950', to: 'to-slate-950',
-        ring: 'ring-violet-500/20', text: 'text-violet-400',
-        bg: 'bg-violet-500/10', border: 'border-violet-500/20',
-        badge: 'bg-violet-500/10 border-violet-500/30 text-violet-400',
-        badgeDot: 'bg-violet-400',
-        stepBg: 'bg-violet-500/10 border-violet-500/20 text-violet-400',
-        statBorder: 'border-violet-500/20 hover:border-violet-500/40',
-        featBorder: 'hover:border-violet-500/40 dark:hover:border-violet-400/40',
+        from: 'from-violet-50 dark:from-violet-950', via: 'via-white dark:via-slate-950', to: 'to-white dark:to-slate-950',
+        ring: 'ring-violet-500/20', text: 'text-violet-600 dark:text-violet-400',
+        bg: 'bg-violet-100 dark:bg-violet-500/10', border: 'border-violet-300 dark:border-violet-500/20',
+        badge: 'bg-violet-100 border-violet-300 text-violet-600 dark:bg-violet-500/10 dark:border-violet-500/30 dark:text-violet-400',
+        badgeDot: 'bg-violet-500 dark:bg-violet-400',
+        stepBg: 'bg-violet-100 border-violet-300 text-violet-600 dark:bg-violet-500/10 dark:border-violet-500/20 dark:text-violet-400',
+        statBorder: 'border-violet-300 dark:border-violet-500/20 hover:border-violet-500 dark:hover:border-violet-500/40',
+        featBorder: 'hover:border-violet-400/60 dark:hover:border-violet-400/40',
     },
     emerald: {
-        from: 'from-emerald-950', via: 'via-slate-950', to: 'to-slate-950',
-        ring: 'ring-emerald-500/20', text: 'text-emerald-400',
-        bg: 'bg-emerald-500/10', border: 'border-emerald-500/20',
-        badge: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
-        badgeDot: 'bg-emerald-400',
-        stepBg: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
-        statBorder: 'border-emerald-500/20 hover:border-emerald-500/40',
-        featBorder: 'hover:border-emerald-500/40 dark:hover:border-emerald-400/40',
+        from: 'from-emerald-50 dark:from-emerald-950', via: 'via-white dark:via-slate-950', to: 'to-white dark:to-slate-950',
+        ring: 'ring-emerald-500/20', text: 'text-emerald-600 dark:text-emerald-400',
+        bg: 'bg-emerald-100 dark:bg-emerald-500/10', border: 'border-emerald-300 dark:border-emerald-500/20',
+        badge: 'bg-emerald-100 border-emerald-300 text-emerald-600 dark:bg-emerald-500/10 dark:border-emerald-500/30 dark:text-emerald-400',
+        badgeDot: 'bg-emerald-500 dark:bg-emerald-400',
+        stepBg: 'bg-emerald-100 border-emerald-300 text-emerald-600 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400',
+        statBorder: 'border-emerald-300 dark:border-emerald-500/20 hover:border-emerald-500 dark:hover:border-emerald-500/40',
+        featBorder: 'hover:border-emerald-400/60 dark:hover:border-emerald-400/40',
     },
     amber: {
-        from: 'from-amber-950', via: 'via-slate-950', to: 'to-slate-950',
-        ring: 'ring-amber-500/20', text: 'text-amber-400',
-        bg: 'bg-amber-500/10', border: 'border-amber-500/20',
-        badge: 'bg-amber-500/10 border-amber-500/30 text-amber-400',
-        badgeDot: 'bg-amber-400',
-        stepBg: 'bg-amber-500/10 border-amber-500/20 text-amber-400',
-        statBorder: 'border-amber-500/20 hover:border-amber-500/40',
-        featBorder: 'hover:border-amber-500/40 dark:hover:border-amber-400/40',
+        from: 'from-amber-50 dark:from-amber-950', via: 'via-white dark:via-slate-950', to: 'to-white dark:to-slate-950',
+        ring: 'ring-amber-500/20', text: 'text-amber-600 dark:text-amber-400',
+        bg: 'bg-amber-100 dark:bg-amber-500/10', border: 'border-amber-300 dark:border-amber-500/20',
+        badge: 'bg-amber-100 border-amber-300 text-amber-600 dark:bg-amber-500/10 dark:border-amber-500/30 dark:text-amber-400',
+        badgeDot: 'bg-amber-500 dark:bg-amber-400',
+        stepBg: 'bg-amber-100 border-amber-300 text-amber-600 dark:bg-amber-500/10 dark:border-amber-500/20 dark:text-amber-400',
+        statBorder: 'border-amber-300 dark:border-amber-500/20 hover:border-amber-500 dark:hover:border-amber-500/40',
+        featBorder: 'hover:border-amber-400/60 dark:hover:border-amber-400/40',
     },
     rose: {
-        from: 'from-rose-950', via: 'via-slate-950', to: 'to-slate-950',
-        ring: 'ring-rose-500/20', text: 'text-rose-400',
-        bg: 'bg-rose-500/10', border: 'border-rose-500/20',
-        badge: 'bg-rose-500/10 border-rose-500/30 text-rose-400',
-        badgeDot: 'bg-rose-400',
-        stepBg: 'bg-rose-500/10 border-rose-500/20 text-rose-400',
-        statBorder: 'border-rose-500/20 hover:border-rose-500/40',
-        featBorder: 'hover:border-rose-500/40 dark:hover:border-rose-400/40',
+        from: 'from-rose-50 dark:from-rose-950', via: 'via-white dark:via-slate-950', to: 'to-white dark:to-slate-950',
+        ring: 'ring-rose-500/20', text: 'text-rose-600 dark:text-rose-400',
+        bg: 'bg-rose-100 dark:bg-rose-500/10', border: 'border-rose-300 dark:border-rose-500/20',
+        badge: 'bg-rose-100 border-rose-300 text-rose-600 dark:bg-rose-500/10 dark:border-rose-500/30 dark:text-rose-400',
+        badgeDot: 'bg-rose-500 dark:bg-rose-400',
+        stepBg: 'bg-rose-100 border-rose-300 text-rose-600 dark:bg-rose-500/10 dark:border-rose-500/20 dark:text-rose-400',
+        statBorder: 'border-rose-300 dark:border-rose-500/20 hover:border-rose-500 dark:hover:border-rose-500/40',
+        featBorder: 'hover:border-rose-400/60 dark:hover:border-rose-400/40',
     },
     indigo: {
-        from: 'from-indigo-950', via: 'via-slate-950', to: 'to-slate-950',
-        ring: 'ring-indigo-500/20', text: 'text-indigo-400',
-        bg: 'bg-indigo-500/10', border: 'border-indigo-500/20',
-        badge: 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400',
-        badgeDot: 'bg-indigo-400',
-        stepBg: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400',
-        statBorder: 'border-indigo-500/20 hover:border-indigo-500/40',
-        featBorder: 'hover:border-indigo-500/40 dark:hover:border-indigo-400/40',
+        from: 'from-indigo-50 dark:from-indigo-950', via: 'via-white dark:via-slate-950', to: 'to-white dark:to-slate-950',
+        ring: 'ring-indigo-500/20', text: 'text-indigo-600 dark:text-indigo-400',
+        bg: 'bg-indigo-100 dark:bg-indigo-500/10', border: 'border-indigo-300 dark:border-indigo-500/20',
+        badge: 'bg-indigo-100 border-indigo-300 text-indigo-600 dark:bg-indigo-500/10 dark:border-indigo-500/30 dark:text-indigo-400',
+        badgeDot: 'bg-indigo-500 dark:bg-indigo-400',
+        stepBg: 'bg-indigo-100 border-indigo-300 text-indigo-600 dark:bg-indigo-500/10 dark:border-indigo-500/20 dark:text-indigo-400',
+        statBorder: 'border-indigo-300 dark:border-indigo-500/20 hover:border-indigo-500 dark:hover:border-indigo-500/40',
+        featBorder: 'hover:border-indigo-400/60 dark:hover:border-indigo-400/40',
     },
 }
 
@@ -240,9 +241,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             {/* ── HERO IMAGE (CMS) ────────────────────────────────── */}
             {heroImageUrl && (
                 <div className="max-w-7xl mx-auto px-6 -mt-4">
-                    <div className="relative rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={heroImageUrl} alt={title} className="w-full aspect-[21/9] object-cover" />
+                    <div className="relative rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl aspect-21/9">
+                        <Image src={heroImageUrl} alt={title} fill className="object-cover" sizes="(max-width: 1280px) 100vw, 1280px" />
                         <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 to-transparent" />
                     </div>
                 </div>

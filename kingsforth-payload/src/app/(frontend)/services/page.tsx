@@ -1,5 +1,6 @@
 ﻿import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Database, Eye, Cpu, Bot, Network, TrendingUp, Shield, Users, Mic, Search, CalendarCheck, Brain, ShieldAlert, Smile, Siren } from 'lucide-react';
 import { SERVICES_DATA } from '@/data/services-data';
@@ -151,7 +152,7 @@ export default async function ServicesPage() {
                                 {/* Icon */}
                                 <div className={`w-14 h-14 rounded-2xl ${palette.bg} ${palette.border} border flex items-center justify-center mb-6 overflow-hidden transition-transform duration-300 group-hover:scale-110 shadow-sm`}>
                                     {uploadedIconUrl
-                                        ? <img src={uploadedIconUrl} alt={service.title} className="w-7 h-7 object-contain" />
+                                        ? <Image src={uploadedIconUrl} alt={service.title} width={28} height={28} className="object-contain" />
                                         : <Icon className={`w-7 h-7 ${palette.icon}`} />
                                     }
                                 </div>

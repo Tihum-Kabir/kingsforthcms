@@ -3,6 +3,8 @@ import configPromise from '@payload-config'
 import { HelpCircle } from 'lucide-react';
 import { FAQAccordion } from './_FAQAccordion';
 
+export const revalidate = 300;
+
 export const metadata = {
     title: 'FAQs | Kingsforth',
     description: 'Find answers about our technology, integration process, and enterprise support.',

@@ -1,5 +1,6 @@
 ﻿'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { AlertCircle, Zap, Shield, CheckCircle } from 'lucide-react';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -315,8 +316,7 @@ function ProcessStep({ number, icon: Icon, title, description, color, index, del
                             mediaType === 'video' ? (
                                 <video src={mediaUrl} className={`w-full h-full object-${mediaFit}`} autoPlay muted loop playsInline />
                             ) : (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img src={mediaUrl} alt={title} className={`w-full h-full object-${mediaFit}`} />
+                                    <Image src={mediaUrl} alt={title} fill className={`object-${mediaFit}`} sizes="(max-width: 1024px) 100vw, 50vw" />
                             )
                         ) : (
                             <StepIllustration index={index} icon={Icon} color={color} />

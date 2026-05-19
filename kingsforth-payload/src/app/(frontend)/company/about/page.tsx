@@ -2,6 +2,8 @@
 import configPromise from '@payload-config'
 import { Shield, Target, Eye, Zap } from 'lucide-react';
 
+export const revalidate = 300;
+
 export const metadata = {
     title: 'About Us | Kingsforth',
     description: 'Architecting the autonomous future — built for sovereign-grade intelligence.',

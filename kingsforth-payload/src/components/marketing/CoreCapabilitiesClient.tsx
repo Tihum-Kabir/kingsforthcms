@@ -1,5 +1,6 @@
 ﻿'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -116,8 +117,7 @@ function CapabilityCard({ iconName, title, description, href, gradient, mediaUrl
                             {mediaUrl.match(/\.(mp4|webm|ogg)$/i) ? (
                                 <video src={mediaUrl} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-15 dark:opacity-[0.12] group-hover:opacity-30 dark:group-hover:opacity-20 transition-opacity duration-500" />
                             ) : (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img src={mediaUrl} alt={title} className="w-full h-full object-cover opacity-15 dark:opacity-[0.12] group-hover:opacity-30 dark:group-hover:opacity-20 blur-[2px] transition-opacity duration-500" />
+                                <Image src={mediaUrl} alt={title} fill className="object-cover opacity-15 dark:opacity-[0.12] group-hover:opacity-30 dark:group-hover:opacity-20 blur-[2px] transition-opacity duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
                             )}
                             <div className="absolute inset-0 bg-linear-to-t from-white via-white/80 to-white/10 dark:from-[#111] dark:via-[#111]/80 dark:to-[#111]/10"></div>
                         </div>

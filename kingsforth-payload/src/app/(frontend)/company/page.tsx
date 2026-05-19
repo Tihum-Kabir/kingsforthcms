@@ -3,6 +3,8 @@ import configPromise from '@payload-config'
 import { Building2, Globe, Users, Trophy } from 'lucide-react';
 import Link from 'next/link';
 
+export const revalidate = 300;
+
 export const metadata = {
     title: 'Company | Kingsforth',
     description: 'About Kingsforth Technologies.',

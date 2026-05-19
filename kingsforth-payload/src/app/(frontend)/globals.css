@@ -246,7 +246,7 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
-.loop-slider .inner { display: flex; width: fit-content; animation: loop var(--duration) linear infinite; }
+.loop-slider .inner { display: flex; width: fit-content; animation: loop var(--duration) linear infinite; will-change: transform; }
 .loop-slider-40s { --duration: 40000ms; }
 
 /* Partner boxes — always white bg (both themes) */

@@ -1,5 +1,6 @@
 ﻿'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Brain, Search, Shield, Eye, CheckCircle, Video, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -84,7 +85,7 @@ export function ProductShowcaseClient({ features, settings }: { features: Produc
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative max-w-5xl mx-auto mt-16 mb-24 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-[#e5e7eb] dark:border-white/[0.08]"
+                        className="relative max-w-5xl mx-auto mt-16 mb-24 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-[#e5e7eb] dark:border-white/[0.08] aspect-video"
                     >
                         <div className="absolute inset-0 bg-linear-to-tr from-orange-500/5 to-rose-500/5 mix-blend-overlay z-10 pointer-events-none"></div>
                         {settings.showcaseMedia.mimeType?.includes('video') ? (
@@ -97,10 +98,11 @@ export function ProductShowcaseClient({ features, settings }: { features: Produc
                                 className="w-full h-auto object-cover aspect-video"
                             />
                         ) : (
-                            <img
+                            <Image
                                 src={settings.showcaseMedia.url}
                                 alt={settings.showcaseMedia.alt || 'Kingseye Dashboard'}
-                                className="w-full h-auto object-cover aspect-[16/9]"
+                                fill className="object-cover"
+                                sizes="(max-width: 1280px) 100vw, 1024px"
                             />
                         )}
                     </motion.div>
@@ -252,11 +254,11 @@ function FeatureBlock({ icon: Icon, title, description, features, imagePosition,
                                     autoPlay muted loop playsInline
                                 />
                             ) : (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
+                                <Image
                                     src={mediaUrl}
                                     alt={title}
-                                    className={`w-full h-full object-${mediaFit} transition-transform duration-700 group-hover:scale-105`}
+                                    fill className={`object-${mediaFit} transition-transform duration-700 group-hover:scale-105`}
+                                    sizes="(max-width: 768px) 100vw, 50vw"
                                 />
                             )
                         ) : (

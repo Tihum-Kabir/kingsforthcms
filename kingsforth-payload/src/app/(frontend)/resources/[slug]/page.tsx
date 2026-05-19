@@ -1,11 +1,12 @@
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ExternalLink, Download, Calendar, Clock, FileText, Play, File } from 'lucide-react';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
@@ -157,13 +158,13 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
 
                         {/* Cover image */}
                         {coverImageUrl && (
-                            <div className="w-full aspect-[21/9] overflow-hidden bg-slate-100 dark:bg-black/40">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                            <div className="relative w-full aspect-21/9 overflow-hidden bg-slate-100 dark:bg-black/40">
+                                <Image
                                     src={coverImageUrl}
                                     alt={resource.title}
-                                    className="w-full h-full object-cover"
-                                    loading="eager"
+                                    fill className="object-cover"
+                                    priority
+                                    sizes="(max-width: 1280px) 100vw, 1024px"
                                 />
                             </div>
                         )}

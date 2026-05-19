@@ -1,7 +1,6 @@
 'use client';
 
-import { motion, useTransform, useScroll } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Zap, Eye, Database } from 'lucide-react';
 import Link from 'next/link';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -60,7 +59,7 @@ function InfiniteLogoScrollInline({ partnerLogos, settings }: { partnerLogos?: a
                             {logos.map((partner, idx) => (
                                 <div className="partner-box flex items-center justify-center h-[72px] sm:h-[84px] px-8 bg-white dark:bg-[#0f172a] rounded-xl sm:rounded-2xl mx-3 hover:scale-105 transition-transform duration-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] dark:shadow-[0_2px_15px_-3px_rgba(0,0,0,0.4)] border border-gray-100 dark:border-gray-800" key={`p2-${idx}`} aria-hidden="true">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={partner.logo?.url || partner.img} alt="" className="max-h-10 sm:max-h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
+                                    <img src={partner.logo?.url || partner.img} alt="" loading="lazy" className="max-h-10 sm:max-h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
                                 </div>
                             ))}
                         </div>
@@ -241,18 +240,8 @@ interface HeroProps {
 }
 
 export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroProps) {
-    const sectionRef = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start start", "center start"]
-    });
-
-    // Smooth zoom out and fade as you scroll down
-    const scale = useTransform(scrollYProgress, [0, 1], [1, 0.25]);
-    const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
     return (
-        <section ref={sectionRef} className="hero-root min-h-screen flex flex-col justify-center overflow-hidden pt-36 sm:pt-40 pb-8 sm:pb-16 transition-colors duration-300">
+        <section className="hero-root min-h-screen flex flex-col justify-center overflow-hidden pt-36 sm:pt-40 pb-8 sm:pb-16 transition-colors duration-300">
             {/* Focused radial bloom behind text — keeps background art visible */}
             <div className="pointer-events-none absolute inset-0 hero-text-bloom" />
             {/* Subtle bottom vignette */}
@@ -379,13 +368,9 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                         className="w-full flex justify-center lg:justify-end perspective-[1000px] z-20 relative"
                     >
-                        {/* Scroll-linked zoom wrapper */}
-                        <motion.div
-                            style={{ scale, opacity, transformOrigin: 'center center' }}
-                            className="w-full max-w-[650px] xl:max-w-[700px]"
-                        >
+                        <div className="w-full max-w-[650px] xl:max-w-[700px]">
                             <HeroDashboardUI />
-                        </motion.div>
+                        </div>
                     </motion.div>
                 </div>
 

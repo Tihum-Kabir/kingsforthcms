@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 interface PageHeroProps {
@@ -28,15 +29,14 @@ export function PageHero({ dayImage, nightImage, headline, subtitle, badge, noCa
         <div className={`hero-section ${!heroImage ? 'pt-32 pb-8' : ''}`}>
             {heroImage ? (
                 <div className="hero-image-container hero-image-container-page">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={heroImage} alt={headline} fetchPriority="high" />
+                    <Image src={heroImage} alt={headline} fill priority className="object-cover object-center" sizes="100vw" />
                     <div className="hero-image-fade" />
                 </div>
             ) : (
                 <div className="absolute inset-0 bg-transparent pointer-events-none" />
             )}
 
-            <div className={`hero-content pb-8 ${!heroImage ? '!relative !bottom-auto pt-10' : ''}`}>
+            <div className={`hero-content pb-8 ${!heroImage ? 'relative! bottom-auto! pt-10' : ''}`}>
                 <div className={`max-w-300 mx-auto px-6 sm:px-8 ${noCard ? 'text-center' : ''}`}>
                     {noCard ? (
                         <div className="max-w-4xl mx-auto">

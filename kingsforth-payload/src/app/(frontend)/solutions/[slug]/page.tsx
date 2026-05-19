@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
     ArrowLeft, ArrowRight, CheckCircle, PhoneCall, MessageSquare,
@@ -179,9 +180,8 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
             {/* ── HERO IMAGE ── */}
             {heroImageUrl && (
                 <div className="max-w-7xl mx-auto px-6 -mt-4">
-                    <div className="relative rounded-3xl overflow-hidden ring-1 ring-slate-200 dark:ring-white/10 shadow-2xl">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={heroImageUrl} alt={sol.title} className="w-full aspect-21/9 object-cover" />
+                    <div className="relative rounded-3xl overflow-hidden ring-1 ring-slate-200 dark:ring-white/10 shadow-2xl aspect-21/9">
+                        <Image src={heroImageUrl} alt={sol.title} fill className="object-cover" sizes="(max-width: 1280px) 100vw, 1280px" />
                         <div className="absolute inset-0 bg-linear-to-t from-slate-900/40 dark:from-slate-950/60 to-transparent" />
                     </div>
                 </div>

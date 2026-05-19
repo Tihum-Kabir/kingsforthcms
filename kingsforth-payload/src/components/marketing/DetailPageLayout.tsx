@@ -1,4 +1,5 @@
-﻿import Link from 'next/link';
+﻿import Image from 'next/image';
+import Link from 'next/link';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import {
     ArrowLeft, ArrowRight, Play, FileText, Layers,
@@ -74,9 +75,8 @@ export function DetailPageLayout({
                 <div className="relative bg-white/90 dark:bg-[#0a0a0a]/90 rounded-3xl border border-slate-200/80 dark:border-white/7 overflow-hidden shadow-lg dark:shadow-none">
                     {heroImageUrl && (
                         <div className="w-full aspect-[21/9] relative overflow-hidden">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={heroImageUrl} alt={heroImageAlt || title}
-                                className="w-full h-full object-cover" loading="eager" />
+                            <Image src={heroImageUrl} alt={heroImageAlt || title}
+                                fill className="object-cover" priority sizes="(max-width: 1400px) 100vw, 1400px" />
                             <div className="absolute inset-0 bg-linear-to-t from-white dark:from-[#0a0a0a] via-white/20 dark:via-transparent to-transparent" />
                         </div>
                     )}
@@ -180,7 +180,7 @@ export function DetailPageLayout({
                                     className="group bg-white dark:bg-white/2 border border-slate-200 dark:border-white/6 rounded-2xl p-8 hover:border-blue-300 dark:hover:border-cyan-500/30 hover:shadow-md dark:hover:shadow-cyan-500/5 transition-all duration-300">
                                     <div className={`w-12 h-12 rounded-xl ${accent.bg} ${accent.border} border flex items-center justify-center mb-5 overflow-hidden group-hover:scale-110 transition-transform duration-300`}>
                                         {iconUrl
-                                            ? <img src={iconUrl} alt={feat.title} className="w-7 h-7 object-contain" />
+                                            ? <Image src={iconUrl} alt={feat.title} width={28} height={28} className="object-contain" />
                                             : <FallbackIcon className={`w-5 h-5 ${accent.text}`} />
                                         }
                                     </div>
