@@ -1,6 +1,7 @@
 import * as migration_20260408_222627_initial from './20260408_222627_initial';
 import * as migration_20260519_schema_sync from './20260519_schema_sync';
 import * as migration_20260520_patch_missing from './20260520_patch_missing';
+import * as migration_20260521_patch_resources from './20260521_patch_resources';
 
 export const migrations = [
   {
@@ -17,5 +18,10 @@ export const migrations = [
     up: migration_20260520_patch_missing.up,
     down: migration_20260520_patch_missing.down,
     name: '20260520_patch_missing'
+  },
+  {
+    up: migration_20260521_patch_resources.up,
+    down: migration_20260521_patch_resources.down,
+    name: '20260521_patch_resources'
   },
 ];
