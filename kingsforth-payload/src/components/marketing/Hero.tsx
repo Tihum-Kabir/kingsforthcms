@@ -343,8 +343,8 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                                     </span>
                                 </Link>
 
-                                {/* ── Secondary CTA ── */}
-                                {heroSettings?.heroSecondaryCTAText && (
+                                {/* ── Secondary CTA (YouTube) — show unless admin explicitly clears the text field ── */}
+                                {(heroSettings?.heroSecondaryCTAText ?? 'Watch Demo') && (
                                 <a
                                     href={heroSettings?.heroSecondaryCTALink || '#'}
                                     target={heroSettings?.heroSecondaryCTALink?.startsWith('http') ? "_blank" : undefined}
@@ -359,7 +359,7 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                                             <rect width="30" height="21" rx="5" fill="#FF0000" />
                                             <path d="M12 6.5L20 10.5L12 14.5V6.5Z" fill="white" />
                                         </svg>
-                                        {heroSettings.heroSecondaryCTAText}
+                                        {heroSettings?.heroSecondaryCTAText || 'Watch Demo'}
                                     </span>
                                 </a>
                                 )}
