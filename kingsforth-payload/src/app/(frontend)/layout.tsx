@@ -73,11 +73,8 @@ export const metadata: Metadata = {
     'Gulshan security', 'Dhaka AI surveillance', 'AI security Bangladesh', 'AI'
   ],
   icons: {
-    icon: [
-      { url: '/images/logos/kingsforth-logo.png', type: 'image/png' },
-      { url: '/images/logos/kingsforth-icon.svg?v=3', type: 'image/svg+xml' },
-    ],
-    shortcut: '/images/logos/kingsforth-logo.png',
+    icon: '/images/logos/kingsforth-logo.png?v=4',
+    shortcut: '/images/logos/kingsforth-logo.png?v=4',
     apple: '/images/logos/kingsforth-logo.png',
   },
   authors: [{ name: 'Kingsforth Team' }],
