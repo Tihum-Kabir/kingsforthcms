@@ -185,7 +185,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <section className={`relative overflow-hidden bg-gradient-to-br ${theme.from} ${theme.via} ${theme.to}`}>
                 {/* Decorative glow */}
                 <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full blur-[120px] opacity-20 ${theme.bg}`} />
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
 
                 {/* Decorative grid lines */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">

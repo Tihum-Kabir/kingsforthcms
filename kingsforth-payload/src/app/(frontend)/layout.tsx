@@ -76,6 +76,11 @@ export const metadata: Metadata = {
     'security SaaS', 'tech solutions', 'factory surveillance', 'office security',
     'Gulshan security', 'Dhaka AI surveillance', 'AI security Bangladesh', 'AI'
   ],
+  icons: {
+    icon: '/images/logos/kingsforth-icon.svg',
+    shortcut: '/images/logos/kingsforth-icon.svg',
+    apple: '/images/logos/kingsforth-icon.svg',
+  },
   authors: [{ name: 'Kingsforth Team' }],
   creator: 'Kingsforth',
   publisher: 'Kingsforth Intelligence Solutions',

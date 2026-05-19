@@ -121,7 +121,6 @@ export default async function SolutionDetailPage({ params }: { params: Promise<{
             <section className={`relative overflow-hidden bg-linear-to-br ${THEME.from} ${THEME.via} ${THEME.to}`}>
                 {/* Glow */}
                 <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-225 h-125 rounded-full blur-[120px] opacity-20 ${THEME.bg}`} />
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
 
                 {/* Grid lines */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
