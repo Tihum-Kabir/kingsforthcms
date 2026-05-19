@@ -106,7 +106,7 @@ export const Resources: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'featuredInNav', 'isPublished', 'publishedAt'],
-    group: 'WEBSITE',
+    group: 'CONTENT',
     description: 'Upload documents, PDFs, videos, and stories. PDFs are automatically scanned and their text extracted into the content field.',
   },
   hooks: {
@@ -174,6 +174,14 @@ export const Resources: CollectionConfig = {
       },
     },
     {
+      name: 'docxFile',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Upload a Word/DOCX document — a download button appears on the detail page.',
+      },
+    },
+    {
       name: 'externalLink',
       type: 'text',
       admin: { description: 'Optional external URL — opens in new tab instead of the detail page.' },
@@ -182,6 +190,14 @@ export const Resources: CollectionConfig = {
       name: 'tags',
       type: 'array',
       fields: [{ name: 'tag', type: 'text' }],
+    },
+    {
+      name: 'section',
+      type: 'relationship',
+      relationTo: 'resource-sections',
+      admin: {
+        description: 'Which section this resource belongs to on the Resources page. Leave blank to show in "All Resources".',
+      },
     },
     {
       name: 'featuredInNav',

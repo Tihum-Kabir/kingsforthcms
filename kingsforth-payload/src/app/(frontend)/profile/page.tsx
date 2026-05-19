@@ -7,11 +7,13 @@ import { Shield } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function ProfilePage() {
-    const payload = await getPayload({ config: configPromise });
-    const reqHeaders = await headers();
-    
-    // Get currently logged-in user
-    const { user } = await payload.auth({ headers: reqHeaders });
+    let user: any = null;
+    try {
+        const payload = await getPayload({ config: configPromise });
+        const reqHeaders = await headers();
+        const authResult = await payload.auth({ headers: reqHeaders });
+        user = authResult?.user ?? null;
+    } catch {}
 
     if (!user) {
         redirect('/login');

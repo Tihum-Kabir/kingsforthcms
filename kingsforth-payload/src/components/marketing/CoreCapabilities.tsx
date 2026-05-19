@@ -9,6 +9,12 @@ const gradientMap: Record<string, string> = {
     ai: 'from-fuchsia-600 to-pink-500',
     iot: 'from-rose-600 to-pink-500',
     consulting: 'from-orange-500 to-amber-500',
+    indigo: 'from-indigo-600 to-violet-500',
+    cyan: 'from-blue-600 to-cyan-500',
+    violet: 'from-violet-600 to-purple-500',
+    emerald: 'from-emerald-600 to-teal-500',
+    amber: 'from-orange-500 to-amber-500',
+    rose: 'from-rose-600 to-pink-500',
 };
 
 export async function CoreCapabilities({ settings }: { settings?: any }) {
@@ -18,18 +24,19 @@ export async function CoreCapabilities({ settings }: { settings?: any }) {
         const { docs: services } = await payload.find({
             collection: 'services',
             limit: 6,
-            sort: 'orderIndex',
             depth: 1,
         });
-        capabilities = (services ?? []).map(service => ({
+        capabilities = (services ?? []).map((service: any) => ({
             iconName: service.icon || 'Database',
             title: service.title,
             description: service.subtitle || '',
             href: `/services/${service.slug}`,
-            gradient: gradientMap[service.category || 'surveillance'] || 'from-blue-600 to-cyan-500',
+            gradient: gradientMap[service.colorTheme || service.category || 'surveillance'] || 'from-blue-600 to-cyan-500',
             mediaUrl: typeof service.heroImage === 'object' ? service.heroImage?.url : undefined,
         }));
-    } catch {}
+    } catch (err) {
+        console.error('[CoreCapabilities] payload.find failed:', err);
+    }
 
     return <CoreCapabilitiesClient capabilities={capabilities} settings={settings} />;
 }

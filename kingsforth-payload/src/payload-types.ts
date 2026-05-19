@@ -67,24 +67,23 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
-    companies: Company;
-    media: Media;
     services: Service;
     solutions: Solution;
     resources: Resource;
-    'product-features': ProductFeature;
+    'resource-sections': ResourceSection;
     faqs: Faq;
     'team-members': TeamMember;
-    pages: Page;
     'partner-logos': PartnerLogo;
-    'knowledge-base': KnowledgeBase;
+    'product-features': ProductFeature;
     'how-it-works-steps': HowItWorksStep;
+    media: Media;
+    companies: Company;
     subscriptions: Subscription;
     invoices: Invoice;
     leads: Lead;
-    analytics: Analytics;
     'support-tickets': SupportTicket;
+    users: User;
+    analytics: Analytics;
     'email-campaigns': EmailCampaign;
     'audit-logs': AuditLog;
     'payload-kv': PayloadKv;
@@ -94,24 +93,23 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    companies: CompaniesSelect<false> | CompaniesSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     solutions: SolutionsSelect<false> | SolutionsSelect<true>;
     resources: ResourcesSelect<false> | ResourcesSelect<true>;
-    'product-features': ProductFeaturesSelect<false> | ProductFeaturesSelect<true>;
+    'resource-sections': ResourceSectionsSelect<false> | ResourceSectionsSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
     'partner-logos': PartnerLogosSelect<false> | PartnerLogosSelect<true>;
-    'knowledge-base': KnowledgeBaseSelect<false> | KnowledgeBaseSelect<true>;
+    'product-features': ProductFeaturesSelect<false> | ProductFeaturesSelect<true>;
     'how-it-works-steps': HowItWorksStepsSelect<false> | HowItWorksStepsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    companies: CompaniesSelect<false> | CompaniesSelect<true>;
     subscriptions: SubscriptionsSelect<false> | SubscriptionsSelect<true>;
     invoices: InvoicesSelect<false> | InvoicesSelect<true>;
     leads: LeadsSelect<false> | LeadsSelect<true>;
-    analytics: AnalyticsSelect<false> | AnalyticsSelect<true>;
     'support-tickets': SupportTicketsSelect<false> | SupportTicketsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    analytics: AnalyticsSelect<false> | AnalyticsSelect<true>;
     'email-campaigns': EmailCampaignsSelect<false> | EmailCampaignsSelect<true>;
     'audit-logs': AuditLogsSelect<false> | AuditLogsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -162,56 +160,184 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Manage all content for service pages — text, features, media, and pricing.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "services".
  */
-export interface User {
+export interface Service {
   id: number;
-  name: string;
-  role: 'SUPER_ADMIN' | 'COMPANY_ADMIN' | 'STAFF';
   /**
-   * The company this user belongs to
+   * URL slug (e.g., "cognitive-surveillance"). Must be URL-safe, lowercase, hyphenated.
    */
-  company?: (number | null) | Company;
-  avatar?: (number | null) | Media;
-  phone?: string | null;
-  address?: string | null;
-  resetCode?: string | null;
-  resetCodeExpiration?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
+  slug: string;
+  title: string;
+  category?: ('forensic' | 'surveillance' | 'automation' | 'iot' | 'consulting') | null;
+  /**
+   * Uncheck to hide this service without deleting it.
+   */
+  isPublished?: boolean | null;
+  /**
+   * Lower numbers appear first on the services list page.
+   */
+  orderIndex?: number | null;
+  /**
+   * Accent color for the service card and icon on the list page.
+   */
+  colorTheme?: ('cyan' | 'violet' | 'emerald' | 'amber' | 'rose' | 'indigo') | null;
+  /**
+   * Short tagline shown on the service card and detail page hero.
+   */
+  subtitle?: string | null;
+  /**
+   * Full description shown in the "Overview" section of the service detail page.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Hero stats strip (4 recommended). Example: value "< 3s", label "Search 1TB Footage".
+   */
+  stats?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        /**
+         * Bold metric (e.g., "< 3s" or "99.2%").
+         */
+        value: string;
+        /**
+         * Descriptor below the value.
+         */
+        label: string;
+        id?: string | null;
       }[]
     | null;
-  password?: string | null;
-  collection: 'users';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "companies".
- */
-export interface Company {
-  id: number;
-  name: string;
-  industry?: string | null;
-  address?: string | null;
-  email?: string | null;
-  phone?: string | null;
-  website?: string | null;
-  logo?: (number | null) | Media;
-  description?: string | null;
-  status?: ('active' | 'suspended' | 'deleted') | null;
+  /**
+   * Three-step process shown below the hero. Recommended: exactly 3 steps.
+   */
+  howItWorks?:
+    | {
+        title: string;
+        description: string;
+        /**
+         * Icon displayed on this step.
+         */
+        iconName?:
+          | (
+              | 'search'
+              | 'database'
+              | 'eye'
+              | 'camera'
+              | 'cpu'
+              | 'brain'
+              | 'bot'
+              | 'network'
+              | 'zap'
+              | 'shield-alert'
+              | 'bell'
+              | 'file-check'
+              | 'clipboard-list'
+              | 'settings'
+              | 'plug'
+              | 'trending-up'
+              | 'book-open'
+            )
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Feature cards shown in the "Key Capabilities" grid on the detail page (3 recommended).
+   */
+  features?:
+    | {
+        title: string;
+        /**
+         * One or two sentences explaining this feature.
+         */
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Banner image displayed at the top of the service detail page. Recommended: 1920×1080px.
+   */
+  heroImage?: (number | null) | Media;
+  /**
+   * Additional images for the service gallery.
+   */
+  galleryImages?:
+    | {
+        image: number | Media;
+        /**
+         * Optional caption.
+         */
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional video URL. Leave empty to hide the video player.
+   */
+  heroVideoUrl?: string | null;
+  /**
+   * Define Plus, Pro, and Enterprise pricing for this service.
+   */
+  plans?:
+    | {
+        name: 'Plus' | 'Pro' | 'Enterprise';
+        /**
+         * Base monthly price. Set to 0 for Enterprise to show "Custom" pricing.
+         */
+        monthlyPrice?: number | null;
+        /**
+         * Total price for a 12-month subscription. Savings vs monthly are auto-calculated and shown.
+         */
+        annualPrice?: number | null;
+        /**
+         * Short descriptor under the plan name (e.g., "Essential capabilities for smaller operations").
+         */
+        description?: string | null;
+        /**
+         * Optional badge text shown on card (e.g., "Most Popular", "Best Value"). Only one plan should have a badge.
+         */
+        badge?: string | null;
+        /**
+         * Highlights this plan card with accent border and elevated style. Only set for ONE plan per service.
+         */
+        isPopular?: boolean | null;
+        /**
+         * Optional custom discount label shown on this plan (e.g., "30% off this month"). Shows on top of auto-calculated savings.
+         */
+        discountNote?: string | null;
+        planFeatures?:
+          | {
+              feature: string;
+              /**
+               * Uncheck to show this feature as crossed-out (not included).
+               */
+              included?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * Button text. Default: "Get Started" for paid plans, "Contact Sales" for Enterprise.
+         */
+        ctaLabel?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -270,138 +396,38 @@ export interface Media {
   };
 }
 /**
- * All Kingsforth service offerings. Each service has its own detail page, features, and pricing plans.
+ * Manage all content for solution pages — text, stats, feature sections, FAQs, and media.
  *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services".
- */
-export interface Service {
-  id: number;
-  /**
-   * URL-friendly identifier (e.g., "cognitive-surveillance")
-   */
-  slug: string;
-  title: string;
-  subtitle?: string | null;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Feature highlights for this service
-   */
-  features?:
-    | {
-        /**
-         * Upload icon image (SVG/PNG/WebP, 64×64px recommended)
-         */
-        icon?: (number | null) | Media;
-        title: string;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Pricing tiers (e.g. Plus, Pro, Enterprise). Each tier has monthly, 6-month, and yearly prices.
-   */
-  plans?:
-    | {
-        /**
-         * Plan Name (e.g. Plus, Pro, Enterprise)
-         */
-        name: string;
-        /**
-         * Monthly price in USD
-         */
-        monthlyPrice: number;
-        /**
-         * 6-month price in USD (total for 6 months)
-         */
-        semiAnnualPrice?: number | null;
-        /**
-         * Annual price in USD (total for 12 months)
-         */
-        annualPrice?: number | null;
-        description?: string | null;
-        /**
-         * Highlight this as the recommended plan
-         */
-        isPopular?: boolean | null;
-        /**
-         * Optional badge text (e.g. "Most Popular", "Best Value")
-         */
-        badge?: string | null;
-        planFeatures?:
-          | {
-              feature: string;
-              /**
-               * Is this feature included in this plan?
-               */
-              included?: boolean | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  heroImage?: (number | null) | Media;
-  /**
-   * Optional hero video URL
-   */
-  heroVideoUrl?: string | null;
-  galleryImages?:
-    | {
-        image?: (number | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Upload service icon (SVG/PNG/WebP, 64×64px recommended)
-   */
-  icon?: (number | null) | Media;
-  /**
-   * Pick a color theme for the service card on the frontend.
-   */
-  colorTheme?: ('cyan' | 'violet' | 'emerald' | 'amber' | 'rose' | 'indigo') | null;
-  category?: ('surveillance' | 'forensic' | 'automation' | 'iot' | 'consulting' | 'other') | null;
-  /**
-   * Display order (lower = first)
-   */
-  orderIndex?: number | null;
-  isPublished?: boolean | null;
-  /**
-   * SEO title tag
-   */
-  metaTitle?: string | null;
-  /**
-   * SEO meta description
-   */
-  metaDescription?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "solutions".
  */
 export interface Solution {
   id: number;
+  /**
+   * URL slug (e.g., "education"). Must be URL-safe, lowercase, hyphenated.
+   */
   slug: string;
+  /**
+   * Display name shown on cards and the detail page hero.
+   */
   title: string;
+  category?: ('industry' | 'use-case') | null;
+  /**
+   * Uncheck to hide this solution without deleting it.
+   */
+  isPublished?: boolean | null;
+  /**
+   * Short headline shown on cards and the detail page hero (e.g., "Protect Students with Real-Time AI").
+   */
   subtitle?: string | null;
-  category?: ('Industry' | 'Use Case') | null;
-  description?: {
+  /**
+   * Brief summary shown on the solutions list page card (2-3 sentences).
+   */
+  shortDescription?: string | null;
+  /**
+   * Full description shown in the "Overview" section of the detail page.
+   */
+  longDescription?: {
     root: {
       type: string;
       children: {
@@ -417,40 +443,59 @@ export interface Solution {
     [k: string]: unknown;
   } | null;
   /**
-   * Hero image URL or upload path
+   * Benefit cards shown in the "Key Capabilities" grid (3 recommended).
    */
-  heroImage?: string | null;
-  heroVideoUrl?: string | null;
-  stats?:
+  keyBenefits?:
     | {
-        label: string;
-        value: string;
+        title: string;
         /**
-         * Lucide icon name
+         * One or two sentences explaining this benefit.
          */
-        iconName?: string | null;
+        description?: string | null;
         id?: string | null;
       }[]
     | null;
-  contentBlocks?:
+  /**
+   * Key metrics shown in the stats grid (4 recommended). Example: value "73%", label "Faster Response".
+   */
+  stats?:
+    | {
+        /**
+         * The bold number/text (e.g., "73%" or "< 2s").
+         */
+        value: string;
+        /**
+         * The description below the value (e.g., "Faster Emergency Response").
+         */
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Alternating two-column sections: title + description on one side, bullet points on the other.
+   */
+  featureSections?:
     | {
         title: string;
-        content?: string | null;
         /**
-         * Image URL
+         * Introductory paragraph for this feature section.
          */
-        image?: string | null;
-        align?: ('left' | 'right') | null;
-        listItems?:
+        description?: string | null;
+        /**
+         * Checkmark bullet points listing specific capabilities.
+         */
+        points?:
           | {
-              item?: string | null;
+              point: string;
               id?: string | null;
             }[]
           | null;
         id?: string | null;
       }[]
     | null;
-  mapEmbedUrl?: string | null;
+  /**
+   * Accordion FAQ section at the bottom of the detail page.
+   */
   faqs?:
     | {
         question: string;
@@ -458,7 +503,27 @@ export interface Solution {
         id?: string | null;
       }[]
     | null;
-  isPublished?: boolean | null;
+  /**
+   * Banner image displayed at the top of the solution detail page. Recommended: 1920×1080px.
+   */
+  heroImage?: (number | null) | Media;
+  /**
+   * Additional images for the solution gallery.
+   */
+  galleryImages?:
+    | {
+        image: number | Media;
+        /**
+         * Optional caption.
+         */
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional video URL. Leave empty to hide the video player.
+   */
+  heroVideoUrl?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -520,6 +585,10 @@ export interface Resource {
    */
   pdfFile?: (number | null) | Media;
   /**
+   * Upload a Word/DOCX document — a download button appears on the detail page.
+   */
+  docxFile?: (number | null) | Media;
+  /**
    * Optional external URL — opens in new tab instead of the detail page.
    */
   externalLink?: string | null;
@@ -530,6 +599,10 @@ export interface Resource {
       }[]
     | null;
   /**
+   * Which section this resource belongs to on the Resources page. Leave blank to show in "All Resources".
+   */
+  section?: (number | null) | ResourceSection;
+  /**
    * Show this resource in the Resources navigation dropdown menu.
    */
   featuredInNav?: boolean | null;
@@ -539,27 +612,27 @@ export interface Resource {
   createdAt: string;
 }
 /**
+ * Named groups for organizing documents and files on the Resources page. Create sections like "Our Journey", "White Papers", or "Blog".
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "product-features".
+ * via the `definition` "resource-sections".
  */
-export interface ProductFeature {
+export interface ResourceSection {
   id: number;
   title: string;
-  description: string;
   /**
-   * Image or video URL
+   * URL-friendly identifier (e.g. "our-journey"). Fill from title.
    */
-  mediaUrl?: string | null;
-  mediaType?: ('image' | 'video') | null;
-  featuresList?:
-    | {
-        feature: string;
-        id?: string | null;
-      }[]
-    | null;
-  displayOrder?: number | null;
-  isActive?: boolean | null;
-  imagePosition?: ('left' | 'right') | null;
+  slug: string;
+  /**
+   * Optional short description shown below the section title on the Resources page.
+   */
+  description?: string | null;
+  /**
+   * Lower numbers appear first. Sections are sorted by this field.
+   */
+  orderIndex?: number | null;
+  isPublished?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -594,47 +667,15 @@ export interface TeamMember {
    * Job title/role (e.g., "Co-Founder & CEO")
    */
   role: string;
+  /**
+   * Short personal motto shown as a chat-style quote under their name (e.g., "Security is not a product, it's a process.")
+   */
+  motto?: string | null;
   bio?: string | null;
   image?: (number | null) | Media;
   socialLinkedin?: string | null;
   socialTwitter?: string | null;
   sortOrder?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: number;
-  title: string;
-  slug: string;
-  metaDescription?: string | null;
-  published?: boolean | null;
-  sections?:
-    | {
-        /**
-         * Component type to render
-         */
-        blockType: string;
-        /**
-         * Props to pass to the component
-         */
-        props?:
-          | {
-              [k: string]: unknown;
-            }
-          | unknown[]
-          | string
-          | number
-          | boolean
-          | null;
-        patternPreset?: string | null;
-        sortOrder?: number | null;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -679,27 +720,44 @@ export interface PartnerLogo {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "knowledge-base".
+ * via the `definition` "companies".
  */
-export interface KnowledgeBase {
+export interface Company {
+  id: number;
+  name: string;
+  industry?: string | null;
+  address?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  website?: string | null;
+  logo?: (number | null) | Media;
+  description?: string | null;
+  status?: ('active' | 'suspended' | 'deleted') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-features".
+ */
+export interface ProductFeature {
   id: number;
   title: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  published?: boolean | null;
+  description: string;
+  /**
+   * Image or video URL
+   */
+  mediaUrl?: string | null;
+  mediaType?: ('image' | 'video') | null;
+  featuresList?:
+    | {
+        feature: string;
+        id?: string | null;
+      }[]
+    | null;
+  displayOrder?: number | null;
+  isActive?: boolean | null;
+  imagePosition?: ('left' | 'right') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -807,28 +865,6 @@ export interface Lead {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "analytics".
- */
-export interface Analytics {
-  id: number;
-  company?: (number | null) | Company;
-  date: string;
-  pageViews?: number | null;
-  uniqueVisitors?: number | null;
-  serviceUsage?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "support-tickets".
  */
 export interface SupportTicket {
@@ -846,6 +882,64 @@ export interface SupportTicket {
         sentAt?: string | null;
         id?: string | null;
       }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name: string;
+  role: 'SUPER_ADMIN' | 'COMPANY_ADMIN' | 'STAFF';
+  /**
+   * The company this user belongs to
+   */
+  company?: (number | null) | Company;
+  avatar?: (number | null) | Media;
+  phone?: string | null;
+  address?: string | null;
+  resetCode?: string | null;
+  resetCodeExpiration?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics".
+ */
+export interface Analytics {
+  id: number;
+  company?: (number | null) | Company;
+  date: string;
+  pageViews?: number | null;
+  uniqueVisitors?: number | null;
+  serviceUsage?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
     | null;
   updatedAt: string;
   createdAt: string;
@@ -957,18 +1051,6 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
-    | ({
-        relationTo: 'companies';
-        value: number | Company;
-      } | null)
-    | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null)
-    | ({
         relationTo: 'services';
         value: number | Service;
       } | null)
@@ -981,8 +1063,8 @@ export interface PayloadLockedDocument {
         value: number | Resource;
       } | null)
     | ({
-        relationTo: 'product-features';
-        value: number | ProductFeature;
+        relationTo: 'resource-sections';
+        value: number | ResourceSection;
       } | null)
     | ({
         relationTo: 'faqs';
@@ -993,20 +1075,24 @@ export interface PayloadLockedDocument {
         value: number | TeamMember;
       } | null)
     | ({
-        relationTo: 'pages';
-        value: number | Page;
-      } | null)
-    | ({
         relationTo: 'partner-logos';
         value: number | PartnerLogo;
       } | null)
     | ({
-        relationTo: 'knowledge-base';
-        value: number | KnowledgeBase;
+        relationTo: 'product-features';
+        value: number | ProductFeature;
       } | null)
     | ({
         relationTo: 'how-it-works-steps';
         value: number | HowItWorksStep;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'companies';
+        value: number | Company;
       } | null)
     | ({
         relationTo: 'subscriptions';
@@ -1021,12 +1107,16 @@ export interface PayloadLockedDocument {
         value: number | Lead;
       } | null)
     | ({
-        relationTo: 'analytics';
-        value: number | Analytics;
-      } | null)
-    | ({
         relationTo: 'support-tickets';
         value: number | SupportTicket;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'analytics';
+        value: number | Analytics;
       } | null)
     | ({
         relationTo: 'email-campaigns';
@@ -1080,48 +1170,249 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "services_select".
  */
-export interface UsersSelect<T extends boolean = true> {
-  name?: T;
-  role?: T;
-  company?: T;
-  avatar?: T;
-  phone?: T;
-  address?: T;
-  resetCode?: T;
-  resetCodeExpiration?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
+export interface ServicesSelect<T extends boolean = true> {
+  slug?: T;
+  title?: T;
+  category?: T;
+  isPublished?: T;
+  orderIndex?: T;
+  colorTheme?: T;
+  subtitle?: T;
+  description?: T;
+  stats?:
     | T
     | {
+        value?: T;
+        label?: T;
         id?: T;
-        createdAt?: T;
-        expiresAt?: T;
       };
+  howItWorks?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        iconName?: T;
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  heroImage?: T;
+  galleryImages?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  heroVideoUrl?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        monthlyPrice?: T;
+        annualPrice?: T;
+        description?: T;
+        badge?: T;
+        isPopular?: T;
+        discountNote?: T;
+        planFeatures?:
+          | T
+          | {
+              feature?: T;
+              included?: T;
+              id?: T;
+            };
+        ctaLabel?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "companies_select".
+ * via the `definition` "solutions_select".
  */
-export interface CompaniesSelect<T extends boolean = true> {
-  name?: T;
-  industry?: T;
-  address?: T;
-  email?: T;
-  phone?: T;
-  website?: T;
-  logo?: T;
+export interface SolutionsSelect<T extends boolean = true> {
+  slug?: T;
+  title?: T;
+  category?: T;
+  isPublished?: T;
+  subtitle?: T;
+  shortDescription?: T;
+  longDescription?: T;
+  keyBenefits?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  featureSections?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        points?:
+          | T
+          | {
+              point?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  heroImage?: T;
+  galleryImages?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  heroVideoUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources_select".
+ */
+export interface ResourcesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  category?: T;
+  summary?: T;
+  content?: T;
+  coverImage?: T;
+  videoUrl?: T;
+  pdfFile?: T;
+  docxFile?: T;
+  externalLink?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  section?: T;
+  featuredInNav?: T;
+  isPublished?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resource-sections_select".
+ */
+export interface ResourceSectionsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
   description?: T;
-  status?: T;
+  orderIndex?: T;
+  isPublished?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faqs_select".
+ */
+export interface FaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  category?: T;
+  sortOrder?: T;
+  attachment?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members_select".
+ */
+export interface TeamMembersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  motto?: T;
+  bio?: T;
+  image?: T;
+  socialLinkedin?: T;
+  socialTwitter?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partner-logos_select".
+ */
+export interface PartnerLogosSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  logoUrl?: T;
+  websiteUrl?: T;
+  displayOrder?: T;
+  isActive?: T;
+  company?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product-features_select".
+ */
+export interface ProductFeaturesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  mediaUrl?: T;
+  mediaType?: T;
+  featuresList?:
+    | T
+    | {
+        feature?: T;
+        id?: T;
+      };
+  displayOrder?: T;
+  isActive?: T;
+  imagePosition?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "how-it-works-steps_select".
+ */
+export interface HowItWorksStepsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  stepNumber?: T;
+  iconName?: T;
+  media?: T;
+  mediaType?: T;
+  mediaFit?: T;
+  colorTheme?: T;
+  sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1185,241 +1476,18 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "services_select".
+ * via the `definition` "companies_select".
  */
-export interface ServicesSelect<T extends boolean = true> {
-  slug?: T;
-  title?: T;
-  subtitle?: T;
-  description?: T;
-  features?:
-    | T
-    | {
-        icon?: T;
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  plans?:
-    | T
-    | {
-        name?: T;
-        monthlyPrice?: T;
-        semiAnnualPrice?: T;
-        annualPrice?: T;
-        description?: T;
-        isPopular?: T;
-        badge?: T;
-        planFeatures?:
-          | T
-          | {
-              feature?: T;
-              included?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  heroImage?: T;
-  heroVideoUrl?: T;
-  galleryImages?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
-  icon?: T;
-  colorTheme?: T;
-  category?: T;
-  orderIndex?: T;
-  isPublished?: T;
-  metaTitle?: T;
-  metaDescription?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "solutions_select".
- */
-export interface SolutionsSelect<T extends boolean = true> {
-  slug?: T;
-  title?: T;
-  subtitle?: T;
-  category?: T;
-  description?: T;
-  heroImage?: T;
-  heroVideoUrl?: T;
-  stats?:
-    | T
-    | {
-        label?: T;
-        value?: T;
-        iconName?: T;
-        id?: T;
-      };
-  contentBlocks?:
-    | T
-    | {
-        title?: T;
-        content?: T;
-        image?: T;
-        align?: T;
-        listItems?:
-          | T
-          | {
-              item?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  mapEmbedUrl?: T;
-  faqs?:
-    | T
-    | {
-        question?: T;
-        answer?: T;
-        id?: T;
-      };
-  isPublished?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "resources_select".
- */
-export interface ResourcesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  category?: T;
-  summary?: T;
-  content?: T;
-  coverImage?: T;
-  videoUrl?: T;
-  pdfFile?: T;
-  externalLink?: T;
-  tags?:
-    | T
-    | {
-        tag?: T;
-        id?: T;
-      };
-  featuredInNav?: T;
-  isPublished?: T;
-  publishedAt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "product-features_select".
- */
-export interface ProductFeaturesSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  mediaUrl?: T;
-  mediaType?: T;
-  featuresList?:
-    | T
-    | {
-        feature?: T;
-        id?: T;
-      };
-  displayOrder?: T;
-  isActive?: T;
-  imagePosition?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faqs_select".
- */
-export interface FaqsSelect<T extends boolean = true> {
-  question?: T;
-  answer?: T;
-  category?: T;
-  sortOrder?: T;
-  attachment?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "team-members_select".
- */
-export interface TeamMembersSelect<T extends boolean = true> {
+export interface CompaniesSelect<T extends boolean = true> {
   name?: T;
-  role?: T;
-  bio?: T;
-  image?: T;
-  socialLinkedin?: T;
-  socialTwitter?: T;
-  sortOrder?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
- */
-export interface PagesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  metaDescription?: T;
-  published?: T;
-  sections?:
-    | T
-    | {
-        blockType?: T;
-        props?: T;
-        patternPreset?: T;
-        sortOrder?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partner-logos_select".
- */
-export interface PartnerLogosSelect<T extends boolean = true> {
-  name?: T;
+  industry?: T;
+  address?: T;
+  email?: T;
+  phone?: T;
+  website?: T;
   logo?: T;
-  logoUrl?: T;
-  websiteUrl?: T;
-  displayOrder?: T;
-  isActive?: T;
-  company?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "knowledge-base_select".
- */
-export interface KnowledgeBaseSelect<T extends boolean = true> {
-  title?: T;
-  content?: T;
-  published?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "how-it-works-steps_select".
- */
-export interface HowItWorksStepsSelect<T extends boolean = true> {
-  title?: T;
   description?: T;
-  stepNumber?: T;
-  iconName?: T;
-  media?: T;
-  mediaType?: T;
-  mediaFit?: T;
-  colorTheme?: T;
-  sortOrder?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1485,19 +1553,6 @@ export interface LeadsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "analytics_select".
- */
-export interface AnalyticsSelect<T extends boolean = true> {
-  company?: T;
-  date?: T;
-  pageViews?: T;
-  uniqueVisitors?: T;
-  serviceUsage?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "support-tickets_select".
  */
 export interface SupportTicketsSelect<T extends boolean = true> {
@@ -1515,6 +1570,49 @@ export interface SupportTicketsSelect<T extends boolean = true> {
         sentAt?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  company?: T;
+  avatar?: T;
+  phone?: T;
+  address?: T;
+  resetCode?: T;
+  resetCodeExpiration?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics_select".
+ */
+export interface AnalyticsSelect<T extends boolean = true> {
+  company?: T;
+  date?: T;
+  pageViews?: T;
+  uniqueVisitors?: T;
+  serviceUsage?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1714,9 +1812,13 @@ export interface SiteSetting {
      */
     email?: string | null;
     /**
-     * The public contact phone number.
+     * Primary contact phone number.
      */
     phone?: string | null;
+    /**
+     * Secondary contact phone number (optional).
+     */
+    phone2?: string | null;
     /**
      * Physical office address.
      */
@@ -2039,7 +2141,7 @@ export interface PricingConfig {
          */
         description?: string | null;
         /**
-         * Base monthly price in USD. Set to 0 for custom/enterprise pricing.
+         * Base monthly price in BDT (৳). Set to 0 for custom/enterprise pricing.
          */
         monthlyPrice?: number | null;
         /**
@@ -2047,11 +2149,7 @@ export interface PricingConfig {
          */
         isCustomPrice?: boolean | null;
         /**
-         * Percentage discount for 6-month billing (e.g. 10 = 10% off)
-         */
-        semiAnnualDiscount?: number | null;
-        /**
-         * Percentage discount for annual billing (e.g. 20 = 20% off)
+         * Percentage discount for annual billing (e.g. 20 = 20% off monthly price)
          */
         annualDiscount?: number | null;
         /**
@@ -2085,7 +2183,7 @@ export interface PricingConfig {
       }[]
     | null;
   /**
-   * AI module add-ons available to bundle with any base plan. Enter the service slug exactly as it appears in the Services collection.
+   * AI module add-ons available to bundle with any base plan.
    */
   serviceAddOns?:
     | {
@@ -2098,9 +2196,13 @@ export interface PricingConfig {
          */
         serviceTitle: string;
         /**
-         * Monthly add-on price when bundled with a base plan
+         * Monthly add-on price in BDT (৳)
          */
         monthlyAddOnPrice: number;
+        /**
+         * Annual add-on price in BDT (৳) per month when billed annually. Leave blank to auto-apply 20% off monthly price.
+         */
+        annualAddOnPrice?: number | null;
         /**
          * One-line description shown on the add-on card
          */
@@ -2157,6 +2259,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         email?: T;
         phone?: T;
+        phone2?: T;
         address?: T;
         map_embed?: T;
       };
@@ -2312,7 +2415,6 @@ export interface PricingConfigSelect<T extends boolean = true> {
         description?: T;
         monthlyPrice?: T;
         isCustomPrice?: T;
-        semiAnnualDiscount?: T;
         annualDiscount?: T;
         isPopular?: T;
         badge?: T;
@@ -2334,6 +2436,7 @@ export interface PricingConfigSelect<T extends boolean = true> {
         serviceSlug?: T;
         serviceTitle?: T;
         monthlyAddOnPrice?: T;
+        annualAddOnPrice?: T;
         description?: T;
         id?: T;
       };

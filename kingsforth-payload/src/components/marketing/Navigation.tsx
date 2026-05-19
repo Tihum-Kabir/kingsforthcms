@@ -50,20 +50,26 @@ export function Navigation({ user, services = [], solutions = [], resources = []
     const lastScrollY = useRef(0);
 
     useEffect(() => {
+        let rafId: number | undefined;
         const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            setIsScrolled(currentScrollY > 60);
-            
-            // Hide navbar on scroll down, show on scroll up (unless at very top or menu is open)
-            if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-                if (!activeMenu && !mobileMenuOpen) setIsHidden(true);
-            } else {
-                setIsHidden(false);
-            }
-            lastScrollY.current = currentScrollY;
+            if (rafId !== undefined) return;
+            rafId = requestAnimationFrame(() => {
+                rafId = undefined;
+                const currentScrollY = window.scrollY;
+                setIsScrolled(currentScrollY > 60);
+                if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+                    if (!activeMenu && !mobileMenuOpen) setIsHidden(true);
+                } else {
+                    setIsHidden(false);
+                }
+                lastScrollY.current = currentScrollY;
+            });
         };
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            if (rafId !== undefined) cancelAnimationFrame(rafId);
+        };
     }, [activeMenu, mobileMenuOpen]);
 
     useEffect(() => {
@@ -117,9 +123,8 @@ export function Navigation({ user, services = [], solutions = [], resources = []
         { href: '/solutions/vsoc', title: 'VSOC', description: 'Virtual Security Operations', iconName: 'monitor-play' },
     ];
 
-    // Map Resources — prefer featuredInNav items, fall back to first 6 published
-    const featuredResources = resources.filter(res => res.featuredInNav);
-    const displayResources = featuredResources.length > 0 ? featuredResources.slice(0, 6) : resources.slice(0, 6);
+    // Only show resources explicitly marked as featured in nav
+    const displayResources = resources.filter(res => res.featuredInNav).slice(0, 6);
     const resourceItems = displayResources.map(res => ({
         href: res.externalLink || `/resources/${res.slug}`,
         title: res.title,
@@ -145,29 +150,31 @@ export function Navigation({ user, services = [], solutions = [], resources = []
     return (
         <>
             <nav
-                className={`h-20 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                className={`h-20 fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
                     isHidden ? '-translate-y-full' : 'translate-y-0'
                 } ${
                     showSolid
-                        ? 'bg-white dark:bg-[#0a0a0a] shadow-sm'
-                        : 'bg-transparent'
+                        ? 'bg-white/92 dark:bg-[#060d1a]/90 backdrop-blur-xl border-b border-black/6 dark:border-white/5'
+                        : 'bg-transparent border-b border-transparent'
                 }`}
             >
                 <div className="max-w-350 mx-auto px-4 lg:px-8 h-full">
                     <div className="flex items-center justify-between h-full">
                         {/* Logo — Shows gradient on hover or when dropdown open */}
                         <Link href="/" className="flex items-center gap-3 group shrink-0 relative transition-all duration-300">
-                            {/* Soft White Cloud Glow — reduced opacity so it doesn't overpower the background */}
-                            <div className="absolute -inset-x-6 -inset-y-3 bg-white/30 blur-2xl rounded-full z-[-1] dark:hidden pointer-events-none"></div>
-                            
-                            <div className="flex items-center gap-2.5">
+                            {/* Day mode: frosted cloud pill behind logo for legibility on light backgrounds */}
+                            <div className="absolute -inset-x-5 -inset-y-2.5 dark:hidden bg-white/85 backdrop-blur-md rounded-2xl border border-white/90 shadow-[0_4px_24px_rgba(255,255,255,0.7),0_0_48px_rgba(200,220,255,0.5),inset_0_1px_0_rgba(255,255,255,1)] pointer-events-none" />
+                            {/* Dark mode: subtle glow */}
+                            <div className="absolute -inset-x-5 -inset-y-2.5 hidden dark:block bg-transparent pointer-events-none" />
+
+                            <div className="flex items-center gap-2.5 relative z-10">
                                 <img
                                     src={logoUrl || '/images/logos/kingsforth-icon.svg'}
                                     alt={siteName || 'Kingsforth'}
                                     style={{ height: '36px', width: 'auto', maxWidth: '240px', objectFit: 'contain' }}
-                                    className="shrink-0"
+                                    className="shrink-0 drop-shadow-sm"
                                 />
-                                <span className="text-[26px] font-black tracking-tight uppercase text-transparent bg-clip-text bg-linear-to-r from-[#9b72fa] via-[#4292f5] to-[#26cceb] mt-0.5">
+                                <span className="text-[26px] font-black tracking-tight uppercase text-transparent bg-clip-text bg-linear-to-r from-[#9b72fa] via-[#4292f5] to-[#26cceb] mt-0.5 drop-shadow-sm">
                                     {siteName?.toUpperCase() || 'KINGSFORTH'}
                                 </span>
                             </div>
@@ -184,14 +191,14 @@ export function Navigation({ user, services = [], solutions = [], resources = []
                                 >
                                     <Link
                                         href={link.href}
-                                        className={`flex items-center text-[16.5px] font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 tracking-wide hover:underline hover:decoration-cyan-500 hover:decoration-2 hover:underline-offset-4 ${
+                                        className={`flex items-center text-[16.5px] font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 tracking-wide ${
                                             showSolid
                                                 ? (link.key && activeMenu === link.key)
                                                     ? 'text-[#111827] dark:text-white bg-[#f3f4f6] dark:bg-white/6'
-                                                    : 'text-[#4b5563] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white'
+                                                    : 'text-[#4b5563] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white hover:bg-[#f3f4f6] dark:hover:bg-white/6'
                                                 : (link.key && activeMenu === link.key)
-                                                    ? 'text-black dark:text-white bg-black/5 dark:bg-white/15'
-                                                    : 'text-black dark:text-white hover:text-cyan-600 dark:hover:text-cyan-200 drop-shadow-sm dark:drop-shadow-md'
+                                                    ? 'text-[#111827] dark:text-white bg-black/6 dark:bg-white/15 backdrop-blur-sm shadow-[0_0_0_1px_rgba(0,0,0,0.12)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.2)]'
+                                                    : 'text-[#111827] dark:text-white hover:bg-black/5 dark:hover:bg-white/8 hover:backdrop-blur-sm hover:shadow-[0_0_0_1px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_0_1px_rgba(255,255,255,0.18)] drop-shadow-sm'
                                         }`}
                                     >
                                         {link.label}
@@ -249,10 +256,10 @@ export function Navigation({ user, services = [], solutions = [], resources = []
                                 </div>
                             ) : (
                                 <>
-                                    <Link href="/login" className={`text-[16.5px] font-semibold transition-colors px-6 py-2.5 ${
+                                    <Link href="/login" className={`text-[16.5px] font-semibold transition-all duration-200 px-6 py-2.5 rounded-lg ${
                                         showSolid
-                                            ? 'text-[#4b5563] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white'
-                                            : 'text-black dark:text-white hover:text-cyan-600 dark:hover:text-cyan-200 drop-shadow-sm dark:drop-shadow-md'
+                                            ? 'text-[#4b5563] dark:text-[#9ca3af] hover:text-[#111827] dark:hover:text-white hover:bg-[#f3f4f6] dark:hover:bg-white/6'
+                                            : 'text-[#111827] dark:text-white hover:bg-black/5 dark:hover:bg-white/8 hover:backdrop-blur-sm hover:shadow-[0_0_0_1px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_0_1px_rgba(255,255,255,0.18)] drop-shadow-sm'
                                     }`}>
                                         Login
                                     </Link>
@@ -285,10 +292,14 @@ export function Navigation({ user, services = [], solutions = [], resources = []
             {/* ═══ FULL-WIDTH MEGA MENU DROPDOWN ═══ */}
             {activeMenu && (
                 <div
-                    className="fixed top-16 left-0 right-0 z-40 bg-white dark:bg-[#0a0a0a] border-b border-[#e5e7eb] dark:border-white/6 shadow-lg dark:shadow-[0_10px_40px_rgba(0,0,0,0.4)] animate-mega-slide-down"
+                    className="fixed top-20 left-0 right-0 z-40 animate-mega-slide-down"
                     onMouseEnter={() => { if (menuTimeoutRef.current) clearTimeout(menuTimeoutRef.current); }}
                     onMouseLeave={handleMenuLeave}
                 >
+                    {/* Frosted glass panel */}
+                    <div className="bg-white/80 dark:bg-[#03060f]/85 backdrop-blur-2xl border-b border-slate-200/60 dark:border-white/6 shadow-[0_8px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_60px_rgba(0,0,0,0.6)]">
+                    {/* Cyan accent line at very top */}
+                    <div className="h-px bg-linear-to-r from-transparent via-cyan-500/50 to-transparent" />
                     <div className="max-w-350 mx-auto px-4 lg:px-8 py-8">
                         {activeMenu === 'services' && (
                             <div>
@@ -377,6 +388,7 @@ export function Navigation({ user, services = [], solutions = [], resources = []
                                 </div>
                             </div>
                         )}
+                    </div>
                     </div>
                 </div>
             )}

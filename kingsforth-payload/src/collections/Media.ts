@@ -4,7 +4,7 @@ export const Media: CollectionConfig = {
   slug: 'media',
   upload: {
     mimeTypes: ['image/*', 'video/*', 'application/pdf'],
-    staticDir: '../media',
+    staticDir: 'media',
     imageSizes: [
       {
         name: 'thumbnail',
@@ -29,7 +29,7 @@ export const Media: CollectionConfig = {
   admin: {
     useAsTitle: 'alt',
     defaultColumns: ['alt', 'filename', 'mimeType', 'deleteAction', 'updatedAt'],
-    group: 'SETTINGS',
+    group: 'MEDIA',
   },
   fields: [
     {

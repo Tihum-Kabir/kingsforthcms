@@ -1,4 +1,8 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import { fileURLToPath } from 'url'
+import path from 'path'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -43,6 +47,9 @@ const securityHeaders = [
 const nextConfig = {
   compress: true,
   poweredByHeader: false,
+  turbopack: {
+    root: __dirname,
+  },
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
@@ -56,6 +63,16 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: securityHeaders,
+      },
+      // Payload admin needs unsafe-eval — override CSP AFTER the catch-all so it wins
+      {
+        source: '/admin(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; frame-ancestors 'self'; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self' https: wss:;",
+          },
+        ],
       },
       // Static asset cache headers — production only (dev mode ignores these anyway,
       // but Next.js 16 warns if they're present even unused)

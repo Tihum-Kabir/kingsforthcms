@@ -122,25 +122,77 @@ export function ProductShowcaseClient({ features, settings }: { features: Produc
                     />
                 ))}
 
-                {/* CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                    className="text-center mt-20"
-                >
-                    <Link
-                        href="/kingseye"
-                        className="relative group inline-flex items-center justify-center gap-2 px-8 py-3.5 text-white text-[15px] font-bold rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 shadow-cyan-500/30"
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <Eye className="w-4 h-4 relative z-10" />
-                        <span className="relative z-10 tracking-wide">Explore KINGSEYE</span>
-                    </Link>
-                </motion.div>
             </div>
         </section>
+    );
+}
+
+function AnimatedFeatureSVG({ icon: Icon }: { icon: any }) {
+    const bars = [0.55, 0.85, 0.45, 0.95, 0.65, 0.75, 0.50, 0.80];
+    return (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50/20 dark:from-[#060d1a] dark:to-[#040a14] overflow-hidden">
+            {/* Subtle grid */}
+            <div className="absolute inset-0 opacity-20 dark:opacity-15" style={{
+                backgroundImage: 'linear-gradient(rgba(34,211,238,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.15) 1px, transparent 1px)',
+                backgroundSize: '28px 28px'
+            }} />
+
+            {/* Ambient glow */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-48 h-48 bg-cyan-400/5 dark:bg-cyan-400/8 rounded-full blur-3xl" />
+            </div>
+
+            <div className="relative flex flex-col items-center gap-5 p-6 z-10">
+                {/* Icon with pulse rings */}
+                <div className="relative flex items-center justify-center">
+                    <motion.div
+                        animate={{ scale: [1, 1.7, 1], opacity: [0.25, 0, 0.25] }}
+                        transition={{ duration: 2.8, repeat: Infinity, ease: 'easeOut' }}
+                        className="absolute w-20 h-20 rounded-full border border-cyan-500/30"
+                    />
+                    <motion.div
+                        animate={{ scale: [1, 1.35, 1], opacity: [0.4, 0, 0.4] }}
+                        transition={{ duration: 2.8, repeat: Infinity, ease: 'easeOut', delay: 0.5 }}
+                        className="absolute w-20 h-20 rounded-full border border-cyan-400/40"
+                    />
+                    <div className="w-16 h-16 rounded-2xl bg-white dark:bg-[#0b1526] border border-cyan-200/80 dark:border-cyan-500/25 flex items-center justify-center shadow-[0_4px_24px_rgba(34,211,238,0.12)] dark:shadow-[0_4px_24px_rgba(34,211,238,0.18)] relative z-10">
+                        <Icon className="w-8 h-8 text-cyan-500 dark:text-cyan-400" />
+                    </div>
+                </div>
+
+                {/* Animated bar chart */}
+                <div className="flex items-end gap-[5px] h-10">
+                    {bars.map((h, i) => (
+                        <motion.div
+                            key={i}
+                            className="w-[10px] rounded-t-sm bg-gradient-to-t from-blue-600 via-cyan-500 to-cyan-300 dark:from-blue-700 dark:via-cyan-500 dark:to-cyan-300 shadow-[0_0_6px_rgba(34,211,238,0.4)]"
+                            animate={{ height: [`${h * 40}px`, `${Math.max(8, h * 40 - 12 + (i % 3) * 6)}px`, `${h * 40}px`] }}
+                            transition={{ duration: 2 + i * 0.18, repeat: Infinity, ease: 'easeInOut', delay: i * 0.12 }}
+                        />
+                    ))}
+                </div>
+
+                {/* Status row */}
+                <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-1.5">
+                        <motion.span
+                            animate={{ opacity: [1, 0.2, 1] }}
+                            transition={{ duration: 1.6, repeat: Infinity }}
+                            className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]"
+                        />
+                        <span className="text-[10px] font-mono font-semibold text-emerald-600 dark:text-emerald-400 tracking-widest">LIVE</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                        <motion.span
+                            animate={{ opacity: [0.4, 1, 0.4] }}
+                            transition={{ duration: 2.2, repeat: Infinity, delay: 0.8 }}
+                            className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]"
+                        />
+                        <span className="text-[10px] font-mono font-semibold text-cyan-600 dark:text-cyan-400 tracking-widest">PROCESSING</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 
@@ -208,12 +260,7 @@ function FeatureBlock({ icon: Icon, title, description, features, imagePosition,
                                 />
                             )
                         ) : (
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-center">
-                                    <Icon className="w-16 h-16 text-[#d1d5db] dark:text-white/10 mx-auto mb-4" />
-                                    <p className="text-[#9ca3af] text-sm">Demo Preview</p>
-                                </div>
-                            </div>
+                            <AnimatedFeatureSVG icon={Icon} />
                         )}
 
                         {/* Live indicator */}

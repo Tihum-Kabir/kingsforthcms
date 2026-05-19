@@ -1,7 +1,6 @@
 ﻿'use client';
 
 import { motion } from 'framer-motion';
-import type { Service } from '@/app/actions/services';
 import { Check, Zap, Shield, Database, Eye, Cpu, TrendingUp, Network } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
@@ -33,7 +32,7 @@ const iconTargetColors: Record<string, string> = {
     'default': 'group-hover:text-white',
 };
 
-export function ServiceFeatures({ service }: { service: Service }) {
+export function ServiceFeatures({ service }: { service: any }) {
     if (!service.features || service.features.length === 0) {
         return null;
     }

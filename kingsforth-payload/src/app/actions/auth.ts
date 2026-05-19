@@ -4,6 +4,7 @@ import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import { cookies, headers } from 'next/headers';
 import { isRateLimited } from '@/lib/rateLimiter';
+import { sendEmail, resetCodeEmail, welcomeEmail } from '@/lib/email';
 
 async function getIP(): Promise<string> {
     const h = await headers();
@@ -69,30 +70,12 @@ export async function signupAction(name: string, email: string, password: string
             data: { name: sanitizedName, email: sanitizedEmail, password, role: 'STAFF', phone, address, company },
         });
 
-        // Send Welcome/Confirmation Email via Resend
-        try {
-            await fetch('https://api.resend.com/emails', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
-                },
-                body: JSON.stringify({
-                    from: 'Kingsforth Security <onboarding@resend.dev>',
-                    to: sanitizedEmail,
-                    subject: 'Welcome to Kingsforth Security',
-                    html: `
-                        <div style="font-family: Arial, sans-serif; padding: 20px; text-align: center;">
-                            <h2>Welcome to Kingsforth, ${sanitizedName}!</h2>
-                            <p>Thank you for signing up. Your account has been successfully created.</p>
-                            <p style="color: #666; font-size: 14px; margin-top: 20px;">Access your central dashboard at any time to monitor your security operations.</p>
-                        </div>
-                    `
-                })
-            });
-        } catch (emailErr) {
-            console.error('Failed to send Resend welcome email:', emailErr);
-        }
+        // Send welcome email
+        await sendEmail({
+            to: sanitizedEmail,
+            subject: 'Welcome to Kingsforth',
+            html: welcomeEmail(sanitizedName),
+        });
 
         return await loginAction(sanitizedEmail, password);
     } catch (err: any) {
@@ -144,32 +127,22 @@ export async function sendVerificationCode(email: string) {
             }
         });
 
-        // Send via Resend (production) or log to console (dev / no API key)
-        const resendKey = process.env.RESEND_API_KEY;
-        const hasRealKey = resendKey && !resendKey.startsWith('your_') && resendKey !== 're_...';
+        // Always log code to server console (visible in Docker logs) as fallback
+        console.log('\n╔══════════════════════════════════════╗');
+        console.log('║  PASSWORD RESET CODE                 ║');
+        console.log(`║  Email : ${sanitizedEmail.padEnd(28)}║`);
+        console.log(`║  Code  : ${code.padEnd(28)}║`);
+        console.log('╚══════════════════════════════════════╝\n');
 
-        if (hasRealKey) {
-            try {
-                await fetch('https://api.resend.com/emails', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
-                    body: JSON.stringify({
-                        from: 'Kingsforth Security <onboarding@resend.dev>',
-                        to: sanitizedEmail,
-                        subject: 'Your Password Reset Code',
-                        html: `<div style="font-family:Arial,sans-serif;padding:20px;text-align:center"><h2>Password Reset</h2><p>Your 6-digit code:</p><div style="font-size:32px;font-weight:bold;letter-spacing:5px;padding:20px;background:#f3f4f6;display:inline-block;border-radius:8px">${code}</div><p style="color:#666;font-size:12px;margin-top:20px">Expires in 15 minutes.</p></div>`,
-                    }),
-                });
-            } catch (emailErr) {
-                console.error('[email] Resend failed:', emailErr);
-            }
-        } else {
-            // Dev fallback — print code to server terminal
-            console.log('\n╔══════════════════════════════════════╗');
-            console.log('║  PASSWORD RESET CODE (dev mode)      ║');
-            console.log(`║  Email : ${sanitizedEmail.padEnd(28)}║`);
-            console.log(`║  Code  : ${code.padEnd(28)}║`);
-            console.log('╚══════════════════════════════════════╝\n');
+        // Send branded email
+        const emailResult = await sendEmail({
+            to: sanitizedEmail,
+            subject: 'Your Kingsforth Password Reset Code',
+            html: resetCodeEmail(user.name ?? 'User', code),
+        });
+
+        if (!emailResult.ok) {
+            console.error('[reset] Email delivery failed:', emailResult.error);
         }
 
         return { success: true };

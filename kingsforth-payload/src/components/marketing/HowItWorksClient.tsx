@@ -100,6 +100,169 @@ export function HowItWorksClient({ steps, settings }: HowItWorksClientProps) {
     );
 }
 
+function StepIllustration({ index, icon: Icon, color }: { index: number; icon: any; color: string }) {
+    const type = index % 3;
+
+    if (type === 0) {
+        // Radar / detection sweep
+        return (
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-cyan-50/30 dark:from-[#060d1a] dark:to-[#040b17] overflow-hidden">
+                <div className="absolute inset-0 opacity-10 dark:opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(34,211,238,0.3) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+                <div className="relative flex items-center justify-center w-40 h-40">
+                    {/* Expanding radar rings */}
+                    {[1, 1.5, 2.1, 2.8].map((scale, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute rounded-full border border-cyan-400/30 dark:border-cyan-500/25"
+                            style={{ width: `${scale * 48}px`, height: `${scale * 48}px` }}
+                            animate={{ opacity: [0.6, 0.1, 0.6], scale: [1, 1.05, 1] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: i * 0.4 }}
+                        />
+                    ))}
+                    {/* Sweep arc */}
+                    <motion.div
+                        className="absolute inset-0 rounded-full"
+                        style={{ background: 'conic-gradient(from 0deg, transparent 0deg, rgba(34,211,238,0.18) 60deg, transparent 60deg)' }}
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                    />
+                    {/* Center icon */}
+                    <div className="relative z-10 w-14 h-14 rounded-full bg-white dark:bg-[#0b1a2e] border border-cyan-200 dark:border-cyan-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.15)]">
+                        <Icon className="w-7 h-7 text-cyan-500 dark:text-cyan-400" />
+                    </div>
+                    {/* Detected blips */}
+                    {[[30, -48], [-52, 18], [48, 32]].map(([x, y], i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"
+                            style={{ left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` }}
+                            animate={{ opacity: [0, 1, 0], scale: [0.5, 1.3, 0.5] }}
+                            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', delay: i * 0.7 }}
+                        />
+                    ))}
+                </div>
+                {/* Status */}
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/8 dark:border-white/8">
+                        <motion.span animate={{ opacity: [1, 0.2, 1] }} transition={{ duration: 1.4, repeat: Infinity }} className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                        <span className="text-[10px] font-mono font-semibold text-cyan-600 dark:text-cyan-400 tracking-widest">SCANNING</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (type === 1) {
+        // Neural / analysis processing
+        const nodes = [[50, 20], [20, 55], [80, 55], [35, 82], [65, 82]];
+        const edges = [[0,1],[0,2],[1,3],[1,4],[2,3],[2,4]];
+        return (
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-violet-50/20 dark:from-[#07060f] dark:to-[#050412] overflow-hidden">
+                <div className="absolute inset-0 opacity-10 dark:opacity-8" style={{ backgroundImage: 'linear-gradient(rgba(139,92,246,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.2) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+                <svg width="220" height="160" viewBox="0 0 100 100" className="relative z-10">
+                    {edges.map(([a, b], i) => (
+                        <motion.line
+                            key={i}
+                            x1={nodes[a][0]} y1={nodes[a][1]}
+                            x2={nodes[b][0]} y2={nodes[b][1]}
+                            stroke="rgba(139,92,246,0.35)"
+                            strokeWidth="0.8"
+                            animate={{ opacity: [0.2, 0.8, 0.2] }}
+                            transition={{ duration: 2 + i * 0.3, repeat: Infinity, ease: 'easeInOut', delay: i * 0.2 }}
+                        />
+                    ))}
+                    {/* Data packets traveling edges */}
+                    {edges.slice(0, 3).map(([a, b], i) => (
+                        <motion.circle
+                            key={`p${i}`}
+                            r="1.5"
+                            fill="#a78bfa"
+                            filter="url(#glow)"
+                            animate={{
+                                cx: [nodes[a][0], nodes[b][0]],
+                                cy: [nodes[a][1], nodes[b][1]],
+                                opacity: [0, 1, 0],
+                            }}
+                            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut', delay: i * 0.6 }}
+                        />
+                    ))}
+                    {nodes.map(([x, y], i) => (
+                        <motion.circle
+                            key={`n${i}`}
+                            cx={x} cy={y} r={i === 0 ? 5 : 3.5}
+                            fill={i === 0 ? '#7c3aed' : '#8b5cf6'}
+                            animate={{ r: [i === 0 ? 5 : 3.5, (i === 0 ? 5 : 3.5) + 1.2, i === 0 ? 5 : 3.5] }}
+                            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: i * 0.35 }}
+                        />
+                    ))}
+                    <defs>
+                        <filter id="glow"><feGaussianBlur stdDeviation="1" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                </svg>
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+                    <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/8 dark:border-white/8">
+                        <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1.8, repeat: Infinity }} className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+                        <span className="text-[10px] font-mono font-semibold text-violet-600 dark:text-violet-400 tracking-widest">PROCESSING</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // type === 2: Shield / action
+    return (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-emerald-50/20 dark:from-[#040e0a] dark:to-[#030a07] overflow-hidden">
+            <div className="absolute inset-0 opacity-8 dark:opacity-8" style={{ backgroundImage: 'radial-gradient(circle, rgba(52,211,153,0.2) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+            <div className="relative flex items-center justify-center w-40 h-40">
+                {/* Expanding shield glow */}
+                <motion.div
+                    className="absolute w-32 h-32 rounded-full bg-emerald-400/8 dark:bg-emerald-400/10"
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.1, 0.4] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                {/* Shield SVG */}
+                <div className="relative z-10 flex flex-col items-center">
+                    <svg width="72" height="80" viewBox="0 0 72 80" fill="none">
+                        <motion.path
+                            d="M36 4L8 16v24c0 14.4 12 28 28 36 16-8 28-21.6 28-36V16L36 4z"
+                            fill="none"
+                            stroke="url(#sg)"
+                            strokeWidth="2.5"
+                            strokeLinejoin="round"
+                            animate={{ pathLength: [0, 1] }}
+                            initial={{ pathLength: 0 }}
+                            transition={{ duration: 1.2, ease: 'easeOut', repeat: Infinity, repeatDelay: 1.5 }}
+                        />
+                        <motion.path
+                            d="M24 40l8 8 16-16"
+                            stroke="#34d399"
+                            strokeWidth="3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            fill="none"
+                            animate={{ pathLength: [0, 1], opacity: [0, 1] }}
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            transition={{ duration: 0.5, ease: 'easeOut', delay: 1, repeat: Infinity, repeatDelay: 2.2 }}
+                        />
+                        <defs>
+                            <linearGradient id="sg" x1="8" y1="4" x2="64" y2="80" gradientUnits="userSpaceOnUse">
+                                <stop stopColor="#10b981" />
+                                <stop offset="1" stopColor="#059669" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/8 dark:border-white/8">
+                    <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.2, repeat: Infinity }} className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+                    <span className="text-[10px] font-mono font-semibold text-emerald-600 dark:text-emerald-400 tracking-widest">SECURED</span>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 interface ProcessStepProps {
     number: string;
     icon: any;
@@ -154,9 +317,7 @@ function ProcessStep({ number, icon: Icon, title, description, color, index, del
                                 <img src={mediaUrl} alt={title} className={`w-full h-full object-${mediaFit}`} />
                             )
                         ) : (
-                            <div className="h-full flex items-center justify-center">
-                                <Icon className="w-20 h-20 text-[#d1d5db] dark:text-white/10" />
-                            </div>
+                            <StepIllustration index={index} icon={Icon} color={color} />
                         )}
                     </div>
                 </div>

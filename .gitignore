@@ -36,3 +36,8 @@ next-env.d.ts
 
 # graphify
 graphify-out/
+
+# Claude Code prompting / session files
+.claude/
+promptingfiles/
+footer.md

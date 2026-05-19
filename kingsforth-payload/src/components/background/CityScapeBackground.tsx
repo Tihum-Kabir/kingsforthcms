@@ -2,7 +2,6 @@
 
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
-import { TsParticleNetwork } from './TsParticleNetwork';
 
 interface CityScapeBackgroundProps {
     dayImageUrl?: string | null;
@@ -36,24 +35,28 @@ export function CityScapeBackground({ dayImageUrl, nightImageUrl }: CityScapeBac
                 }}
             />
 
-            {/* Day Background */}
-            <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                    backgroundImage: `url(${dayImageUrl || '/images/hero/hero-day-cinematic.png'})`,
-                    opacity: isNight ? 0 : 1,
-                    transition: 'opacity 1s ease-in-out',
-                }}
+            {/* Night — visible by default (dark is default theme), eager + high priority */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+                src={nightImageUrl || '/images/hero/hero-night-cinematic.png'}
+                alt=""
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+                style={{ opacity: isNight ? 1 : 0, transition: 'opacity 1s ease-in-out' }}
             />
 
-            {/* Night Background */}
-            <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                    backgroundImage: `url(${nightImageUrl || '/images/hero/hero-night-cinematic.png'})`,
-                    opacity: isNight ? 1 : 0,
-                    transition: 'opacity 1s ease-in-out',
-                }}
+            {/* Day — hidden initially, lazy-load until user switches to light mode */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+                src={dayImageUrl || '/images/hero/hero-day-cinematic.png'}
+                alt=""
+                fetchPriority="low"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+                style={{ opacity: isNight ? 0 : 1, transition: 'opacity 1s ease-in-out' }}
             />
 
             {/* CSS animated ambient glow orbs — zero JS cost */}
@@ -62,11 +65,9 @@ export function CityScapeBackground({ dayImageUrl, nightImageUrl }: CityScapeBac
             <div className="glow-orb glow-orb-3" />
             <div className="glow-orb glow-orb-4" />
 
-            {/* Rain + interactive cursor glow (capped at 80 drops) */}
-            <TsParticleNetwork />
 
-            {/* Gradient overlay for readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/10 to-transparent dark:from-black/60 dark:via-[#02040a]/30 dark:to-transparent pointer-events-none" />
+            {/* Night-mode top vignette — darkens misty clouds so nav/logo text is legible */}
+            <div className="absolute inset-x-0 top-0 h-[38%] hidden dark:block bg-linear-to-b from-[#010609]/80 via-[#010609]/20 to-transparent pointer-events-none" />
         </div>
     );
 }

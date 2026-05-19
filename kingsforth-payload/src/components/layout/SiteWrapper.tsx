@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { Navigation } from '@/components/marketing/Navigation';
 import { Footer } from '@/components/marketing/Footer';
 import { CustomScrollBar } from '@/components/ui/ScrollBar';
+import { RainEffect } from '@/components/background/RainEffect';
 import { CursorTrail } from '@/components/ui/CursorTrail';
 
 interface SiteWrapperProps {
@@ -35,6 +36,7 @@ export function SiteWrapper({ children, user, services, solutions = [], resource
     return (
         <>
             <CustomScrollBar />
+            <RainEffect />
             <CursorTrail />
             {showLayout && <Navigation user={user} services={services} solutions={solutions} resources={resources} logoUrl={logoUrl} siteName={siteName} llmLinks={llmLinks} llmSectionHeading={llmSectionHeading} />}
             {children}

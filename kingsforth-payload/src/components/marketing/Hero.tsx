@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useTransform, useScroll } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { Zap, Eye, Database } from 'lucide-react';
 import Link from 'next/link';
 import { RichText } from '@payloadcms/richtext-lexical/react';
@@ -58,21 +58,9 @@ function InfiniteLogoScrollInline({ partnerLogos, settings }: { partnerLogos?: a
                                 </div>
                             ))}
                             {logos.map((partner, idx) => (
-                                <div className="partner-box flex items-center justify-center h-[72px] sm:h-[84px] px-8 bg-white dark:bg-[#0f172a] rounded-xl sm:rounded-2xl mx-3 hover:scale-105 transition-transform duration-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] dark:shadow-[0_2px_15px_-3px_rgba(0,0,0,0.4)] border border-gray-100 dark:border-gray-800" key={`p2-${idx}`}>
+                                <div className="partner-box flex items-center justify-center h-[72px] sm:h-[84px] px-8 bg-white dark:bg-[#0f172a] rounded-xl sm:rounded-2xl mx-3 hover:scale-105 transition-transform duration-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] dark:shadow-[0_2px_15px_-3px_rgba(0,0,0,0.4)] border border-gray-100 dark:border-gray-800" key={`p2-${idx}`} aria-hidden="true">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={partner.logo?.url || partner.img} alt={partner.name} className="max-h-10 sm:max-h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
-                                </div>
-                            ))}
-                            {logos.map((partner, idx) => (
-                                <div className="partner-box flex items-center justify-center h-[72px] sm:h-[84px] px-8 bg-white dark:bg-[#0f172a] rounded-xl sm:rounded-2xl mx-3 hover:scale-105 transition-transform duration-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] dark:shadow-[0_2px_15px_-3px_rgba(0,0,0,0.4)] border border-gray-100 dark:border-gray-800" key={`p3-${idx}`}>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={partner.logo?.url || partner.img} alt={partner.name} className="max-h-10 sm:max-h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
-                                </div>
-                            ))}
-                            {logos.map((partner, idx) => (
-                                <div className="partner-box flex items-center justify-center h-[72px] sm:h-[84px] px-8 bg-white dark:bg-[#0f172a] rounded-xl sm:rounded-2xl mx-3 hover:scale-105 transition-transform duration-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)] dark:shadow-[0_2px_15px_-3px_rgba(0,0,0,0.4)] border border-gray-100 dark:border-gray-800" key={`p4-${idx}`}>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={partner.logo?.url || partner.img} alt={partner.name} className="max-h-10 sm:max-h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
+                                    <img src={partner.logo?.url || partner.img} alt="" className="max-h-10 sm:max-h-12 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" />
                                 </div>
                             ))}
                         </div>
@@ -88,102 +76,6 @@ function InfiniteLogoScrollInline({ partnerLogos, settings }: { partnerLogos?: a
     );
 }
 
-function RainCanvas({ boxRef }: { boxRef: { current: HTMLDivElement | null } }) {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d', { alpha: true });
-        if (!ctx) return;
-
-        let raf: number;
-        type Drop = { x: number; y: number; spd: number; len: number; a: number };
-        type Spark = { x: number; y: number; vx: number; vy: number; life: number };
-
-        const drops: Drop[] = [];
-        const sparks: Spark[] = [];
-
-        const resize = () => {
-            const r = canvas.getBoundingClientRect();
-            canvas.width = Math.floor(r.width) || 800;
-            canvas.height = Math.floor(r.height) || 600;
-        };
-        resize();
-        const ro = new ResizeObserver(resize);
-        if (canvas.parentElement) ro.observe(canvas.parentElement);
-
-        for (let i = 0; i < 55; i++) {
-            drops.push({
-                x: Math.random() * (canvas.width + 300) - 150,
-                y: Math.random() * canvas.height,
-                spd: 5 + Math.random() * 5,
-                len: 12 + Math.random() * 14,
-                a: 0.1 + Math.random() * 0.2,
-            });
-        }
-
-        const burst = (x: number, y: number) => {
-            const n = 7 + Math.floor(Math.random() * 5);
-            for (let i = 0; i < n; i++) {
-                const angle = -Math.PI + Math.random() * Math.PI;
-                const spd = 1.5 + Math.random() * 3;
-                sparks.push({ x, y, vx: Math.cos(angle) * spd, vy: Math.sin(angle) * spd - 0.8, life: 18 + Math.floor(Math.random() * 14) });
-            }
-        };
-
-        const draw = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            let box: { left: number; right: number; top: number } | null = null;
-            if (boxRef.current) {
-                const cr = canvas.getBoundingClientRect();
-                const br = boxRef.current.getBoundingClientRect();
-                box = { left: br.left - cr.left, right: br.right - cr.left, top: br.top - cr.top };
-            }
-
-            for (const d of drops) {
-                ctx.beginPath();
-                ctx.moveTo(d.x, d.y);
-                ctx.lineTo(d.x - d.spd * 0.12, d.y + d.len);
-                ctx.strokeStyle = `rgba(147,210,235,${d.a})`;
-                ctx.lineWidth = 0.7;
-                ctx.stroke();
-                d.y += d.spd;
-                d.x -= d.spd * 0.08;
-
-                if (box && d.y + d.len >= box.top && d.y < box.top + d.spd * 1.5 && d.x >= box.left - 2 && d.x <= box.right + 2) {
-                    burst(d.x, box.top);
-                    d.y = -(d.len + Math.random() * 300);
-                    d.x = Math.random() * (canvas.width + 300) - 150;
-                } else if (d.y > canvas.height + 20) {
-                    d.y = -(d.len + Math.random() * 120);
-                    d.x = Math.random() * (canvas.width + 300) - 150;
-                }
-            }
-
-            for (let i = sparks.length - 1; i >= 0; i--) {
-                const p = sparks[i];
-                const alpha = (p.life / 30) * 0.7;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 1.0 + (1 - p.life / 30) * 0.5, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(147,210,235,${alpha})`;
-                ctx.fill();
-                p.x += p.vx; p.y += p.vy;
-                p.vy += 0.09; p.vx *= 0.97;
-                p.life--;
-                if (p.life <= 0) sparks.splice(i, 1);
-            }
-
-            raf = requestAnimationFrame(draw);
-        };
-
-        draw();
-        return () => { cancelAnimationFrame(raf); ro.disconnect(); };
-    }, [boxRef]);
-
-    return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 w-full h-full z-30" />;
-}
 
 const HeroDashboardUI = () => {
     return (
@@ -350,7 +242,6 @@ interface HeroProps {
 
 export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroProps) {
     const sectionRef = useRef<HTMLElement>(null);
-    const boxRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
         offset: ["start start", "center start"]
@@ -362,7 +253,6 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
 
     return (
         <section ref={sectionRef} className="hero-root min-h-screen flex flex-col justify-center overflow-hidden pt-36 sm:pt-40 pb-8 sm:pb-16 transition-colors duration-300">
-            <RainCanvas boxRef={boxRef} />
             {/* Focused radial bloom behind text — keeps background art visible */}
             <div className="pointer-events-none absolute inset-0 hero-text-bloom" />
             {/* Subtle bottom vignette */}
@@ -378,12 +268,12 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                     <div className="flex flex-col items-start text-left">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.1 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
                             className="w-full relative z-20"
                         >
-                            {/* Rain-reactive gradient border card */}
-                            <div ref={boxRef} className="relative rounded-2xl p-[1.5px] overflow-hidden w-full shadow-[0_8px_40px_rgba(0,0,0,0.07)] dark:shadow-[0_8px_40px_rgba(34,211,238,0.04)]">
+                            <div className="relative rounded-2xl p-[1.5px] overflow-hidden w-full shadow-[0_8px_40px_rgba(0,0,0,0.07)] dark:shadow-[0_8px_40px_rgba(34,211,238,0.04)]">
                                 {/* Animated conic gradient border */}
                                 <div className="hero-card-spin absolute inset-0" />
                                 {/* Glass interior */}
@@ -465,17 +355,10 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                                     rel={heroSettings?.heroSecondaryCTALink?.startsWith('http') ? "noopener noreferrer" : undefined}
                                     className="group relative flex items-center justify-center gap-3 h-[52px] sm:h-[56px] px-7 sm:px-9 text-slate-900 dark:text-white/90 text-[15px] font-bold rounded-full transition-all duration-300 hover:scale-[1.02] overflow-hidden"
                                 >
-                                    {/* Fill */}
                                     <span className="absolute inset-0 rounded-full bg-slate-100 dark:bg-white/[0.04] group-hover:bg-slate-200 dark:group-hover:bg-white/[0.08] transition-colors duration-300" />
-                                    {/* Top gloss */}
                                     <span className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                                    {/* Subtle red glow on hover */}
-                                    <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_at_left,rgba(255,0,0,0.08),transparent_70%)]" />
-                                    {/* Border */}
-                                    <span className="absolute inset-0 rounded-full border border-white/10 group-hover:border-white/20 transition-colors duration-300" />
-
+                                    <span className="absolute inset-0 rounded-full border border-black/8 dark:border-white/10 group-hover:border-black/15 dark:group-hover:border-white/20 transition-colors duration-300" />
                                     <span className="relative z-10 flex items-center gap-3">
-                                        {/* YouTube icon */}
                                         <svg className="w-[30px] h-[21px] shrink-0 drop-shadow-sm group-hover:scale-105 transition-transform duration-300" viewBox="0 0 30 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <rect width="30" height="21" rx="5" fill="#FF0000" />
                                             <path d="M12 6.5L20 10.5L12 14.5V6.5Z" fill="white" />
@@ -494,7 +377,8 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                     {/* Right: Dashboard Mockup */}
                     <motion.div
                         initial={{ opacity: 0, x: 40 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.1 }}
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                         className="w-full flex justify-center lg:justify-end perspective-[1000px] z-20 relative"
                     >
@@ -510,8 +394,9 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{ delay: 0.3, duration: 0.6 }}
                     className="pt-16 sm:pt-24 lg:pt-32 pb-4"
                 >
                     <InfiniteLogoScrollInline partnerLogos={partnerLogos} settings={logoScrollSettings} />

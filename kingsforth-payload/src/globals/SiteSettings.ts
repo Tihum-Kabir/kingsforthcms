@@ -196,7 +196,8 @@ export const SiteSettings: GlobalConfig = {
               type: 'group',
               fields: [
                 { name: 'email', type: 'email', admin: { placeholder: 'contact@kingsforth.com', description: 'The public contact email address.' } },
-                { name: 'phone', type: 'text', admin: { placeholder: '+1 (555) 123-4567', description: 'The public contact phone number.' } },
+                { name: 'phone', type: 'text', admin: { placeholder: '+880 1833-183436', description: 'Primary contact phone number.' } },
+                { name: 'phone2', type: 'text', admin: { placeholder: '+880 1711-033237', description: 'Secondary contact phone number (optional).' } },
                 { name: 'address', type: 'textarea', admin: { placeholder: '123 Kingsforth Ave, City, Country', description: 'Physical office address.' } },
                 { name: 'map_embed', type: 'textarea', admin: { description: 'Google Maps iframe embed code or src URL. This will render the interactive grayscale map in the footer.' } },
               ],

@@ -1,5 +1,4 @@
-﻿import type { Service } from '@/app/actions/services';
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 // Helper to extract video ID and create embed URL
@@ -26,7 +25,7 @@ function getEmbedUrl(url: string | null): string | null {
     return null;
 }
 
-export function ServiceHero({ service }: { service: Service }) {
+export function ServiceHero({ service }: { service: any }) {
     const embedUrl = getEmbedUrl(service.heroVideoUrl || null);
 
     return (

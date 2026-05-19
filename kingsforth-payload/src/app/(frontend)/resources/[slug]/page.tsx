@@ -2,7 +2,7 @@ import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ExternalLink, Download, Calendar, Clock, FileText, Play } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Download, Calendar, Clock, FileText, Play, File } from 'lucide-react';
 import { RichText } from '@payloadcms/richtext-lexical/react';
 
 export const dynamic = 'force-dynamic';
@@ -71,10 +71,10 @@ const CATEGORY_COLORS: Record<string, string> = {
 
 export default async function ResourceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const payload = await getPayload({ config: configPromise });
 
     let resource: any = null;
     try {
+        const payload = await getPayload({ config: configPromise });
         const result = await payload.find({
             collection: 'resources',
             where: { slug: { equals: slug }, isPublished: { equals: true } },
@@ -82,9 +82,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
             depth: 2,
         });
         resource = result.docs[0] ?? null;
-    } catch (err) {
-        console.error('[ResourceDetail] Failed to load resource:', err);
-    }
+    } catch {}
 
     if (!resource) notFound();
 
@@ -107,6 +105,26 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
         resource.pdfFile && typeof resource.pdfFile === 'object'
             ? (() => {
                 const bytes = (resource.pdfFile as any).filesize ?? 0;
+                if (!bytes) return null;
+                if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+                return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+              })()
+            : null;
+
+    const docxUrl: string | null =
+        resource.docxFile && typeof resource.docxFile === 'object'
+            ? (resource.docxFile as any).url ?? null
+            : null;
+
+    const docxFilename: string =
+        resource.docxFile && typeof resource.docxFile === 'object'
+            ? (resource.docxFile as any).filename ?? 'document.docx'
+            : 'document.docx';
+
+    const docxSize: string | null =
+        resource.docxFile && typeof resource.docxFile === 'object'
+            ? (() => {
+                const bytes = (resource.docxFile as any).filesize ?? 0;
                 if (!bytes) return null;
                 if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
                 return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
@@ -175,6 +193,11 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
                                         <FileText className="w-3 h-3" /> PDF
                                     </span>
                                 )}
+                                {docxUrl && (
+                                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20">
+                                        <File className="w-3 h-3" /> DOCX
+                                    </span>
+                                )}
                                 {embedUrl && (
                                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20">
                                         <Play className="w-3 h-3 fill-current" /> Video
@@ -206,6 +229,18 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
                                     >
                                         <Download className="w-4 h-4" />
                                         Download PDF{pdfSize ? ` (${pdfSize})` : ''}
+                                    </a>
+                                )}
+                                {docxUrl && (
+                                    <a
+                                        href={docxUrl}
+                                        download={docxFilename}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#1d4ed8] hover:to-[#2563eb] text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-0.5"
+                                    >
+                                        <Download className="w-4 h-4" />
+                                        Download DOCX{docxSize ? ` (${docxSize})` : ''}
                                     </a>
                                 )}
                                 {resource.externalLink && (

@@ -1,6 +1,6 @@
 ﻿import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, PhoneCall } from 'lucide-react';
 import { ContactFormClient } from './ContactFormClient';
 
 export const metadata = {
@@ -40,27 +40,30 @@ export default async function ContactPage() {
                             </div>
                             <div>
                                 <p className="text-sm font-bold text-slate-500 tracking-wider uppercase mb-1">Email</p>
-                                <p className="text-xl font-medium text-slate-900 dark:text-white">{contactInfo?.email || 'contact@kingsforth.net'}</p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-6">
-                            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 shadow-inner">
-                                <Phone className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
-                            </div>
-                            <div>
-                                <p className="text-sm font-bold text-slate-500 tracking-wider uppercase mb-1">Phone</p>
-                                <p className="text-xl font-medium text-slate-900 dark:text-white">{contactInfo?.phone || '+1 (555) 123-4567'}</p>
+                                <p className="text-xl font-medium text-slate-900 dark:text-white">{contactInfo?.email || 'info@kingsforth.net'}</p>
                             </div>
                         </div>
 
                         <div className="flex items-start gap-6">
-                            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 shadow-inner flex-shrink-0">
+                            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 shadow-inner shrink-0">
+                                <Phone className="w-6 h-6 text-cyan-600 dark:text-cyan-400" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-bold text-slate-500 tracking-wider uppercase mb-1">Phone</p>
+                                <p className="text-xl font-medium text-slate-900 dark:text-white">{contactInfo?.phone || '+880 1833-183436'}</p>
+                                {(contactInfo?.phone2 || (!contactInfo?.phone2 && !contactInfo?.phone)) && (
+                                    <p className="text-lg font-medium text-slate-600 dark:text-gray-400 mt-0.5">{contactInfo?.phone2 || '+880 1711-033237'}</p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="flex items-start gap-6">
+                            <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center border border-slate-200 dark:border-white/10 shadow-inner shrink-0">
                                 <MapPin className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                             </div>
                             <div>
                                 <p className="text-sm font-bold text-slate-500 tracking-wider uppercase mb-1">Location</p>
-                                <p className="text-xl font-medium text-slate-900 dark:text-white whitespace-pre-line">{contactInfo?.address || '1 Kingsforth Plaza, Tech District'}</p>
+                                <p className="text-xl font-medium text-slate-900 dark:text-white whitespace-pre-line">{contactInfo?.address || 'Floor: 5B, House: 1, Road: 23/A,\nGulshan 1, Dhaka-1212. Bangladesh.'}</p>
                             </div>
                         </div>
 

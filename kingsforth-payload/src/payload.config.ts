@@ -4,6 +4,7 @@ import sharp from 'sharp'
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 // Collections
 import { Users } from './collections/Users'
@@ -21,22 +22,33 @@ import { Leads } from './collections/Leads'
 import { Media } from './collections/Media'
 import { EmailCampaigns } from './collections/EmailCampaigns'
 import { PartnerLogos } from './collections/PartnerLogos'
-import { KnowledgeBase } from './collections/KnowledgeBase'
 import { Analytics } from './collections/Analytics'
 import { AuditLogs } from './collections/AuditLogs'
-import { Pages } from './collections/Pages'
 import { HowItWorksSteps } from './collections/HowItWorksSteps'
+import { ResourceSections } from './collections/ResourceSections'
 
 // Globals
 import { SiteSettings } from './globals/SiteSettings'
 import { AboutContent } from './globals/AboutContent'
 import { PricingConfig } from './globals/PricingConfig'
 
+// Auto-seed
+import { autoSeedAll } from './seed/auto-seed'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   sharp,
+
+  plugins: [
+    vercelBlobStorage({
+      enabled: !!process.env.BLOB_READ_WRITE_TOKEN,
+      collections: { media: true },
+      token: process.env.BLOB_READ_WRITE_TOKEN ?? '',
+    }),
+  ],
+
   admin: {
     user: Users.slug,
     meta: {
@@ -46,6 +58,9 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     components: {
+      providers: [
+        '@/components/admin/AdminTheme#AdminTheme'
+      ],
       afterNavLinks: [
         '@/components/admin/BackToWebsite#BackToWebsite'
       ]
@@ -58,7 +73,6 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
-    // Auto-push schema changes in dev — avoids interactive migration prompts
     push: process.env.NODE_ENV !== 'production',
   }),
 
@@ -66,43 +80,40 @@ export default buildConfig({
 
   cors: process.env.NEXT_PUBLIC_APP_URL && process.env.NODE_ENV === 'production'
     ? [process.env.NEXT_PUBLIC_APP_URL]
-    : ['http://localhost:3000', 'http://localhost:8005'],
+    : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:8005'],
 
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
 
   collections: [
-    // Core
-    Users,
-    Companies,
-    Media,
-
-    // CMS
+    // CONTENT — public-facing website content
     Services,
     Solutions,
     Resources,
-    ProductFeatures,
+    ResourceSections,
     FAQs,
     TeamMembers,
-    Pages,
     PartnerLogos,
-    KnowledgeBase,
+
+    // SETTINGS — page configuration
+    ProductFeatures,
     HowItWorksSteps,
 
-    // Business
+    // MEDIA
+    Media,
+
+    // CRM
+    Companies,
     Subscriptions,
     Invoices,
     Leads,
-    Analytics,
-
-    // Support
     SupportTickets,
 
-    // Marketing
+    // SYSTEM
+    Users,
+    Analytics,
     EmailCampaigns,
-
-    // System
     AuditLogs,
   ],
 
@@ -111,4 +122,8 @@ export default buildConfig({
     AboutContent,
     PricingConfig,
   ],
+
+  onInit: async (payload) => {
+    await autoSeedAll(payload);
+  },
 })

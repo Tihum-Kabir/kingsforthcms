@@ -2,17 +2,17 @@
 
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
-
-function escapeHtml(str: string): string {
-    return str
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
+import { headers } from 'next/headers';
+import { isRateLimited, getRateLimitKey } from '@/lib/rateLimiter';
+import { sendEmail, contactNotificationEmail } from '@/lib/email';
 
 export async function sendContactEmail(prevState: any, formData: FormData) {
+    const headersList = await headers();
+    const ip = headersList.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+    if (isRateLimited(getRateLimitKey('contact', ip), 5, 60_000)) {
+        return { success: false, message: 'Too many requests. Please wait a minute before trying again.' };
+    }
+
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const company = formData.get('company') as string;
@@ -38,36 +38,17 @@ export async function sendContactEmail(prevState: any, formData: FormData) {
             } as any,
         });
 
-        // Also send notification email via Resend
-        try {
-            await fetch('https://api.resend.com/emails', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
-                },
-                body: JSON.stringify({
-                    from: 'Kingsforth Contact <onboarding@resend.dev>',
-                    to: 'admin@kingsforth.net',
-                    subject: `New Contact Form Submission from ${name}`,
-                    html: `
-                        <div style="font-family: Arial, sans-serif; padding: 20px;">
-                            <h2>New Contact Form Submission</h2>
-                            <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-                            <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-                            <p><strong>Company:</strong> ${escapeHtml(company || 'N/A')}</p>
-                            <p><strong>Phone:</strong> ${escapeHtml(phone || 'N/A')}</p>
-                            <p><strong>Message:</strong></p>
-                            <p style="background: #f3f4f6; padding: 16px; border-radius: 8px;">${escapeHtml(message)}</p>
-                        </div>
-                    `
-                })
+        // Notify admin of new contact submission
+        const adminEmail = process.env.ADMIN_EMAIL || process.env.RESEND_FROM_EMAIL;
+        console.log(`\n📬 NEW CONTACT SUBMISSION: ${name} (${email})\n`);
+        if (adminEmail) {
+            await sendEmail({
+                to: adminEmail,
+                subject: `New Contact Enquiry from ${name}`,
+                html: contactNotificationEmail(name, email, company, phone, message),
+                replyTo: email,
             });
-        } catch (emailErr) {
-            console.error('Failed to send contact notification email:', emailErr);
         }
-
-        console.log(`\n📬 NEW CONTACT FORM SUBMISSION from ${name} (${email})\n`);
 
         return { success: true, message: 'Thank you! Your message has been sent successfully. We will get back to you shortly.' };
     } catch (err: any) {

@@ -2,7 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    maxLoginAttempts: 5,     // lock account after 5 failed attempts
+    lockTime: 15 * 60_000,   // locked for 15 minutes
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email', 'role', 'company'],

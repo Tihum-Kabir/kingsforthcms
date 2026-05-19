@@ -20,20 +20,39 @@ export const dynamic = 'force-dynamic'
 
 const getLayoutData = unstable_cache(
   async () => {
-    const payload = await getPayload({ config: configPromise })
-    const [servicesResult, solutionsResult, resourcesResult] = await Promise.all([
-      payload.find({ collection: 'services', limit: 10, sort: 'order' }).catch(() => ({ docs: [] as any[] })),
-      payload.find({ collection: 'solutions', limit: 10 }).catch(() => ({ docs: [] as any[] })),
-      payload.find({ collection: 'resources', limit: 6 }).catch(() => ({ docs: [] as any[] })),
-    ])
-    return {
-      services: servicesResult.docs,
-      solutions: solutionsResult.docs,
-      resources: resourcesResult.docs,
+    try {
+      const payload = await getPayload({ config: configPromise })
+      const [servicesResult, solutionsResult, resourcesResult] = await Promise.all([
+        payload.find({ collection: 'services', limit: 10, sort: 'title' }).catch(() => ({ docs: [] as any[] })),
+        payload.find({ collection: 'solutions', limit: 10 }).catch(() => ({ docs: [] as any[] })),
+        payload.find({ collection: 'resources', where: { featuredInNav: { equals: true }, isPublished: { equals: true } }, limit: 6 }).catch(() => ({ docs: [] as any[] })),
+      ])
+      return {
+        services: servicesResult.docs,
+        solutions: solutionsResult.docs,
+        resources: resourcesResult.docs,
+      }
+    } catch {
+      return { services: [] as any[], solutions: [] as any[], resources: [] as any[] }
     }
   },
   ['layout-nav-data'],
   { revalidate: 60 }
+)
+
+// Cache site settings — depth:1 resolves upload fields (logo, hero images) to URLs.
+// 30s TTL: fast updates after admin save without hitting DB every request.
+const getSiteSettings = unstable_cache(
+  async (): Promise<any> => {
+    try {
+      const payload = await getPayload({ config: configPromise })
+      return await payload.findGlobal({ slug: 'site-settings', depth: 1 })
+    } catch {
+      return null
+    }
+  },
+  ['site-settings'],
+  { revalidate: 30 }
 )
 
 export const metadata: Metadata = {
@@ -102,54 +121,50 @@ export const metadata: Metadata = {
 }
 
 async function getAuthUser(headers: Headers): Promise<any> {
-  const payload = await getPayload({ config: configPromise })
-  let user: any = null
   try {
-    const authRes = await payload.auth({ headers })
-    user = authRes?.user || null
-  } catch (err) {
-    console.error('Payload native auth error:', err)
-  }
-  if (!user) {
+    const payload = await getPayload({ config: configPromise })
+    let user: any = null
     try {
-      const { cookies } = await import('next/headers')
-      const cookieStore = await cookies()
-      const token = cookieStore.get('payload-token')?.value
-      if (token) {
-        const base64Url = token.split('.')[1]
-        if (base64Url) {
-          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-          const jsonPayload = Buffer.from(base64, 'base64').toString('utf-8')
-          const decoded = JSON.parse(jsonPayload)
-          const now = Math.floor(Date.now() / 1000)
-          if (decoded.id && decoded.collection === 'users' && (!decoded.exp || decoded.exp > now)) {
-            user = await payload.findByID({ collection: 'users', id: decoded.id })
+      const authRes = await payload.auth({ headers })
+      user = authRes?.user || null
+    } catch {
+      // Auth failure is non-fatal — unauthenticated session
+    }
+    if (!user) {
+      try {
+        const { cookies } = await import('next/headers')
+        const cookieStore = await cookies()
+        const token = cookieStore.get('payload-token')?.value
+        if (token) {
+          const base64Url = token.split('.')[1]
+          if (base64Url) {
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+            const jsonPayload = Buffer.from(base64, 'base64').toString('utf-8')
+            const decoded = JSON.parse(jsonPayload)
+            const now = Math.floor(Date.now() / 1000)
+            if (decoded.id && decoded.collection === 'users' && (!decoded.exp || decoded.exp > now)) {
+              user = await payload.findByID({ collection: 'users', id: decoded.id })
+            }
           }
         }
+      } catch {
+        // Token decode failure is non-fatal
       }
-    } catch (err) {
-      console.error('Manual token decode error:', err)
     }
+    return user
+  } catch {
+    return null
   }
-  return user
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const headers = await getHeaders()
 
-  const [{ services, solutions, resources }, user] = await Promise.all([
+  const [{ services, solutions, resources }, user, siteSettings] = await Promise.all([
     getLayoutData(),
     getAuthUser(headers),
+    getSiteSettings(),
   ])
-
-  // Fetch siteSettings fresh on every request (force-dynamic) with depth:1
-  // so that upload fields (siteLogo, heroImageDay, heroImageNight) are fully
-  // resolved to { url, ... } objects instead of bare IDs.
-  let siteSettings: any = null;
-  try {
-    const payload = await getPayload({ config: configPromise });
-    siteSettings = await payload.findGlobal({ slug: 'site-settings', depth: 1 });
-  } catch {}
 
   const llmLinks = (siteSettings?.llmLinks ?? []).filter((l: any) => l.enabled !== false);
   const llmSectionHeading = siteSettings?.llmSectionHeading ?? '';

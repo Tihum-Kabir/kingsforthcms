@@ -1,0 +1,342 @@
+/* ═══════════════════════════════════════════════
+   KINGSFORTH ADMIN — Custom Theme
+   Dark · Minimal · On-brand
+═══════════════════════════════════════════════ */
+
+/* ─── 1. Force dark color scheme ─── */
+:root {
+  color-scheme: dark;
+}
+
+/* ─── 2. Deep dark palette (overrides Payload's grey defaults) ─── */
+[data-theme="dark"],
+[data-theme="light"] {
+  --color-base-0:   4,  7, 20;
+  --color-base-50:  7, 12, 32;
+  --color-base-100: 12, 20, 48;
+  --color-base-150: 18, 28, 64;
+  --color-base-200: 26, 38, 84;
+  --color-base-250: 36, 52, 108;
+  --color-base-300: 64, 84, 136;
+  --color-base-400: 100, 124, 172;
+  --color-base-500: 144, 164, 208;
+  --color-base-600: 186, 202, 234;
+  --color-base-700: 212, 224, 246;
+  --color-base-800: 228, 237, 252;
+  --color-base-850: 236, 243, 254;
+  --color-base-900: 243, 248, 255;
+  --color-base-950: 249, 252, 255;
+  --color-base-1000: 255, 255, 255;
+
+  /* Cyan as primary action color */
+  --color-success-500: 34, 211, 238;
+  --color-error-500:   248, 113, 113;
+  --color-warning-500: 251, 191, 36;
+}
+
+/* ─── 3. Sidebar nav ─── */
+.nav {
+  background: rgb(4, 7, 20) !important;
+  border-right: 1px solid rgba(34, 211, 238, 0.08) !important;
+}
+
+/* Sidebar group labels */
+.nav__label {
+  color: rgba(34, 211, 238, 0.5) !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  padding-top: 20px !important;
+}
+
+/* Nav links */
+.nav__link {
+  border-radius: 8px !important;
+  margin: 1px 8px !important;
+  padding: 7px 12px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: rgb(144, 164, 208) !important;
+  transition: all 0.15s ease !important;
+}
+
+.nav__link:hover {
+  background: rgba(34, 211, 238, 0.06) !important;
+  color: rgb(212, 224, 246) !important;
+}
+
+/* Active nav item */
+.nav__link--active,
+.nav__link[aria-current="page"] {
+  background: rgba(34, 211, 238, 0.1) !important;
+  color: rgb(34, 211, 238) !important;
+  font-weight: 600 !important;
+}
+
+/* ─── 4. Top header bar ─── */
+.app-header {
+  background: rgb(4, 7, 20) !important;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.08) !important;
+}
+
+/* ─── 5. Main content area ─── */
+.render-custom-component + div,
+main.template-default,
+.template-default__wrap,
+.collection-list,
+.collection-edit,
+.dashboard {
+  background: rgb(7, 12, 32) !important;
+}
+
+/* ─── 6. Cards / panels ─── */
+.render-fields,
+.field-type,
+.collection-list__wrap,
+.list-header,
+.document-header {
+  background: transparent !important;
+}
+
+/* Field labels */
+.field-label,
+label {
+  color: rgb(186, 202, 234) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Field descriptions */
+.field-description {
+  color: rgb(100, 124, 172) !important;
+  font-size: 11.5px !important;
+}
+
+/* ─── 7. Inputs ─── */
+.text-input,
+.textarea-input,
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+textarea,
+select,
+.rs__control {
+  background: rgb(12, 20, 48) !important;
+  border-color: rgb(36, 52, 108) !important;
+  color: rgb(228, 237, 252) !important;
+  border-radius: 8px !important;
+  font-size: 13.5px !important;
+}
+
+.text-input:focus,
+textarea:focus,
+input:focus {
+  border-color: rgba(34, 211, 238, 0.4) !important;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08) !important;
+  outline: none !important;
+}
+
+/* ─── 8. Buttons ─── */
+
+/* Primary save button */
+.btn--style-primary {
+  background: rgba(34, 211, 238, 0.12) !important;
+  border: 1px solid rgba(34, 211, 238, 0.35) !important;
+  color: rgb(34, 211, 238) !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn--style-primary:hover {
+  background: rgba(34, 211, 238, 0.2) !important;
+  border-color: rgba(34, 211, 238, 0.55) !important;
+}
+
+/* Secondary buttons */
+.btn--style-secondary {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgb(186, 202, 234) !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+}
+
+.btn--style-secondary:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgb(228, 237, 252) !important;
+}
+
+/* Pill / icon buttons */
+.btn--style-pill {
+  border-radius: 999px !important;
+}
+
+/* Upload field action buttons — "Create New" / "Choose from existing" */
+.upload__actions .btn,
+.upload__relationship-wrap .btn,
+.file-details__actions .btn,
+[class*="upload"] .btn--style-pill,
+[class*="upload"] .btn--style-secondary {
+  background: rgba(34, 211, 238, 0.08) !important;
+  border: 1px solid rgba(34, 211, 238, 0.30) !important;
+  color: rgb(186, 202, 234) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 8px 16px !important;
+  letter-spacing: 0.02em !important;
+}
+
+[class*="upload"] .btn--style-pill:hover,
+[class*="upload"] .btn--style-secondary:hover,
+.upload__actions .btn:hover {
+  background: rgba(34, 211, 238, 0.16) !important;
+  border-color: rgba(34, 211, 238, 0.55) !important;
+  color: rgb(34, 211, 238) !important;
+}
+
+/* ─── 9. Table / list view ─── */
+.table {
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  border: 1px solid rgb(26, 38, 84) !important;
+}
+
+.table thead tr {
+  background: rgb(12, 20, 48) !important;
+  border-bottom: 1px solid rgb(26, 38, 84) !important;
+}
+
+.table th {
+  color: rgb(144, 164, 208) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid rgba(26, 38, 84, 0.6) !important;
+  transition: background 0.12s !important;
+}
+
+.table tbody tr:hover {
+  background: rgba(34, 211, 238, 0.03) !important;
+}
+
+.table td {
+  color: rgb(212, 224, 246) !important;
+  font-size: 13.5px !important;
+}
+
+/* ─── 10. Pill tags / badges ─── */
+.pill {
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* ─── 11. Breadcrumbs ─── */
+.step-nav__step a,
+.step-nav__step span {
+  color: rgb(100, 124, 172) !important;
+  font-size: 12px !important;
+}
+
+.step-nav__step--last span {
+  color: rgb(212, 224, 246) !important;
+}
+
+/* ─── 12. Toast / flash messages ─── */
+.payload-toast-container .toast {
+  border-radius: 10px !important;
+  border: 1px solid rgba(34, 211, 238, 0.2) !important;
+  background: rgb(12, 20, 48) !important;
+}
+
+/* ─── 13. Dashboard cards ─── */
+.dashboard__card-list a {
+  background: rgb(12, 20, 48) !important;
+  border: 1px solid rgb(26, 38, 84) !important;
+  border-radius: 12px !important;
+  transition: all 0.15s ease !important;
+}
+
+.dashboard__card-list a:hover {
+  border-color: rgba(34, 211, 238, 0.25) !important;
+  background: rgba(34, 211, 238, 0.04) !important;
+  transform: translateY(-1px) !important;
+}
+
+.dashboard__card-list h3 {
+  color: rgb(228, 237, 252) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+/* ─── 14. Scrollbars ─── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 211, 238, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(34, 211, 238, 0.2);
+  border-radius: 99px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.35);
+}
+
+/* ─── 15. Rich text editor ─── */
+.rich-text {
+  border: 1px solid rgb(36, 52, 108) !important;
+  border-radius: 8px !important;
+  background: rgb(12, 20, 48) !important;
+}
+
+/* ─── 16. Checkbox / toggle ─── */
+.checkbox-input__input:checked + .checkbox-input__styled-checkbox {
+  background: rgb(34, 211, 238) !important;
+  border-color: rgb(34, 211, 238) !important;
+}
+
+/* ─── 17. Relationship / select dropdowns ─── */
+.rs__menu {
+  background: rgb(12, 20, 48) !important;
+  border: 1px solid rgb(36, 52, 108) !important;
+  border-radius: 10px !important;
+}
+
+.rs__option--is-focused {
+  background: rgba(34, 211, 238, 0.08) !important;
+}
+
+.rs__option--is-selected {
+  background: rgba(34, 211, 238, 0.15) !important;
+  color: rgb(34, 211, 238) !important;
+}
+
+/* ─── 18. Popup / drawer overlays ─── */
+.popup__content,
+.drawer__content {
+  background: rgb(7, 12, 32) !important;
+  border: 1px solid rgb(26, 38, 84) !important;
+  border-radius: 12px !important;
+}

@@ -50,7 +50,7 @@ export const PricingConfig: GlobalConfig = {
                 {
                     name: 'monthlyPrice',
                     type: 'number',
-                    admin: { description: 'Base monthly price in USD. Set to 0 for custom/enterprise pricing.' },
+                    admin: { description: 'Base monthly price in BDT (৳). Set to 0 for custom/enterprise pricing.' },
                 },
                 {
                     name: 'isCustomPrice',
@@ -59,16 +59,10 @@ export const PricingConfig: GlobalConfig = {
                     admin: { description: 'If checked, shows "Contact Sales" instead of a price' },
                 },
                 {
-                    name: 'semiAnnualDiscount',
-                    type: 'number',
-                    defaultValue: 10,
-                    admin: { description: 'Percentage discount for 6-month billing (e.g. 10 = 10% off)' },
-                },
-                {
                     name: 'annualDiscount',
                     type: 'number',
                     defaultValue: 20,
-                    admin: { description: 'Percentage discount for annual billing (e.g. 20 = 20% off)' },
+                    admin: { description: 'Percentage discount for annual billing (e.g. 20 = 20% off monthly price)' },
                 },
                 {
                     name: 'isPopular',
@@ -84,7 +78,7 @@ export const PricingConfig: GlobalConfig = {
                 {
                     name: 'ctaLabel',
                     type: 'text',
-                    defaultValue: 'Get Started',
+                    defaultValue: 'Select Plan',
                 },
                 {
                     name: 'ctaLink',
@@ -122,7 +116,7 @@ export const PricingConfig: GlobalConfig = {
             type: 'array',
             label: 'Service Add-Ons',
             admin: {
-                description: 'AI module add-ons available to bundle with any base plan. Enter the service slug exactly as it appears in the Services collection.',
+                description: 'AI module add-ons available to bundle with any base plan.',
             },
             fields: [
                 {
@@ -141,7 +135,12 @@ export const PricingConfig: GlobalConfig = {
                     name: 'monthlyAddOnPrice',
                     type: 'number',
                     required: true,
-                    admin: { description: 'Monthly add-on price when bundled with a base plan' },
+                    admin: { description: 'Monthly add-on price in BDT (৳)' },
+                },
+                {
+                    name: 'annualAddOnPrice',
+                    type: 'number',
+                    admin: { description: 'Annual add-on price in BDT (৳) per month when billed annually. Leave blank to auto-apply 20% off monthly price.' },
                 },
                 {
                     name: 'description',
@@ -154,7 +153,7 @@ export const PricingConfig: GlobalConfig = {
             name: 'billingNote',
             type: 'textarea',
             admin: { description: 'Small print shown below pricing, e.g. VAT information or cancellation policy.' },
-            defaultValue: 'Prices shown exclude applicable taxes. All plans include a 14-day free trial. Cancel anytime.',
+            defaultValue: 'Prices shown in BDT and exclude applicable taxes. All plans include a 14-day free trial. Cancel anytime.',
         },
     ],
 }

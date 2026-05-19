@@ -35,6 +35,7 @@ interface DetailPageProps {
     extraSections?: React.ReactNode;
     ctaTitle?: string;
     ctaSubtitle?: string;
+    showHeroActions?: boolean;
 }
 
 export function DetailPageLayout({
@@ -46,6 +47,7 @@ export function DetailPageLayout({
     description, features,
     extraSections,
     ctaTitle, ctaSubtitle,
+    showHeroActions = true,
 }: DetailPageProps) {
     const accent = accentColor === 'violet'
         ? { bg: 'bg-violet-50 dark:bg-violet-500/10', border: 'border-violet-100 dark:border-violet-500/20', text: 'text-violet-600 dark:text-violet-400' }
@@ -91,16 +93,18 @@ export function DetailPageLayout({
                                 {subtitle}
                             </p>
                         )}
-                        <div className="flex flex-wrap items-center gap-4">
-                            <Link href="/contact"
-                                className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#111827] dark:bg-white text-white dark:text-black font-bold rounded-full shadow-lg hover:scale-[1.02] transition-all duration-300">
-                                <PhoneCall className="w-4 h-4" /> Book a Demo
-                            </Link>
-                            <Link href="#capabilities"
-                                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                                Explore Capabilities <ArrowRight className="w-4 h-4" />
-                            </Link>
-                        </div>
+                        {showHeroActions && (
+                            <div className="flex flex-wrap items-center gap-4">
+                                <Link href="/contact"
+                                    className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#111827] dark:bg-white text-white dark:text-black font-bold rounded-full shadow-lg hover:scale-[1.02] transition-all duration-300">
+                                    <PhoneCall className="w-4 h-4" /> Book a Demo
+                                </Link>
+                                <Link href="#capabilities"
+                                    className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+                                    Explore Capabilities <ArrowRight className="w-4 h-4" />
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

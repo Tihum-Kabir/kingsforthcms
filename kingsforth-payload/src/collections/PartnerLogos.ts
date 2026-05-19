@@ -5,7 +5,7 @@ export const PartnerLogos: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'displayOrder', 'isActive'],
-    group: 'WEBSITE',
+    group: 'CONTENT',
     description: 'Manage partner and trusted-by logos shown in the homepage infinite scroll.',
   },
   fields: [

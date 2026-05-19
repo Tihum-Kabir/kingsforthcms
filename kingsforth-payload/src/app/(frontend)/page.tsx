@@ -8,32 +8,38 @@ import { FinalCTA } from "@/components/marketing/FinalCTA";
 
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
+import { unstable_cache } from 'next/cache';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+
+const getHomePageData = unstable_cache(
+  async () => {
+    let siteSettings: any = null;
+    let partnerLogos: any[] = [];
+    try {
+      const payload = await getPayload({ config: configPromise });
+      try {
+        siteSettings = await payload.findGlobal({ slug: 'site-settings', depth: 2 });
+      } catch {}
+      try {
+        const logosResult = await payload.find({
+          collection: 'partner-logos',
+          where: { isActive: { equals: true } },
+          sort: 'displayOrder',
+          limit: 20,
+          depth: 1,
+        });
+        partnerLogos = logosResult.docs || [];
+      } catch {}
+    } catch {}
+    return { siteSettings, partnerLogos };
+  },
+  ['home-page-data'],
+  { revalidate: 30 }
+);
 
 export default async function Home() {
-  let siteSettings: any = null;
-  let partnerLogos: any[] = [];
-  let howItWorksSteps: any[] = [];
-
-  try {
-    const payload = await getPayload({ config: configPromise });
-
-    try {
-      siteSettings = await payload.findGlobal({ slug: 'site-settings', depth: 2 });
-    } catch {}
-
-    try {
-      const logosResult = await payload.find({
-        collection: 'partner-logos',
-        where: { isActive: { equals: true } },
-        sort: 'displayOrder',
-        limit: 20,
-        depth: 1,
-      });
-      partnerLogos = logosResult.docs || [];
-    } catch {}
-  } catch {}
+  const { siteSettings, partnerLogos } = await getHomePageData();
 
 
   // Extract hero settings from site settings
@@ -62,8 +68,7 @@ export default async function Home() {
 
   return (
     <main>
-      <Hero 
-        socialLinks={siteSettings?.socialLinks} 
+      <Hero
         partnerLogos={partnerLogos}
         heroSettings={heroSettings}
         logoScrollSettings={logoScrollSettings}

@@ -2,7 +2,9 @@
 import configPromise from '@payload-config'
 import Link from 'next/link';
 import { ArrowRight, Database, Eye, Cpu, Bot, Network, TrendingUp, Shield, Users, Mic, Search, CalendarCheck, Brain, ShieldAlert, Smile, Siren } from 'lucide-react';
-import { MeshParticles } from '@/components/ui/MeshParticles';
+import { SERVICES_DATA } from '@/data/services-data';
+
+export const revalidate = 300;
 
 const iconMap: any = {
     database: Database, eye: Eye, cpu: Cpu, bot: Bot, network: Network,
@@ -23,7 +25,21 @@ const COLOR_PALETTES = [
 
 export const metadata = {
     title: 'Services | Kingsforth',
-    description: "Explore Kingsforth's comprehensive suite of AI-driven security and intelligence services.",
+    description: "Explore Kingsforth's comprehensive suite of AI-driven security and intelligence services including cognitive surveillance, big data forensics, IoT orchestration, and autonomous field operations.",
+    openGraph: {
+        title: 'AI Security Services | Kingsforth',
+        description: "Explore Kingsforth's AI-driven security services: cognitive surveillance, big data forensics, IoT orchestration, and more.",
+        url: 'https://kingsforth.net/services',
+        siteName: 'Kingsforth',
+        images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Kingsforth Services' }],
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'AI Security Services | Kingsforth',
+        description: "Cognitive surveillance, big data forensics, IoT orchestration and more from Kingsforth.",
+        images: ['/og-image.jpg'],
+    },
 };
 
 export default async function ServicesPage() {
@@ -46,6 +62,21 @@ export default async function ServicesPage() {
         } catch { }
     } catch { }
 
+    // Static fallback — pages always show content even if DB is empty
+    if (services.length === 0) {
+        services = SERVICES_DATA.map((svc) => ({
+            id: svc.slug,
+            slug: svc.slug,
+            title: svc.title,
+            subtitle: svc.subtitle,
+            description: null,
+            colorTheme: svc.colorTheme,
+            icon: svc.iconName,
+            features: svc.features,
+            isPublished: true,
+        }));
+    }
+
     const pageHero = siteSettings?.pageHeroes?.find((ph: any) => ph.pageSlug === 'services');
     const rawHeadline: string = pageHero?.headline || 'Deployable Assets';
     const parts = rawHeadline.trim().split(' ');
@@ -58,14 +89,6 @@ export default async function ServicesPage() {
 
             {/* ── HERO ─────────────────────────────────────────────────── */}
             <section className="relative flex flex-col items-center justify-center pt-40 pb-24 px-6 text-center overflow-hidden">
-                {/* Particle mesh — ultra lightweight */}
-                <MeshParticles
-                    count={38}
-                    linkDist={130}
-                    color="#22d3ee"
-                    className="opacity-30 dark:opacity-20"
-                />
-
                 {/* Ambient blobs */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-cyan-500/10 dark:bg-cyan-500/8 rounded-full blur-[120px] pointer-events-none" />
                 <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-violet-500/8 dark:bg-violet-500/6 rounded-full blur-[100px] pointer-events-none" />

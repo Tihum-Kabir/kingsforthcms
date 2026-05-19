@@ -76,7 +76,7 @@ export function ContactFormClient() {
                         name="phone"
                         type="tel"
                         className="w-full bg-white dark:bg-black/50 border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-violet-500 outline-none transition-colors duration-700"
-                        placeholder="+1 (555) 000-0000"
+                        placeholder="+880 1XXX-XXXXXX"
                     />
                 </div>
             </div>

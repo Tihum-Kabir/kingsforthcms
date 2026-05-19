@@ -683,3 +683,18 @@ html, body {
   scrollbar-width: thin;
   scrollbar-color: rgba(34, 211, 238, 0.25) transparent;
 }
+
+/* Resource card — decorative radial gradient overlay on fallback thumbnail */
+.resource-card-bg-overlay {
+  background-image:
+    radial-gradient(circle at 30% 50%, rgba(255,255,255,0.03) 0%, transparent 60%),
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.02) 0%, transparent 50%);
+}
+
+/* Service detail page — decorative grid overlay */
+.service-grid-lines {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}

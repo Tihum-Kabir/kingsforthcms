@@ -1,5 +1,13 @@
 const attempts = new Map<string, { count: number; resetAt: number }>();
 
+// Prune expired entries every 10 minutes to prevent unbounded memory growth
+setInterval(() => {
+    const now = Date.now();
+    for (const [key, entry] of attempts) {
+        if (now > entry.resetAt) attempts.delete(key);
+    }
+}, 10 * 60_000).unref();
+
 /** Returns true if the key has exceeded maxAttempts within windowMs. */
 export function isRateLimited(key: string, maxAttempts = 10, windowMs = 60_000): boolean {
     const now = Date.now();
