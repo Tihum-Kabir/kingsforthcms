@@ -25,7 +25,7 @@ export function HowItWorksClient({ steps, settings }: HowItWorksClientProps) {
 
     return (
         <section id="features" className="relative py-24 sm:py-32 overflow-hidden transition-colors duration-500">
-            <div className="-z-10 absolute inset-0 bg-gradient-to-b from-white/[.87] to-white/[.92] dark:from-[#030915]/[.87] dark:to-[#030915]/[.92] backdrop-blur-xl" />
+            <div className="-z-10 absolute inset-0 bg-linear-to-b from-white/87 to-white/92 dark:from-[#030915]/87 dark:to-[#030915]/92" />
             <div className="relative max-w-350 mx-auto px-4 sm:px-8">
                 {/* Section Header */}
                 <motion.div
@@ -157,9 +157,9 @@ function StepIllustration({ index, icon: Icon, color }: { index: number; icon: a
         const nodes = [[50, 20], [20, 55], [80, 55], [35, 82], [65, 82]];
         const edges = [[0,1],[0,2],[1,3],[1,4],[2,3],[2,4]];
         return (
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-violet-50/20 dark:from-[#07060f] dark:to-[#050412] overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-slate-50 to-violet-50/20 dark:from-[#07060f] dark:to-[#050412] overflow-hidden">
                 <div className="absolute inset-0 opacity-10 dark:opacity-8" style={{ backgroundImage: 'linear-gradient(rgba(139,92,246,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.2) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
-                <svg width="220" height="160" viewBox="0 0 100 100" className="relative z-10">
+                <svg width="220" height="160" viewBox="0 0 100 100" className="relative z-10" aria-hidden>
                     {edges.map(([a, b], i) => (
                         <motion.line
                             key={i}
@@ -175,6 +175,8 @@ function StepIllustration({ index, icon: Icon, color }: { index: number; icon: a
                     {edges.slice(0, 3).map(([a, b], i) => (
                         <motion.circle
                             key={`p${i}`}
+                            cx={nodes[a][0]}
+                            cy={nodes[a][1]}
                             r="1.5"
                             fill="#a78bfa"
                             filter="url(#glow)"
@@ -211,8 +213,8 @@ function StepIllustration({ index, icon: Icon, color }: { index: number; icon: a
 
     // type === 2: Shield / action
     return (
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-emerald-50/20 dark:from-[#040e0a] dark:to-[#030a07] overflow-hidden">
-            <div className="absolute inset-0 opacity-8 dark:opacity-8" style={{ backgroundImage: 'radial-gradient(circle, rgba(52,211,153,0.2) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+        <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-slate-50 to-emerald-50/20 dark:from-[#040e0a] dark:to-[#030a07] overflow-hidden">
+            <div className="absolute inset-0 opacity-8 dark:opacity-8 bg-[radial-gradient(circle,rgba(52,211,153,0.2)_1px,transparent_1px)] bg-size-[20px_20px]" />
             <div className="relative flex items-center justify-center w-40 h-40">
                 {/* Expanding shield glow */}
                 <motion.div
@@ -289,12 +291,12 @@ function ProcessStep({ number, icon: Icon, title, description, color, index, del
         >
             {/* Content */}
             <div className={`${isEven ? 'lg:text-right lg:pr-16' : 'lg:col-start-2 lg:pl-16'} z-10`}>
-                <div className={`relative inline-block bg-white/60 dark:bg-white/[0.04] backdrop-blur-xl p-8 rounded-2xl border border-white/80 dark:border-white/10 shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] ${isEven ? 'lg:float-right' : ''}`}>
+                <div className={`relative inline-block bg-white/60 dark:bg-white/4 p-8 rounded-2xl border border-white/80 dark:border-white/10 shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] ${isEven ? 'lg:float-right' : ''}`}>
                     <div className="flex items-center gap-5 mb-5">
-                        <div className={`w-16 h-16 bg-gradient-to-br ${color} rounded-xl flex items-center justify-center shadow-lg`}>
+                        <div className={`w-16 h-16 bg-linear-to-br ${color} rounded-xl flex items-center justify-center shadow-lg`}>
                             <Icon className="w-8 h-8 text-white" strokeWidth={2} />
                         </div>
-                        <div className={`text-5xl font-extrabold bg-gradient-to-br ${color} bg-clip-text text-transparent`}>
+                        <div className={`text-5xl font-extrabold bg-linear-to-br ${color} bg-clip-text text-transparent`}>
                             {number}
                         </div>
                     </div>
@@ -307,7 +309,7 @@ function ProcessStep({ number, icon: Icon, title, description, color, index, del
 
             {/* Visual */}
             <div className={`${isEven ? 'lg:col-start-2' : 'lg:col-start-1 lg:row-start-1'}`}>
-                <div className="aspect-video bg-[#f3f4f6] dark:bg-gradient-to-br dark:from-[#111] dark:to-[#1a1a1a] rounded-2xl overflow-hidden border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm">
+                <div className="aspect-video bg-[#f3f4f6] dark:bg-linear-to-br dark:from-[#111] dark:to-[#1a1a1a] rounded-2xl overflow-hidden border border-[#e5e7eb] dark:border-white/6 shadow-sm">
                     <div className="h-full w-full relative group">
                         {mediaUrl ? (
                             mediaType === 'video' ? (
@@ -325,7 +327,7 @@ function ProcessStep({ number, icon: Icon, title, description, color, index, del
 
             {/* Center Node */}
             <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className={`w-4 h-4 bg-gradient-to-br ${color} rounded-full shadow-lg`} />
+                <div className={`w-4 h-4 bg-linear-to-br ${color} rounded-full shadow-lg`} />
             </div>
         </motion.div>
     );

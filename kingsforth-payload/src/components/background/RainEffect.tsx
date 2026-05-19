@@ -32,7 +32,7 @@ export function RainEffect() {
         resize();
         window.addEventListener('resize', resize, { passive: true });
 
-        const COUNT = window.innerWidth < 768 ? 50 : 100;
+        const COUNT = window.innerWidth < 768 ? 30 : 60;
 
         const drops: Drop[] = Array.from({ length: COUNT }, () => ({
             x:       Math.random() * window.innerWidth,
@@ -54,34 +54,21 @@ export function RainEffect() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const dark = document.documentElement.classList.contains('dark');
 
+            // Set shared state once — no per-drop save/restore or gradient alloc
+            ctx.lineCap = 'round';
+
             for (const d of drops) {
                 const dx = d.len * WIND;
                 const dy = d.len;
 
-                ctx.save();
                 ctx.beginPath();
-
-                if (dark) {
-                    const grad = ctx.createLinearGradient(d.x, d.y, d.x + dx, d.y + dy);
-                    grad.addColorStop(0, `rgba(120, 210, 255, 0)`);
-                    grad.addColorStop(0.4, `rgba(120, 210, 255, ${d.opacity * 0.5})`);
-                    grad.addColorStop(1, `rgba(180, 235, 255, ${d.opacity})`);
-                    ctx.strokeStyle = grad;
-                } else {
-                    // Light mode: charcoal-navy drops — high contrast against light anime sky
-                    const grad = ctx.createLinearGradient(d.x, d.y, d.x + dx, d.y + dy);
-                    grad.addColorStop(0, `rgba(20, 30, 70, 0)`);
-                    grad.addColorStop(0.3, `rgba(30, 45, 100, ${d.opacity * 0.7})`);
-                    grad.addColorStop(1, `rgba(50, 65, 140, ${d.opacity})`);
-                    ctx.strokeStyle = grad;
-                }
-
-                ctx.lineWidth = d.width;
-                ctx.lineCap  = 'round';
+                ctx.lineWidth  = d.width;
+                ctx.strokeStyle = dark
+                    ? `rgba(160, 220, 255, ${d.opacity})`
+                    : `rgba(40, 55, 120, ${d.opacity})`;
                 ctx.moveTo(d.x, d.y);
                 ctx.lineTo(d.x + dx, d.y + dy);
                 ctx.stroke();
-                ctx.restore();
 
                 d.y += d.speed;
                 d.x += d.speed * WIND;
