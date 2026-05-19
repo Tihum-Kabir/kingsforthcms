@@ -53,7 +53,7 @@ export function CoreCapabilitiesClient({ capabilities, settings }: CoreCapabilit
 
     return (
         <section className="relative py-20 md:py-28 overflow-hidden transition-colors duration-500">
-            <div className="-z-10 absolute inset-0 bg-gradient-to-b from-white/[.92] to-white/[.96] dark:from-[#030915]/[.92] dark:to-[#030915]/[.96] backdrop-blur-xl" />
+            <div className="-z-10 absolute inset-0 bg-linear-to-b from-white/92 to-white/96 dark:from-[#030915]/92 dark:to-[#030915]/96" />
             <div className="relative max-w-350 mx-auto px-4 sm:px-8">
                 {/* Section Header */}
                 <motion.div
@@ -108,7 +108,7 @@ function CapabilityCard({ iconName, title, description, href, gradient, mediaUrl
             className="h-full"
         >
             <Link href={href} className="block h-full">
-                <div className="group relative h-full bg-white/60 dark:bg-white/[0.04] backdrop-blur-xl overflow-hidden border border-white/80 dark:border-white/10 rounded-2xl hover:border-blue-400/60 dark:hover:border-[#22d3ee]/30 shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300 min-h-[300px]">
+                <div className="group relative h-full bg-white/60 dark:bg-white/4 overflow-hidden border border-white/80 dark:border-white/10 rounded-2xl hover:border-blue-400/60 dark:hover:border-[#22d3ee]/30 shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300 min-h-75">
                     
                     {/* Media Background Overlay */}
                     {mediaUrl && (

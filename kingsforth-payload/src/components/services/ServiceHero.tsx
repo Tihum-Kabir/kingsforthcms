@@ -32,12 +32,8 @@ export function ServiceHero({ service }: { service: any }) {
         <section className="relative pt-32 pb-32 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-[70vh] flex items-center">
             {/* Background Grid & Mesh */}
             <div className="absolute inset-0">
-                {/* Abstract animated mesh gradient - BRIGHTER */}
-                <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-violet-600/40 rounded-full blur-[120px] mix-blend-screen animate-pulse" />
-                <div className="absolute top-[10%] right-[-10%] w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-[100px]" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[100px]" />
-
-                {/* Subtle grid overlay */}
+                <div className="hidden sm:block absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-violet-600/20 rounded-full blur-[80px] animate-pulse will-change-[opacity]" />
+                <div className="hidden sm:block absolute top-1/4 right-0 w-80 h-80 bg-cyan-500/12 rounded-full blur-[80px]" />
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.05]" />
             </div>
 
@@ -54,7 +50,7 @@ export function ServiceHero({ service }: { service: any }) {
 
                     {/* Service title - Modern Gradient Text */}
                     <h1 className="text-6xl md:text-8xl font-semibold tracking-tighter leading-[0.95]">
-                        <span className="bg-gradient-to-b from-white via-white/90 to-white/60 bg-clip-text text-transparent drop-shadow-sm">
+                        <span className="bg-linear-to-b from-white via-white/90 to-white/60 bg-clip-text text-transparent drop-shadow-sm">
                             {service.title}
                         </span>
                     </h1>
@@ -70,7 +66,7 @@ export function ServiceHero({ service }: { service: any }) {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
                         <Link
                             href="/contact"
-                            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#6ac4f1] to-[#3a9fd0] hover:from-[#5ab3e0] hover:to-[#2a8fb0] border border-[#a2dcf7]/30 backdrop-blur-xl rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_-5px_rgba(106,196,241,0.6)]"
+                            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-linear-to-r from-[#6ac4f1] to-[#3a9fd0] hover:from-[#5ab3e0] hover:to-[#2a8fb0] border border-[#a2dcf7]/30 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_-5px_rgba(106,196,241,0.6)]"
                         >
                             <span className="text-black font-bold text-lg tracking-tight">Get Started</span>
                             <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:bg-black/20 transition-colors">
@@ -90,7 +86,7 @@ export function ServiceHero({ service }: { service: any }) {
                     {embedUrl && (
                         <div className="w-full max-w-4xl mx-auto mt-16 perspective-[1000px] group">
                             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)] border border-white/10 bg-slate-900/50 backdrop-blur-sm group-hover:shadow-[0_20px_50px_-12px_rgba(124,58,237,0.2)] transition-all duration-500">
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-10" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent pointer-events-none z-10" />
                                 <iframe
                                     width="100%"
                                     height="100%"
@@ -101,11 +97,11 @@ export function ServiceHero({ service }: { service: any }) {
                                     className="w-full h-full"
                                 />
                             </div>
-                            <Link href="/contact" className="px-8 py-4 bg-gradient-to-r from-[#6ac4f1] to-[#3a9fd0] hover:from-[#5ab3e0] hover:to-[#2a8fb0] text-black font-bold rounded-full transition-all duration-300 shadow-[0_0_30px_-5px_rgba(106,196,241,0.5)] hover:scale-105 border border-[#a2dcf7]/30 flex items-center justify-center gap-2 mt-8">
+                            <Link href="/contact" className="px-8 py-4 bg-linear-to-r from-[#6ac4f1] to-[#3a9fd0] hover:from-[#5ab3e0] hover:to-[#2a8fb0] text-black font-bold rounded-full transition-all duration-300 shadow-[0_0_30px_-5px_rgba(106,196,241,0.5)] hover:scale-105 border border-[#a2dcf7]/30 flex items-center justify-center gap-2 mt-8">
                                 Book a Demo <ArrowRight className="w-4 h-4" />
                             </Link>
                             {/* Decorative elements behind video */}
-                            <div className="absolute -inset-1 bg-gradient-to-r from-violet-600/30 to-cyan-500/30 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 -z-10" />
+                            <div className="absolute -inset-1 bg-linear-to-r from-violet-600/30 to-cyan-500/30 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 -z-10" />
                         </div>
                     )}
                 </div>

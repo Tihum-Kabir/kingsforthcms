@@ -18,8 +18,8 @@ export function ServiceCTA({ service, user }: { service: Service, user?: any }) 
                 <div className="relative overflow-hidden rounded-[3rem] border border-white/10">
                     {/* Background Aurora */}
                     <div className="absolute inset-0 bg-slate-950">
-                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-violet-600/20 rounded-full blur-[120px] mix-blend-screen" />
-                        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[100px] mix-blend-screen" />
+                        <div className="hidden sm:block absolute top-0 right-0 w-80 h-80 bg-violet-600/18 rounded-full blur-[80px]" />
+                        <div className="hidden sm:block absolute bottom-0 left-0 w-80 h-80 bg-cyan-600/10 rounded-full blur-[80px]" />
                     </div>
 
                     {/* Content */}

@@ -11,7 +11,7 @@ export function ParadigmShift({ settings }: { settings?: any }) {
 
     return (
         <section className="relative py-20 sm:py-28 overflow-visible transition-colors duration-500">
-            <div className="absolute inset-0 -z-10 paradigm-bg bg-gradient-to-b from-white/[.01] via-white/20 to-white/50 dark:from-[#030915]/[.01] dark:via-[#030915]/20 dark:to-[#030915]/50 backdrop-blur-md sm:backdrop-blur-xl" />
+            <div className="absolute inset-0 -z-10 paradigm-bg bg-linear-to-b from-white/1 via-white/20 to-white/50 dark:from-[#030915]/1 dark:via-[#030915]/20 dark:to-[#030915]/50" />
 
             {/* Header */}
             <div className="relative flex flex-col items-center justify-center pb-12 px-4 sm:px-6 z-10 w-full">

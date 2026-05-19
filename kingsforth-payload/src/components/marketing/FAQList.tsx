@@ -12,7 +12,7 @@ export function FAQList({ faqs }: { faqs: any[] }) {
             {faqs.map((faq, index) => (
                 <div
                     key={faq.id}
-                    className={`group rounded-2xl border backdrop-blur-xl transition-all duration-300 ${openIndex === index
+                    className={`group rounded-2xl border transition-all duration-300 ${openIndex === index
                         ? 'bg-white/40 dark:bg-white/10 border-blue-400/40 dark:border-cyan-500/30 shadow-lg shadow-blue-500/5'
                         : 'bg-white/20 dark:bg-white/[0.03] border-white/80 dark:border-white/10 hover:border-blue-400/60 dark:hover:border-white/20'
                         }`}

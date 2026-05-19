@@ -58,9 +58,8 @@ export function ServiceFeatures({ service }: { service: any }) {
 
     return (
         <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 relative">
-            {/* Background Elements */}
-            <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[100px]" />
+            <div className="hidden sm:block absolute top-1/2 left-1/4 w-72 h-72 bg-violet-600/10 rounded-full blur-[80px]" />
+            <div className="hidden sm:block absolute bottom-0 right-1/4 w-72 h-72 bg-cyan-600/10 rounded-full blur-[80px]" />
 
             <div className="max-w-350 mx-auto relative z-10">
                 {/* Section header */}
@@ -90,7 +89,7 @@ export function ServiceFeatures({ service }: { service: any }) {
                             <motion.div
                                 key={index}
                                 variants={item}
-                                className={`group relative p-1 rounded-[2.5rem] bg-gradient-to-b from-white/10 to-white/5 hover:from-cyan-500/40 hover:to-violet-600/40 transition-all duration-500 backdrop-blur-xl`}
+                                className={`group relative p-1 rounded-[2.5rem] bg-linear-to-b from-white/10 to-white/5 hover:from-cyan-500/40 hover:to-violet-600/40 transition-all duration-500`}
                             >
                                 {/* Persistent Glow Behind */}
                                 <div className={`absolute -inset-4 bg-gradient-to-r ${borderClass.replace('border-', 'from-').replace('/30', '/20')} to-transparent rounded-[3rem] opacity-20 group-hover:opacity-40 blur-2xl transition-opacity duration-500`} />

@@ -32,7 +32,7 @@ export function ProductShowcaseClient({ features, settings }: { features: Produc
 
     return (
         <section className="relative py-24 sm:py-32 overflow-hidden transition-colors duration-500">
-            <div className="-z-10 absolute inset-0 bg-gradient-to-b from-white/[.50] to-white/[.85] dark:from-[#030915]/[.50] dark:to-[#030915]/[.85] backdrop-blur-xl" />
+            <div className="-z-10 absolute inset-0 bg-linear-to-b from-white/50 to-white/85 dark:from-[#030915]/50 dark:to-[#030915]/85" />
             <div className="relative max-w-350 mx-auto px-4 sm:px-8">
                 {/* Section Header */}
                 <motion.div
@@ -219,7 +219,7 @@ function FeatureBlock({ icon: Icon, title, description, features, imagePosition,
         >
             <div className={`grid md:grid-cols-2 gap-10 items-center ${imagePosition === 'right' ? 'md:flex-row-reverse' : ''}`}>
                 {/* Text Content */}
-                <div className={`${imagePosition === 'right' ? 'md:order-2' : ''} bg-white/60 dark:bg-white/[0.04] backdrop-blur-xl p-8 sm:p-10 rounded-2xl border border-white/80 dark:border-white/10 shadow-xl hover:shadow-2xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:border-blue-400/60 dark:hover:border-cyan-500/30 transition-all duration-500 flex flex-col justify-center h-full`}>
+                <div className={`${imagePosition === 'right' ? 'md:order-2' : ''} bg-white/60 dark:bg-white/4 p-8 sm:p-10 rounded-2xl border border-white/80 dark:border-white/10 shadow-xl hover:shadow-2xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:border-blue-400/60 dark:hover:border-cyan-500/30 transition-all duration-500 flex flex-col justify-center h-full`}>
                     <div className="flex items-center gap-4 mb-6">
                         <div className="w-14 h-14 bg-cyan-50 dark:bg-custom-gradient dark:from-cyan-500/10 dark:to-blue-500/10 rounded-xl flex items-center justify-center border border-cyan-100 dark:border-cyan-500/20 group-hover:scale-110 transition-transform duration-500">
                             <Icon className="w-7 h-7 text-[#2563eb] dark:text-cyan-400" />

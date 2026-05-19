@@ -71,7 +71,7 @@ export function DetailPageLayout({
 
             {/* ── HERO CARD ─────────────────────────────────────────── */}
             <section className="max-w-350 mx-auto px-6 mb-8">
-                <div className="relative bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-2xl rounded-3xl border border-slate-200/80 dark:border-white/[0.07] overflow-hidden shadow-lg dark:shadow-none">
+                <div className="relative bg-white/90 dark:bg-[#0a0a0a]/90 rounded-3xl border border-slate-200/80 dark:border-white/7 overflow-hidden shadow-lg dark:shadow-none">
                     {heroImageUrl && (
                         <div className="w-full aspect-[21/9] relative overflow-hidden">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -139,7 +139,7 @@ export function DetailPageLayout({
             {/* ── DESCRIPTION ───────────────────────────────────────── */}
             {hasDescription && (
                 <section className="max-w-5xl mx-auto px-6 mb-16">
-                    <div className="bg-white/90 dark:bg-[#0a0a0a]/80 backdrop-blur-xl rounded-3xl border border-slate-200/80 dark:border-white/[0.07] p-10 md:p-14 shadow-sm">
+                    <div className="bg-white/90 dark:bg-[#0a0a0a]/80 rounded-3xl border border-slate-200/80 dark:border-white/7 p-10 md:p-14 shadow-sm">
                         <div className="flex items-center gap-3 mb-8">
                             <div className={`w-9 h-9 rounded-xl ${accent.bg} ${accent.border} border flex items-center justify-center shrink-0`}>
                                 <FileText className={`w-4 h-4 ${accent.text}`} />
@@ -177,7 +177,7 @@ export function DetailPageLayout({
                             const FallbackIcon = FALLBACK_ICONS[i % FALLBACK_ICONS.length];
                             return (
                                 <div key={i}
-                                    className="group bg-white dark:bg-white/[0.02] backdrop-blur-xl border border-slate-200 dark:border-white/[0.06] rounded-2xl p-8 hover:border-blue-300 dark:hover:border-cyan-500/30 hover:shadow-md dark:hover:shadow-cyan-500/5 transition-all duration-300">
+                                    className="group bg-white dark:bg-white/2 border border-slate-200 dark:border-white/6 rounded-2xl p-8 hover:border-blue-300 dark:hover:border-cyan-500/30 hover:shadow-md dark:hover:shadow-cyan-500/5 transition-all duration-300">
                                     <div className={`w-12 h-12 rounded-xl ${accent.bg} ${accent.border} border flex items-center justify-center mb-5 overflow-hidden group-hover:scale-110 transition-transform duration-300`}>
                                         {iconUrl
                                             ? <img src={iconUrl} alt={feat.title} className="w-7 h-7 object-contain" />
