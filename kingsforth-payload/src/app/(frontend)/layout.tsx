@@ -52,7 +52,7 @@ const getSiteSettings = unstable_cache(
     }
   },
   ['site-settings'],
-  { revalidate: 30 }
+  { revalidate: 120 }
 )
 
 export const metadata: Metadata = {

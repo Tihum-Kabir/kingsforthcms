@@ -257,9 +257,9 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
             <div className="pointer-events-none absolute inset-0 hero-text-bloom" />
             {/* Subtle bottom vignette */}
             <div className="pointer-events-none absolute bottom-0 inset-x-0 h-48 bg-linear-to-t from-white/20 dark:from-black/35 to-transparent" />
-            {/* Background Orbs */}
-            <div className="absolute top-20 left-10 w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[140px] animate-pulse pointer-events-none" />
-            <div className="absolute bottom-20 right-10 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] animate-pulse hero-orb-delay pointer-events-none" />
+            {/* Background Orbs — reduced blur + hidden on mobile for GPU savings */}
+            <div className="hidden sm:block absolute top-20 left-10 w-125 h-125 bg-secondary/12 rounded-full blur-[80px] animate-pulse pointer-events-none will-change-[opacity]" />
+            <div className="hidden sm:block absolute bottom-20 right-10 w-125 h-125 bg-primary/8 rounded-full blur-[80px] animate-pulse hero-orb-delay pointer-events-none will-change-[opacity]" />
 
             <div className="relative z-10 w-full max-w-350 mx-auto px-6 sm:px-8 flex-1 flex flex-col justify-center">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-6 lg:pt-10">
