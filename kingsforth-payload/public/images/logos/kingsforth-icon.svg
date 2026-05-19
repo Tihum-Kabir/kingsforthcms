@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 131">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 128">
   <!-- Left half — purple -->
-  <path fill="#9333EA" d="M50,0 L40,33 L40,46 L27,46 L27,27 L8,27 L8,115 L50,131 Z"/>
+  <path fill="#9333EA" d="M50,0 L36,22 L36,36 L25,36 L25,22 L5,22 L5,108 L50,128 Z"/>
   <!-- Right half — cyan -->
-  <path fill="#22D3EE" d="M50,0 L60,33 L60,46 L73,46 L73,27 L92,27 L92,115 L50,131 Z"/>
+  <path fill="#22D3EE" d="M50,0 L64,22 L64,36 L75,36 L75,22 L95,22 L95,108 L50,128 Z"/>
 </svg>
