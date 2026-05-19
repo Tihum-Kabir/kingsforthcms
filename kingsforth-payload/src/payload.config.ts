@@ -125,6 +125,11 @@ export default buildConfig({
   ],
 
   onInit: async (payload) => {
+    try {
+      await payload.db.migrate();
+    } catch (err) {
+      payload.logger.error('[onInit] Migration failed: ' + String(err));
+    }
     await autoSeedAll(payload);
   },
 })
