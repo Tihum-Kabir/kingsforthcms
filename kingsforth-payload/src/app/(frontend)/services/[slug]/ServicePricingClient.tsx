@@ -54,19 +54,19 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
             <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-4">
                     <Zap className="w-3.5 h-3.5 text-cyan-400" />
-                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-400">Pricing</span>
+                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-cyan-600 dark:text-cyan-400">Pricing</span>
                 </div>
-                <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
+                <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">
                     Choose Your Plan
                 </h2>
-                <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                <p className="text-slate-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
                     Flexible pricing for {serviceTitle}. Scale as your operations grow.
                 </p>
             </div>
 
             {/* Billing Toggle — Monthly / Annual */}
             <div className="flex justify-center mb-14">
-                <div className="inline-flex bg-white/5 rounded-full p-1.5 border border-white/10 shadow-lg">
+                <div className="inline-flex bg-slate-100 dark:bg-white/5 rounded-full p-1.5 border border-slate-200 dark:border-white/10 shadow-lg">
                     {([
                         { key: 'monthly' as BillingPeriod, label: 'Monthly' },
                         { key: 'annual' as BillingPeriod, label: 'Annual' },
@@ -77,7 +77,7 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
                             className={`relative px-7 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
                                 billing === opt.key
                                     ? 'bg-white text-black shadow-md'
-                                    : 'text-gray-400 hover:text-white'
+                                    : 'text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
                             }`}
                         >
                             {opt.label}
@@ -117,7 +117,7 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
                                 className={`relative rounded-3xl p-8 md:p-10 flex flex-col border transition-all duration-500 ${
                                     featured
                                         ? 'bg-white/7 border-cyan-500/40 shadow-[0_0_50px_rgba(34,211,238,0.12)] md:-translate-y-5 z-10'
-                                        : 'bg-white/3 border-white/10 hover:border-white/20 hover:bg-white/6'
+                                        : 'bg-white dark:bg-white/3 border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-white/6'
                                 }`}
                             >
                                 {/* Featured badge */}
@@ -130,20 +130,20 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
                                 )}
 
                                 {/* Plan name + description */}
-                                <h3 className="text-xl font-bold text-white mb-1.5">{plan.name}</h3>
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1.5">{plan.name}</h3>
                                 {plan.description && (
-                                    <p className="text-gray-400 text-sm mb-6 leading-relaxed">{plan.description}</p>
+                                    <p className="text-slate-600 dark:text-gray-400 text-sm mb-6 leading-relaxed">{plan.description}</p>
                                 )}
 
                                 {/* Price block */}
                                 <div className="mb-8">
                                     {enterprise ? (
                                         <div className="flex items-baseline gap-1">
-                                            <span className="text-5xl font-black text-white">Custom</span>
+                                            <span className="text-5xl font-black text-slate-900 dark:text-white">Custom</span>
                                         </div>
                                     ) : (
                                         <div className="flex items-baseline gap-1.5">
-                                            <span className="text-5xl font-black text-white">
+                                            <span className="text-5xl font-black text-slate-900 dark:text-white">
                                                 ৳{(price ?? 0).toLocaleString()}
                                             </span>
                                             <span className="text-gray-500 font-medium">
@@ -175,13 +175,13 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
                                                 {f.included !== false ? (
                                                     <Check className="w-5 h-5 text-cyan-500 dark:text-cyan-400 mt-0.5 shrink-0" />
                                                 ) : (
-                                                    <X className="w-5 h-5 text-slate-300 dark:text-gray-600 mt-0.5 shrink-0" />
+                                                    <X className="w-5 h-5 text-slate-400 dark:text-gray-600 mt-0.5 shrink-0" />
                                                 )}
                                                 <span
                                                     className={`text-sm leading-relaxed ${
                                                         f.included !== false
-                                                            ? 'text-gray-300'
-                                                            : 'text-gray-600 line-through'
+                                                            ? 'text-slate-700 dark:text-gray-300'
+                                                            : 'text-slate-400 dark:text-gray-600 line-through'
                                                     }`}
                                                 >
                                                     {f.feature}
@@ -197,7 +197,7 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
                                     className={`w-full py-4 rounded-xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-2 mt-auto ${
                                         featured
                                             ? 'bg-white text-black hover:bg-gray-100 shadow-xl'
-                                            : 'bg-white/5 text-white border border-white/10 hover:bg-white/10 shadow-sm'
+                                            : 'bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10 shadow-sm'
                                     }`}
                                 >
                                     {enterprise ? (

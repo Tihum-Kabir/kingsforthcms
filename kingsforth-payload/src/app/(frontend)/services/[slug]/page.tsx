@@ -169,13 +169,13 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
     const MainIcon = getIcon(staticSvc?.iconName ?? 'zap')
 
     return (
-        <main className="min-h-screen bg-slate-950 relative z-10 pb-24">
+        <main className="min-h-screen bg-slate-50 dark:bg-slate-950 relative z-10 pb-24">
 
             {/* ── BACK ───────────────────────────────────────────── */}
             <div className="max-w-7xl mx-auto px-6 pt-28 pb-6">
                 <Link href="/services"
-                    className="inline-flex items-center gap-2.5 text-sm font-semibold text-slate-400 hover:text-white transition-colors group">
-                    <div className="p-1 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors">
+                    className="inline-flex items-center gap-2.5 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group">
+                    <div className="p-1 rounded-full bg-slate-200 dark:bg-white/5 group-hover:bg-slate-300 dark:group-hover:bg-white/10 transition-colors">
                         <ArrowLeft className="w-3.5 h-3.5" />
                     </div>
                     All Services
@@ -205,10 +205,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                             <div className={`w-16 h-16 rounded-2xl ${theme.bg} border ${theme.border} flex items-center justify-center mb-6`}>
                                 <MainIcon className={`w-8 h-8 ${theme.text}`} />
                             </div>
-                            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-white leading-[1.05] mb-5">
+                            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.05] mb-5">
                                 {title}
                             </h1>
-                            <p className="text-xl text-white/60 max-w-2xl leading-relaxed mb-8">
+                            <p className="text-xl text-slate-600 dark:text-white/60 max-w-2xl leading-relaxed mb-8">
                                 {subtitle}
                             </p>
                             <div className="flex flex-wrap gap-4">
@@ -227,9 +227,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                         {stats.length > 0 && (
                             <div className="grid grid-cols-2 gap-3 lg:w-72">
                                 {stats.map((s, i) => (
-                                    <div key={i} className={`bg-white/5 rounded-2xl p-5 border ${theme.statBorder} transition-colors`}>
+                                    <div key={i} className={`bg-white dark:bg-white/5 rounded-2xl p-5 border ${theme.statBorder} transition-colors`}>
                                         <div className={`text-3xl font-black ${theme.text} mb-1`}>{s.value}</div>
-                                        <div className="text-xs text-white/50 uppercase tracking-wider font-semibold leading-tight">{s.label}</div>
+                                        <div className="text-xs text-slate-500 dark:text-white/50 uppercase tracking-wider font-semibold leading-tight">{s.label}</div>
                                     </div>
                                 ))}
                             </div>
@@ -268,9 +268,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-6 ${theme.badge}`}>
                         <span className="text-[10px] font-bold tracking-[0.18em] uppercase">Overview</span>
                     </div>
-                    <div className="prose prose-lg prose-invert max-w-none
-                        prose-p:text-white/60 prose-p:leading-relaxed
-                        prose-headings:text-white prose-a:text-cyan-400">
+                    <div className="prose prose-lg dark:prose-invert max-w-none
+                        prose-p:text-slate-600 dark:prose-p:text-white/60 prose-p:leading-relaxed
+                        prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-cyan-600 dark:prose-a:text-cyan-400">
                         <RichText data={descriptionRich} />
                     </div>
                 </section>
@@ -283,17 +283,17 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                         <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-4 ${theme.badge}`}>
                             <span className="text-xs font-bold tracking-[0.2em] uppercase">Process</span>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">How It Works</h2>
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">How It Works</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
                         {/* Connecting line (desktop only) */}
-                        <div className="hidden md:block absolute top-12 left-[calc(16.66%+1rem)] right-[calc(16.66%+1rem)] h-px bg-linear-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
+                        <div className="hidden md:block absolute top-12 left-[calc(16.66%+1rem)] right-[calc(16.66%+1rem)] h-px bg-linear-to-r from-transparent via-slate-300 dark:via-white/10 to-transparent pointer-events-none" />
 
                         {howItWorks.map((step, i) => {
                             const StepIcon = getIcon(step.iconName ?? 'zap')
                             return (
-                                <div key={i} className={`relative bg-white/[0.03] border border-white/[0.08] rounded-2xl p-8 hover:border-white/[0.15] hover:bg-white/[0.05] transition-all duration-300`}>
+                                <div key={i} className={`relative bg-white dark:bg-white/3 border border-slate-200 dark:border-white/8 rounded-2xl p-8 hover:border-slate-300 dark:hover:border-white/15 hover:bg-slate-50 dark:hover:bg-white/5 transition-all duration-300`}>
                                     {/* Step number */}
                                     <div className="flex items-center gap-4 mb-5">
                                         <div className={`w-10 h-10 rounded-xl ${theme.bg} border ${theme.border} flex items-center justify-center shrink-0`}>
@@ -303,8 +303,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                                             Step 0{step.step ?? i + 1}
                                         </span>
                                     </div>
-                                    <h3 className="text-lg font-bold text-white mb-2.5">{step.title}</h3>
-                                    <p className="text-sm text-white/50 leading-relaxed">{step.description}</p>
+                                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2.5">{step.title}</h3>
+                                    <p className="text-sm text-slate-500 dark:text-white/50 leading-relaxed">{step.description}</p>
                                 </div>
                             )
                         })}
@@ -320,7 +320,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                             <Layers className={`w-3.5 h-3.5 ${theme.text}`} />
                             <span className="text-xs font-bold tracking-[0.2em] uppercase">Capabilities</span>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight">Key Capabilities</h2>
+                        <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Key Capabilities</h2>
                     </div>
 
                     <div className={`grid grid-cols-1 md:grid-cols-${Math.min(features.length, 3)} gap-5`}>
@@ -328,15 +328,15 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                             const FeatIcon = ICON_MAP[Object.keys(ICON_MAP)[i % Object.keys(ICON_MAP).length]] ?? Zap
                             return (
                                 <div key={i}
-                                    className={`group bg-white/[0.02] border border-white/[0.07] rounded-2xl p-8 ${theme.featBorder} hover:bg-white/[0.05] transition-all duration-300`}>
+                                    className={`group bg-white dark:bg-white/2 border border-slate-200 dark:border-white/7 rounded-2xl p-8 ${theme.featBorder} hover:bg-slate-50 dark:hover:bg-white/5 transition-all duration-300`}>
                                     <div className={`w-12 h-12 rounded-xl ${theme.bg} border ${theme.border} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
                                         <CheckCircle className={`w-5 h-5 ${theme.text}`} />
                                     </div>
-                                    <h3 className={`text-lg font-bold text-white mb-3 group-hover:${theme.text} transition-colors`}>
+                                    <h3 className={`text-lg font-bold text-slate-900 dark:text-white mb-3 group-hover:${theme.text} transition-colors`}>
                                         {feat.title}
                                     </h3>
                                     {feat.description && (
-                                        <p className="text-sm text-white/50 leading-relaxed">{feat.description}</p>
+                                        <p className="text-sm text-slate-500 dark:text-white/50 leading-relaxed">{feat.description}</p>
                                     )}
                                 </div>
                             )
@@ -352,17 +352,17 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
             {/* ── CTA ─────────────────────────────────────────────── */}
             <section className="max-w-5xl mx-auto px-6 mt-8">
-                <div className={`relative rounded-3xl overflow-hidden bg-linear-to-br ${theme.from} ${theme.via} ${theme.to} border border-white/[0.08] p-12 md:p-20 text-center`}>
+                <div className={`relative rounded-3xl overflow-hidden bg-linear-to-br ${theme.from} ${theme.via} ${theme.to} border border-slate-200 dark:border-white/8 p-12 md:p-20 text-center`}>
                     <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[80px] opacity-15 ${theme.bg} pointer-events-none`} />
                     <div className="relative z-10">
                         <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6 ${theme.badge}`}>
                             <MessageSquare className={`w-3.5 h-3.5 ${theme.text}`} />
                             <span className="text-xs font-bold tracking-[0.2em] uppercase">Talk to an Expert</span>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-black text-white mb-4 leading-tight tracking-tight">
+                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 leading-tight tracking-tight">
                             Ready to deploy {title}?
                         </h2>
-                        <p className="text-white/50 text-lg mb-10 max-w-xl mx-auto">
+                        <p className="text-slate-500 dark:text-white/50 text-lg mb-10 max-w-xl mx-auto">
                             Our architects will design a custom solution for your specific operational requirements.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -371,7 +371,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                                 <PhoneCall className="w-4 h-4" /> Book a Demo
                             </Link>
                             <Link href="/contact"
-                                className="inline-flex items-center justify-center gap-2.5 h-14 px-8 bg-white/10 text-white font-bold text-base rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300">
+                                className="inline-flex items-center justify-center gap-2.5 h-14 px-8 bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white font-bold text-base rounded-full border border-slate-300 dark:border-white/20 hover:bg-slate-200 dark:hover:bg-white/20 transition-all duration-300">
                                 <MessageSquare className="w-4 h-4" /> Contact Sales
                             </Link>
                         </div>
