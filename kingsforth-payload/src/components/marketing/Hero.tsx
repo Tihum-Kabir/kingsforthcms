@@ -27,16 +27,11 @@ function InfiniteLogoScrollInline({ partnerLogos, settings }: { partnerLogos?: a
             <div className="flex items-center gap-4">
                 <div className="h-px w-12 bg-linear-to-r from-transparent to-gray-400 dark:to-gray-600" />
                 <div className="px-4 py-2 mt-[-8px]">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="bg-white/30 dark:bg-[#030915]/30 backdrop-blur-md px-6 py-2.5 rounded-full border border-gray-200/50 dark:border-white/10 shadow-sm"
-                    >
+                    <div className="bg-white/30 dark:bg-[#030915]/30 backdrop-blur-md px-6 py-2.5 rounded-full border border-gray-200/50 dark:border-white/10 shadow-sm hero-pill-animate">
                         <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-gray-100 tracking-[0.25em] uppercase whitespace-nowrap">
                             {headlineText}
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
                 <div className="h-px w-12 bg-linear-to-l from-transparent to-gray-400 dark:to-gray-600" />
             </div>
@@ -255,13 +250,7 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
 
                     {/* Left: Text Content */}
                     <div className="flex flex-col items-start text-left">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.1 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="w-full relative z-20"
-                        >
+                        <div className="w-full relative z-20 hero-text-animate">
                             <div className="relative rounded-2xl p-[1.5px] overflow-hidden w-full shadow-[0_8px_40px_rgba(0,0,0,0.07)] dark:shadow-[0_8px_40px_rgba(34,211,238,0.04)]">
                                 {/* Animated conic gradient border */}
                                 <div className="hero-card-spin absolute inset-0" />
@@ -357,30 +346,20 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                             </div>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
 
-                    {/* Right: Dashboard Mockup */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 40 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                        className="w-full flex justify-center lg:justify-end perspective-[1000px] z-20 relative"
-                    >
+                    {/* Right: Dashboard Mockup — CSS entry animation, opacity:1 from server = fast LCP */}
+                    <div className="w-full flex justify-center lg:justify-end perspective-[1000px] z-20 relative hero-dash-animate">
                         <div className="w-full max-w-[650px] xl:max-w-[700px]">
                             <HeroDashboardUI />
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                    className="pt-16 sm:pt-24 lg:pt-32 pb-4"
-                >
+                <div className="pt-16 sm:pt-24 lg:pt-32 pb-4 hero-logos-animate">
                     <InfiniteLogoScrollInline partnerLogos={partnerLogos} settings={logoScrollSettings} />
-                </motion.div>
+                </div>
             </div>
         </section>
     );

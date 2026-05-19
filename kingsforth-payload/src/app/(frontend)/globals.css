@@ -267,6 +267,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 .mobile-accordion-content > div { overflow: hidden; }
 
+/* ─── Hero section CSS-only entry animations (no JS/hydration needed) ─── */
+@keyframes hero-text-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-dash-in {
+  from { transform: translateX(40px); }
+  to   { transform: translateX(0); }
+}
+@keyframes hero-logos-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-pill-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.hero-text-animate  { animation: hero-text-in  0.8s ease-out both; }
+.hero-dash-animate  { animation: hero-dash-in  0.8s 0.3s ease-out both; }
+.hero-logos-animate { animation: hero-logos-in 0.6s 0.5s ease-out both; }
+.hero-pill-animate  { animation: hero-pill-in  0.6s 0.4s ease-out both; }
+
 /* ─── Infinite Gallery ─── */
 .infinite-gallery-row {
   position: relative;

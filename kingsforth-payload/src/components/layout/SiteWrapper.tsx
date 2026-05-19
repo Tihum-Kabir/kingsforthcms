@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { Navigation } from '@/components/marketing/Navigation';
 import { Footer } from '@/components/marketing/Footer';
 import { CustomScrollBar } from '@/components/ui/ScrollBar';
@@ -31,8 +32,16 @@ interface SiteWrapperProps {
     llmSectionHeading?: string;
 }
 
-export function SiteWrapper({ children, user, services, solutions = [], resources = [], logoUrl, siteName, socialLinks, contactInfo, llmLinks = [], llmSectionHeading }: SiteWrapperProps) {
+export function SiteWrapper({ children, user: serverUser, services, solutions = [], resources = [], logoUrl, siteName, socialLinks, contactInfo, llmLinks = [], llmSectionHeading }: SiteWrapperProps) {
     const pathname = usePathname();
+    const [user, setUser] = useState<any>(serverUser ?? null);
+
+    useEffect(() => {
+        fetch('/api/auth/me')
+            .then(r => r.json())
+            .then(u => { if (u) setUser(u); })
+            .catch(() => {});
+    }, []);
 
     // valid routes for marketing layout
     const isAppPanel = pathname?.startsWith('/admin') || pathname?.startsWith('/dashboard');

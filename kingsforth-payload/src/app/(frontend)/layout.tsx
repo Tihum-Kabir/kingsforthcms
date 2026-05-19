@@ -3,7 +3,6 @@ import { Syne, Onest, JetBrains_Mono } from 'next/font/google'
 import React from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { headers as getHeaders } from 'next/headers'
 import { unstable_cache } from 'next/cache'
 
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
@@ -14,9 +13,6 @@ import './globals.css'
 const syne = Syne({ subsets: ['latin'], variable: '--font-syne', display: 'optional' })
 const onest = Onest({ subsets: ['latin'], variable: '--font-onest', display: 'optional' })
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'optional' })
-
-// force-dynamic keeps auth() reading fresh cookies; nav data is cached separately
-export const dynamic = 'force-dynamic'
 
 const getLayoutData = unstable_cache(
   async () => {
@@ -128,37 +124,9 @@ export const metadata: Metadata = {
   },
 }
 
-async function getAuthUser(_headers: Headers): Promise<any> {
-  try {
-    // Fast path: read cookie before initialising Payload — avoids cold-start DB
-    // call for every unauthenticated visitor (the vast majority of traffic)
-    const { cookies } = await import('next/headers')
-    const cookieStore = await cookies()
-    const token = cookieStore.get('payload-token')?.value
-    if (!token) return null
-
-    // Decode JWT locally — no DB round-trip needed
-    const parts = token.split('.')
-    if (parts.length < 2) return null
-    const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/')
-    const decoded = JSON.parse(Buffer.from(base64, 'base64').toString('utf-8'))
-    const now = Math.floor(Date.now() / 1000)
-    if (!decoded.id || decoded.collection !== 'users' || (decoded.exp && decoded.exp <= now)) return null
-
-    // Token valid — one DB call to hydrate role + profile
-    const payload = await getPayload({ config: configPromise })
-    return await payload.findByID({ collection: 'users', id: decoded.id }).catch(() => null)
-  } catch {
-    return null
-  }
-}
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const headers = await getHeaders()
-
-  const [{ services, solutions, resources }, user, siteSettings] = await Promise.all([
+  const [{ services, solutions, resources }, siteSettings] = await Promise.all([
     getLayoutData(),
-    getAuthUser(headers),
     getSiteSettings(),
   ])
 
@@ -186,8 +154,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             dayImageUrl={siteSettings?.heroImageDay?.url ?? null}
             nightImageUrl={siteSettings?.heroImageNight?.url ?? null}
           />
-          <SiteWrapper 
-            user={user} 
+          <SiteWrapper
+            user={null}
             services={services} 
             solutions={solutions} 
             resources={resources}
