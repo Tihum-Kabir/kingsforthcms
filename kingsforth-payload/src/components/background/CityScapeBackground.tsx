@@ -66,8 +66,6 @@ export function CityScapeBackground({ dayImageUrl, nightImageUrl }: CityScapeBac
             <div className="glow-orb glow-orb-4" />
 
 
-            {/* Night-mode top vignette — darkens misty clouds so nav/logo text is legible */}
-            <div className="absolute inset-x-0 top-0 h-[38%] hidden dark:block bg-linear-to-b from-[#010609]/80 via-[#010609]/20 to-transparent pointer-events-none" />
         </div>
     );
 }
