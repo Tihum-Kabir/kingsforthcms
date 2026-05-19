@@ -51,11 +51,26 @@ const nextConfig = {
     root: __dirname,
   },
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      '@payloadcms/richtext-lexical',
+      '@radix-ui/react-accordion',
+      '@radix-ui/react-dialog',
+    ],
+  },
+  compiler: {
+    // Strip console.log in production — keeps bundle clean and avoids leaking internals
+    removeConsole: isDev ? false : { exclude: ['error', 'warn'] },
   },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,
+    remotePatterns: [
+      // Vercel Blob — allow Next.js <Image> to optimise blob-hosted uploads
+      { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },
+      { protocol: 'https', hostname: '*.vercel-storage.com' },
+    ],
   },
   async headers() {
     return [

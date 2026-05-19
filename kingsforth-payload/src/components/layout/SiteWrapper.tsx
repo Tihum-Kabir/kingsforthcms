@@ -1,11 +1,21 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { Navigation } from '@/components/marketing/Navigation';
 import { Footer } from '@/components/marketing/Footer';
 import { CustomScrollBar } from '@/components/ui/ScrollBar';
-import { RainEffect } from '@/components/background/RainEffect';
-import { CursorTrail } from '@/components/ui/CursorTrail';
+
+// Decorative canvas effects — lazy-loaded after main content paints.
+// Separate JS chunks: neither blocks initial render nor LCP.
+const RainEffect = dynamic(
+    () => import('@/components/background/RainEffect').then(m => ({ default: m.RainEffect })),
+    { ssr: false }
+);
+const CursorTrail = dynamic(
+    () => import('@/components/ui/CursorTrail').then(m => ({ default: m.CursorTrail })),
+    { ssr: false }
+);
 
 interface SiteWrapperProps {
     children: React.ReactNode;

@@ -38,7 +38,7 @@ export function CityScapeBackground({ dayImageUrl, nightImageUrl }: CityScapeBac
             {/* Night — visible by default (dark is default theme), eager + high priority */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-                src={nightImageUrl || '/images/hero/hero-night-cinematic.png'}
+                src={nightImageUrl || '/images/hero/hero-night-desktop-16-9.jpg'}
                 alt=""
                 fetchPriority="high"
                 loading="eager"
@@ -50,7 +50,7 @@ export function CityScapeBackground({ dayImageUrl, nightImageUrl }: CityScapeBac
             {/* Day — hidden initially, lazy-load until user switches to light mode */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-                src={dayImageUrl || '/images/hero/hero-day-cinematic.png'}
+                src={dayImageUrl || '/images/hero/hero-day-desktop-16-9.jpg'}
                 alt=""
                 fetchPriority="low"
                 loading="lazy"

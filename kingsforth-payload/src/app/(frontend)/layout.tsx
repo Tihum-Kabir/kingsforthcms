@@ -125,38 +125,26 @@ export const metadata: Metadata = {
   },
 }
 
-async function getAuthUser(headers: Headers): Promise<any> {
+async function getAuthUser(_headers: Headers): Promise<any> {
   try {
+    // Fast path: read cookie before initialising Payload — avoids cold-start DB
+    // call for every unauthenticated visitor (the vast majority of traffic)
+    const { cookies } = await import('next/headers')
+    const cookieStore = await cookies()
+    const token = cookieStore.get('payload-token')?.value
+    if (!token) return null
+
+    // Decode JWT locally — no DB round-trip needed
+    const parts = token.split('.')
+    if (parts.length < 2) return null
+    const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/')
+    const decoded = JSON.parse(Buffer.from(base64, 'base64').toString('utf-8'))
+    const now = Math.floor(Date.now() / 1000)
+    if (!decoded.id || decoded.collection !== 'users' || (decoded.exp && decoded.exp <= now)) return null
+
+    // Token valid — one DB call to hydrate role + profile
     const payload = await getPayload({ config: configPromise })
-    let user: any = null
-    try {
-      const authRes = await payload.auth({ headers })
-      user = authRes?.user || null
-    } catch {
-      // Auth failure is non-fatal — unauthenticated session
-    }
-    if (!user) {
-      try {
-        const { cookies } = await import('next/headers')
-        const cookieStore = await cookies()
-        const token = cookieStore.get('payload-token')?.value
-        if (token) {
-          const base64Url = token.split('.')[1]
-          if (base64Url) {
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-            const jsonPayload = Buffer.from(base64, 'base64').toString('utf-8')
-            const decoded = JSON.parse(jsonPayload)
-            const now = Math.floor(Date.now() / 1000)
-            if (decoded.id && decoded.collection === 'users' && (!decoded.exp || decoded.exp > now)) {
-              user = await payload.findByID({ collection: 'users', id: decoded.id })
-            }
-          }
-        }
-      } catch {
-        // Token decode failure is non-fatal
-      }
-    }
-    return user
+    return await payload.findByID({ collection: 'users', id: decoded.id }).catch(() => null)
   } catch {
     return null
   }
@@ -176,8 +164,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   const contactInfo = siteSettings?.contactInfo || null
 
+  // Preload the hero background image in <head> so the browser fetches it
+  // immediately on HTML parse — before JS executes or React renders. This is
+  // the single biggest LCP improvement for the landing page.
+  const heroNightUrl = siteSettings?.heroImageNight?.url ?? '/images/hero/hero-night-desktop-16-9.jpg'
+  const heroDayUrl   = siteSettings?.heroImageDay?.url   ?? '/images/hero/hero-day-desktop-16-9.jpg'
+
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+      <head>
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link rel="preload" as="image" href={heroNightUrl} fetchPriority="high" />
+        <link rel="preload" as="image" href={heroDayUrl}   fetchPriority="low" />
+      </head>
       <body suppressHydrationWarning className={`${syne.variable} ${onest.variable} ${jetbrainsMono.variable} font-sans antialiased text-foreground bg-background transition-colors duration-1000`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange={false}>
           <SmartBackground 
