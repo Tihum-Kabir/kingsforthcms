@@ -1,15 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 131">
-  <defs>
-    <clipPath id="lh"><rect width="50" height="131"/></clipPath>
-    <clipPath id="rh"><rect x="50" width="50" height="131"/></clipPath>
-  </defs>
-  <!--
-    Castle silhouette — left=purple, right=cyan.
-    Path: center spire → left shoulder → inner wall down → crenel floor left →
-    outer tower right face up → outer tower top → outer tower down → bottom apex → mirror right.
-  -->
-  <path clip-path="url(#lh)" fill="#9333EA"
-    d="M50,0 L40,33 L40,46 L27,46 L27,27 L8,27 L8,115 L50,131 L92,115 L92,27 L73,27 L73,46 L60,46 L60,33 Z"/>
-  <path clip-path="url(#rh)" fill="#22D3EE"
-    d="M50,0 L40,33 L40,46 L27,46 L27,27 L8,27 L8,115 L50,131 L92,115 L92,27 L73,27 L73,46 L60,46 L60,33 Z"/>
+  <!-- Left half — purple -->
+  <path fill="#9333EA" d="M50,0 L40,33 L40,46 L27,46 L27,27 L8,27 L8,115 L50,131 Z"/>
+  <!-- Right half — cyan -->
+  <path fill="#22D3EE" d="M50,0 L60,33 L60,46 L73,46 L73,27 L92,27 L92,115 L50,131 Z"/>
 </svg>
