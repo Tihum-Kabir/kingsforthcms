@@ -103,18 +103,18 @@ export function ServicePricing({ service }: { service: Service }) {
                             <motion.div
                                 key={index}
                                 variants={item}
-                                className={`relative p-1 rounded-[2.5rem] transition-all duration-500 group ${isRecommended ? 'bg-gradient-to-b from-violet-500/50 to-cyan-500/50 shadow-[0_0_50px_-10px_rgba(124,58,237,0.3)]' : 'bg-gradient-to-b from-white/10 to-white/5 hover:from-white/20 hover:to-white/10'}`}
+                                className={`relative p-1 rounded-[2.5rem] transition-all duration-500 group ${isRecommended ? 'bg-linear-to-b from-violet-500/50 to-cyan-500/50 shadow-[0_0_50px_-10px_rgba(124,58,237,0.3)]' : 'bg-linear-to-b from-white/10 to-white/5 hover:from-white/20 hover:to-white/10'}`}
                             >
-                                <div className="h-full relative flex flex-col p-8 rounded-[2.3rem] bg-slate-950/90 backdrop-blur-xl overflow-hidden">
+                                <div className="h-full relative flex flex-col p-8 rounded-[2.3rem] bg-slate-950/90 overflow-hidden">
                                     {/* Background Gradient */}
                                     {isRecommended && (
-                                        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-violet-600/10 via-transparent to-cyan-600/10 opacity-50" />
+                                        <div className="absolute top-0 right-0 w-full h-full bg-linear-to-br from-violet-600/10 via-transparent to-cyan-600/10 opacity-50" />
                                     )}
 
                                     <div className="relative z-10 flex flex-col h-full">
                                         <div className="mb-8">
                                             {isRecommended && (
-                                                <span className="inline-flex items-center gap-1.5 px-3 py-1 mb-4 text-[11px] font-bold uppercase tracking-widest text-white bg-gradient-to-r from-violet-600 to-cyan-600 rounded-full shadow-lg shadow-violet-500/20">
+                                                <span className="inline-flex items-center gap-1.5 px-3 py-1 mb-4 text-[11px] font-bold uppercase tracking-widest text-white bg-linear-to-r from-violet-600 to-cyan-600 rounded-full shadow-lg shadow-violet-500/20">
                                                     <Sparkles className="w-3 h-3" /> Recommended
                                                 </span>
                                             )}
@@ -123,18 +123,18 @@ export function ServicePricing({ service }: { service: Service }) {
                                         </div>
 
                                         <div className="mb-8 flex items-baseline gap-1">
-                                            <span className="text-5xl font-bold tracking-tighter bg-gradient-to-br from-white to-gray-400 bg-clip-text text-transparent">{price}</span>
+                                            <span className="text-5xl font-bold tracking-tighter bg-linear-to-br from-white to-gray-400 bg-clip-text text-transparent">{price}</span>
                                             {(!tier.custom_pricing && (billingPeriod === 'monthly' || tier.monthly_price) && tier.price !== 'Custom') && (
                                                 <span className="text-gray-500 text-sm font-medium">/{billingPeriod === 'monthly' ? 'mo' : 'yr'}</span>
                                             )}
                                         </div>
 
-                                        <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent mb-8" />
+                                        <div className="h-px w-full bg-linear-to-r from-transparent via-white/10 to-transparent mb-8" />
 
                                         <ul className="space-y-4 mb-8 flex-1">
                                             {tier.planFeatures?.map((f: any, featureIndex: number) => (
                                                 <li key={featureIndex} className="flex items-start gap-3 group/item">
-                                                    <div className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${isRecommended ? 'bg-violet-500/20 text-violet-300 group-hover/item:text-white group-hover/item:bg-violet-500' : 'bg-white/10 text-gray-400 group-hover/item:text-white group-hover/item:bg-white/20'}`}>
+                                                    <div className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors ${isRecommended ? 'bg-violet-500/20 text-violet-300 group-hover/item:text-white group-hover/item:bg-violet-500' : 'bg-white/10 text-gray-400 group-hover/item:text-white group-hover/item:bg-white/20'}`}>
                                                         <Check className="w-3 h-3" />
                                                     </div>
                                                     <span className="text-gray-300 text-sm font-light leading-relaxed group-hover/item:text-white transition-colors">{f.feature}</span>
@@ -145,12 +145,12 @@ export function ServicePricing({ service }: { service: Service }) {
                                         <Link
                                             href="/contact"
                                             className={`w-full py-4 px-6 rounded-2xl text-center font-bold text-sm transition-all duration-300 relative overflow-hidden group/btn ${isRecommended
-                                                ? 'bg-gradient-to-r from-[#6ac4f1] to-[#3a9fd0] hover:from-[#5ab3e0] hover:to-[#2a8fb0] text-black hover:scale-[1.02] shadow-[0_0_30px_-5px_rgba(106,196,241,0.5)] border border-[#a2dcf7]/30'
+                                                ? 'bg-linear-to-r from-[#6ac4f1] to-[#3a9fd0] hover:from-[#5ab3e0] hover:to-[#2a8fb0] text-black hover:scale-[1.02] shadow-[0_0_30px_-5px_rgba(106,196,241,0.5)] border border-[#a2dcf7]/30'
                                                 : 'bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20'
                                                 }`}
                                         >
                                             <span className="relative z-10">{tier.cta || (tier.custom_pricing ? 'Contact Sales' : 'Get Started')}</span>
-                                            {isRecommended && <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />}
+                                            {isRecommended && <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />}
                                         </Link>
                                     </div>
                                 </div>

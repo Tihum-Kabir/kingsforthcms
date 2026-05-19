@@ -56,7 +56,7 @@ export function PageHero({ dayImage, nightImage, headline, subtitle, badge, noCa
                             )}
                         </div>
                     ) : (
-                        <div className="max-w-3xl bg-white/60 dark:bg-white/4 backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-2xl shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] px-8 py-8">
+                        <div className="max-w-3xl bg-white/60 dark:bg-white/4 border border-white/80 dark:border-white/10 rounded-2xl shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] px-8 py-8">
                             {badge && (
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 dark:bg-white/6 border border-[#e5e7eb] dark:border-white/8 mb-5">
                                     <span className="text-xs font-bold tracking-[0.15em] uppercase text-[#2563eb] dark:text-[#22d3ee]">{badge}</span>
