@@ -101,16 +101,16 @@ export default async function PricingPage() {
     const billingNote = pricingConfig?.billingNote || 'Prices shown in BDT and exclude applicable taxes. All plans include a 14-day free trial. Cancel anytime.';
 
     return (
-        <div className="min-h-screen bg-slate-950 relative z-10 pt-28 pb-24">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 relative z-10 pt-28 pb-24">
             {/* Header */}
             <section className="max-w-3xl mx-auto px-6 text-center mb-14">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6">
-                    <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-gray-400">Pricing</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 mb-6">
+                    <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-slate-600 dark:text-gray-400">Pricing</span>
                 </div>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white mb-4">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
                     {headline}
                 </h1>
-                <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-lg text-slate-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
                     {subheadline}
                 </p>
             </section>
@@ -119,9 +119,9 @@ export default async function PricingPage() {
 
             {/* CTA */}
             <section className="max-w-3xl mx-auto px-6 mt-20">
-                <div className="rounded-2xl border border-white/10 bg-white/3 p-10 text-center">
-                    <h2 className="text-2xl font-bold mb-2 text-white">Need a custom solution?</h2>
-                    <p className="text-gray-400 text-base mb-6 max-w-xl mx-auto">
+                <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/3 p-10 text-center">
+                    <h2 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Need a custom solution?</h2>
+                    <p className="text-slate-600 dark:text-gray-400 text-base mb-6 max-w-xl mx-auto">
                         Government, multi-site, and air-gapped deployments require tailored scoping. Talk to our architects.
                     </p>
                     <Link
