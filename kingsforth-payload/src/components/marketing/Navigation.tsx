@@ -154,8 +154,8 @@ export function Navigation({ user, services = [], solutions = [], resources = []
                     isHidden ? '-translate-y-full' : 'translate-y-0'
                 } ${
                     showSolid
-                        ? 'bg-white/92 dark:bg-[#060d1a]/90 backdrop-blur-xl border-b border-black/6 dark:border-white/5'
-                        : 'bg-transparent border-b border-transparent'
+                        ? 'bg-white/92 dark:bg-[#060d1a]/92 backdrop-blur-xl border-b border-black/6 dark:border-white/8'
+                        : 'bg-transparent dark:bg-[#060d1a]/70 dark:backdrop-blur-md border-b border-transparent dark:border-white/5'
                 }`}
             >
                 <div className="max-w-350 mx-auto px-4 lg:px-8 h-full">
@@ -164,8 +164,8 @@ export function Navigation({ user, services = [], solutions = [], resources = []
                         <Link href="/" className="flex items-center gap-3 group shrink-0 relative transition-all duration-300">
                             {/* Day mode: frosted cloud pill behind logo for legibility on light backgrounds */}
                             <div className="absolute -inset-x-5 -inset-y-2.5 dark:hidden bg-white/85 backdrop-blur-md rounded-2xl border border-white/90 shadow-[0_4px_24px_rgba(255,255,255,0.7),0_0_48px_rgba(200,220,255,0.5),inset_0_1px_0_rgba(255,255,255,1)] pointer-events-none" />
-                            {/* Dark mode: subtle glow */}
-                            <div className="absolute -inset-x-5 -inset-y-2.5 hidden dark:block bg-transparent pointer-events-none" />
+                            {/* Dark mode: no pill, nav bg handles contrast */}
+                            <div className="absolute -inset-x-5 -inset-y-2.5 hidden dark:block pointer-events-none" />
 
                             <div className="flex items-center gap-2.5 relative z-10">
                                 <img
