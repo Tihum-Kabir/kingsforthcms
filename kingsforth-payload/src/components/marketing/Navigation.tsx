@@ -397,8 +397,8 @@ export function Navigation({ user, services = [], solutions = [], resources = []
             {/* Mobile Menu */}
             {mobileMenuOpen && (
                 <>
-                    <div className="lg:hidden fixed inset-0 z-60 bg-black/50" onClick={() => setMobileMenuOpen(false)} />
-                    <div className="lg:hidden fixed top-16 left-0 right-0 z-70 bg-white dark:bg-[#0a0a0a] border-b border-[#e5e7eb] dark:border-white/6 shadow-lg overflow-y-auto max-h-[75vh]">
+                    <div className="lg:hidden fixed inset-0 z-60 bg-black/50 animate-slide-down" onClick={() => setMobileMenuOpen(false)} />
+                    <div className="lg:hidden fixed top-16 left-0 right-0 z-70 bg-white dark:bg-[#0a0a0a] border-b border-[#e5e7eb] dark:border-white/6 shadow-lg overflow-y-auto max-h-[75vh] animate-slide-down">
                         <div className="px-4 py-4 space-y-2">
                             {user && (
                                 <div className="border-b border-[#e5e7eb] dark:border-white/6 pb-4 mb-4">
@@ -414,17 +414,17 @@ export function Navigation({ user, services = [], solutions = [], resources = []
                                 </div>
                             )}
 
-                            <MobileMenuSection title="Services" items={serviceItems} />
-                            <MobileMenuSection title="Solutions" items={solutionItems} />
-                            <MobileMenuSection title="Resources" items={resourceItems as any} />
-                            <MobileMenuSection title="Company" items={[
+                            <MobileMenuSection title="Services"  items={serviceItems}         delayClass="animate-slide-down-d1" />
+                            <MobileMenuSection title="Solutions" items={solutionItems}        delayClass="animate-slide-down-d2" />
+                            <MobileMenuSection title="Resources" items={resourceItems as any} delayClass="animate-slide-down-d3" />
+                            <MobileMenuSection title="Company"   delayClass="animate-slide-down-d4" items={[
                                 { href: '/company/about', title: 'About Us', description: 'Our mission and values', iconName: 'info' },
                                 { href: '/company/team', title: 'Team', description: 'Meet the team', iconName: 'users' },
                                 { href: '/contact', title: 'Contact', description: 'Get in touch', iconName: 'file-text' },
                                 { href: '/company/faqs', title: 'FAQs', description: 'Common questions', iconName: 'help-circle' }
                             ]} />
 
-                            <div className="pt-4 border-t border-[#e5e7eb] dark:border-white/6 space-y-2">
+                            <div className="pt-4 border-t border-[#e5e7eb] dark:border-white/6 space-y-2 animate-slide-down-d5">
                                 <div className="flex justify-center mb-3">
                                     <ThemeToggle />
                                 </div>
@@ -500,39 +500,41 @@ function MegaMenuItem({ href, icon: Icon, title, description, external = false, 
 }
 
 /* ═══ Mobile Menu Section ═══ */
-function MobileMenuSection({ title, items }: { title: string; items: Array<{ href: string; title: string; description?: string; iconName?: string }> }) {
+function MobileMenuSection({ title, items, delayClass = '' }: { title: string; delayClass?: string; items: Array<{ href: string; title: string; description?: string; iconName?: string }> }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="border-b border-[#f3f4f6] dark:border-white/6 pb-2">
+        <div className={`border-b border-[#f3f4f6] dark:border-white/6 pb-2 animate-slide-down ${delayClass}`}>
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex items-center justify-between px-3 py-3 text-[#111827] dark:text-white hover:bg-[#f9fafb] dark:hover:bg-white/4 rounded-lg transition-colors text-sm font-semibold"
             >
                 {title}
-                <ChevronDown className={`w-4 h-4 text-[#9ca3af] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-4 h-4 text-[#9ca3af] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
             </button>
-            {isOpen && (
-                <div className="mt-1 space-y-0.5 pl-2">
-                    {items.map((item, index) => {
-                        const Icon = item.iconName ? (iconMap[item.iconName] || Shield) : Shield;
-                        return (
-                            <Link
-                                key={index}
-                                href={item.href}
-                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#f3f4f6] dark:hover:bg-white/4 transition-colors"
-                            >
-                                <Icon className="w-4 h-4 text-[#9ca3af] shrink-0" />
-                                <div>
-                                    <div className="text-sm font-medium text-[#374151] dark:text-[#d1d5db]">{item.title}</div>
-                                    {item.description && <div className="text-xs text-[#9ca3af] mt-0.5">{item.description}</div>}
-                                </div>
-                            </Link>
-                        );
-                    })}
+            <div className={`mobile-accordion-content ${isOpen ? 'open' : ''}`}>
+                <div>
+                    <div className="mt-1 space-y-0.5 pl-2 pb-1">
+                        {items.map((item, index) => {
+                            const Icon = item.iconName ? (iconMap[item.iconName] || Shield) : Shield;
+                            return (
+                                <Link
+                                    key={index}
+                                    href={item.href}
+                                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#f3f4f6] dark:hover:bg-white/4 transition-colors group ${isOpen ? `mob-item-${Math.min(index, 7)}` : ''}`}
+                                >
+                                    <Icon className="w-4 h-4 text-[#9ca3af] group-hover:text-[#6b7280] dark:group-hover:text-[#d1d5db] shrink-0 transition-colors" />
+                                    <div>
+                                        <div className="text-sm font-medium text-[#374151] dark:text-[#d1d5db] group-hover:text-[#111827] dark:group-hover:text-white transition-colors">{item.title}</div>
+                                        {item.description && <div className="text-xs text-[#9ca3af] mt-0.5">{item.description}</div>}
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
                 </div>
-            )}
+            </div>
         </div>
     );
 }

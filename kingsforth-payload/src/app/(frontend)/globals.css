@@ -235,6 +235,38 @@ h1, h2, h3, h4, h5, h6 {
 }
 .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
 
+@keyframes slide-down-fade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down          { animation: slide-down-fade 0.22s ease-out both; }
+.animate-slide-down-d1       { animation: slide-down-fade 0.22s 60ms  ease-out both; }
+.animate-slide-down-d2       { animation: slide-down-fade 0.22s 120ms ease-out both; }
+.animate-slide-down-d3       { animation: slide-down-fade 0.22s 180ms ease-out both; }
+.animate-slide-down-d4       { animation: slide-down-fade 0.22s 240ms ease-out both; }
+.animate-slide-down-d5       { animation: slide-down-fade 0.22s 280ms ease-out both; }
+
+/* Mobile menu item stagger (up to 8 items) */
+.mob-item-0 { animation: slide-down-fade 0.18s 0ms   ease-out both; }
+.mob-item-1 { animation: slide-down-fade 0.18s 35ms  ease-out both; }
+.mob-item-2 { animation: slide-down-fade 0.18s 70ms  ease-out both; }
+.mob-item-3 { animation: slide-down-fade 0.18s 105ms ease-out both; }
+.mob-item-4 { animation: slide-down-fade 0.18s 140ms ease-out both; }
+.mob-item-5 { animation: slide-down-fade 0.18s 175ms ease-out both; }
+.mob-item-6 { animation: slide-down-fade 0.18s 210ms ease-out both; }
+.mob-item-7 { animation: slide-down-fade 0.18s 245ms ease-out both; }
+
+/* Mobile menu accordion — CSS grid trick for smooth height animation */
+.mobile-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.22s ease;
+}
+.mobile-accordion-content.open {
+  grid-template-rows: 1fr;
+}
+.mobile-accordion-content > div { overflow: hidden; }
+
 /* ─── Infinite Gallery ─── */
 .infinite-gallery-row {
   position: relative;
