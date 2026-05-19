@@ -363,9 +363,8 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                     {/* Right: Dashboard Mockup */}
                     <motion.div
                         initial={{ opacity: 0, x: 40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.1 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
                         className="w-full flex justify-center lg:justify-end perspective-[1000px] z-20 relative"
                     >
                         <div className="w-full max-w-[650px] xl:max-w-[700px]">
@@ -376,9 +375,8 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.6 }}
                     className="pt-16 sm:pt-24 lg:pt-32 pb-4"
                 >
                     <InfiniteLogoScrollInline partnerLogos={partnerLogos} settings={logoScrollSettings} />

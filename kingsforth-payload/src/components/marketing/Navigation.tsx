@@ -272,13 +272,19 @@ export function Navigation({ user, services = [], solutions = [], resources = []
                         {/* Mobile Hamburger */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className={`lg:hidden p-2 rounded-lg transition-colors ${
+                            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                            className={`lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
                                 showSolid
                                     ? 'text-[#111827] dark:text-white hover:bg-[#f3f4f6] dark:hover:bg-white/6'
                                     : 'text-[#111827] dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
                             }`}
                         >
-                            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                            <span className={`absolute transition-all duration-200 ${mobileMenuOpen ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-50 rotate-90'}`}>
+                                <X className="w-6 h-6" />
+                            </span>
+                            <span className={`absolute transition-all duration-200 ${mobileMenuOpen ? 'opacity-0 scale-50 -rotate-90' : 'opacity-100 scale-100 rotate-0'}`}>
+                                <Menu className="w-6 h-6" />
+                            </span>
                         </button>
                     </div>
                 </div>
