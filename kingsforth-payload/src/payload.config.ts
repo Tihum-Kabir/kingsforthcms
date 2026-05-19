@@ -73,7 +73,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
-    push: process.env.NODE_ENV !== 'production',
+    // Set PAYLOAD_PUSH_SCHEMA=true in Vercel env vars to sync schema drift, then remove it.
+    push: process.env.PAYLOAD_PUSH_SCHEMA === 'true' || process.env.NODE_ENV !== 'production',
   }),
 
   secret: process.env.PAYLOAD_SECRET ?? (() => { throw new Error('PAYLOAD_SECRET env var is required') })(),

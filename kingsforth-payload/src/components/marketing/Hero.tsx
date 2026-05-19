@@ -343,12 +343,12 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                                     </span>
                                 </Link>
 
-                                {/* ── Secondary CTA (YouTube) — show unless admin explicitly clears the text field ── */}
-                                {(heroSettings?.heroSecondaryCTAText ?? 'Watch Demo') && (
+                                {/* ── Secondary CTA (YouTube) — hidden only if admin saves an empty string ── */}
+                                {(heroSettings?.heroSecondaryCTAText || 'Watch Demo') && (
                                 <a
-                                    href={heroSettings?.heroSecondaryCTALink || '#'}
-                                    target={heroSettings?.heroSecondaryCTALink?.startsWith('http') ? "_blank" : undefined}
-                                    rel={heroSettings?.heroSecondaryCTALink?.startsWith('http') ? "noopener noreferrer" : undefined}
+                                    href={heroSettings?.heroSecondaryCTALink || 'https://www.youtube.com/@kingsforth'}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="group relative flex items-center justify-center gap-3 h-[52px] sm:h-[56px] px-7 sm:px-9 text-slate-900 dark:text-white/90 text-[15px] font-bold rounded-full transition-all duration-300 hover:scale-[1.02] overflow-hidden"
                                 >
                                     <span className="absolute inset-0 rounded-full bg-slate-100 dark:bg-white/[0.04] group-hover:bg-slate-200 dark:group-hover:bg-white/[0.08] transition-colors duration-300" />
@@ -360,6 +360,7 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                                             <path d="M12 6.5L20 10.5L12 14.5V6.5Z" fill="white" />
                                         </svg>
                                         {heroSettings?.heroSecondaryCTAText || 'Watch Demo'}
+
                                     </span>
                                 </a>
                                 )}
