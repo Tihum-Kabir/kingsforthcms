@@ -146,7 +146,7 @@ export default async function ServicesPage() {
                                 className={`group relative flex flex-col bg-white dark:bg-[#0d1117] border border-slate-200 dark:border-white/[0.07] rounded-3xl p-7 md:p-8 overflow-hidden transition-all duration-300 hover:shadow-xl dark:hover:shadow-none ${palette.hoverBorder}`}
                             >
                                 {/* Hover glow */}
-                                <div className={`absolute inset-0 bg-gradient-to-br transition-all duration-500 rounded-3xl pointer-events-none ${palette.glow}`} />
+                                <div className={`absolute inset-0 bg-linear-to-br transition-all duration-500 rounded-3xl pointer-events-none ${palette.glow}`} />
 
                                 {/* Icon */}
                                 <div className={`w-14 h-14 rounded-2xl ${palette.bg} ${palette.border} border flex items-center justify-center mb-6 overflow-hidden transition-transform duration-300 group-hover:scale-110 shadow-sm`}>
@@ -203,7 +203,7 @@ export default async function ServicesPage() {
             <section className="max-w-5xl mx-auto px-6 pb-28">
                 <div className="relative rounded-3xl overflow-hidden">
                     {/* Cyan gradient background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-cyan-500 to-teal-400 dark:from-[#0a2a35] dark:via-[#0d3340] dark:to-[#0a2a35]" />
+                    <div className="absolute inset-0 bg-linear-to-br from-cyan-400 via-cyan-500 to-teal-400 dark:from-[#0a2a35] dark:via-[#0d3340] dark:to-[#0a2a35]" />
                     {/* Noise / mesh overlay */}
                     <div className="services-cta-noise absolute inset-0 opacity-10 dark:opacity-20" />
 

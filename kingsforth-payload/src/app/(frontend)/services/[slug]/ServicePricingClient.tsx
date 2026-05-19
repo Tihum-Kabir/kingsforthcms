@@ -66,7 +66,7 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
 
             {/* Billing Toggle — Monthly / Annual */}
             <div className="flex justify-center mb-14">
-                <div className="inline-flex bg-white/5 backdrop-blur-xl rounded-full p-1.5 border border-white/10 shadow-lg">
+                <div className="inline-flex bg-white/5 rounded-full p-1.5 border border-white/10 shadow-lg">
                     {([
                         { key: 'monthly' as BillingPeriod, label: 'Monthly' },
                         { key: 'annual' as BillingPeriod, label: 'Annual' },
@@ -114,7 +114,7 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
                                 initial={{ opacity: 0, y: 16 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.28, delay: i * 0.08 }}
-                                className={`relative rounded-3xl p-8 md:p-10 flex flex-col border transition-all duration-500 backdrop-blur-xl ${
+                                className={`relative rounded-3xl p-8 md:p-10 flex flex-col border transition-all duration-500 ${
                                     featured
                                         ? 'bg-white/7 border-cyan-500/40 shadow-[0_0_50px_rgba(34,211,238,0.12)] md:-translate-y-5 z-10'
                                         : 'bg-white/3 border-white/10 hover:border-white/20 hover:bg-white/6'
@@ -123,7 +123,7 @@ export function ServicePricingSection({ plans, serviceTitle }: Props) {
                                 {/* Featured badge */}
                                 {(plan.badge || featured) && (
                                     <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                                        <span className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-[11px] font-bold uppercase tracking-widest py-1.5 px-5 rounded-full shadow-lg whitespace-nowrap">
+                                        <span className="bg-linear-to-r from-cyan-500 to-blue-600 text-white text-[11px] font-bold uppercase tracking-widest py-1.5 px-5 rounded-full shadow-lg whitespace-nowrap">
                                             {plan.badge || 'Recommended'}
                                         </span>
                                     </div>

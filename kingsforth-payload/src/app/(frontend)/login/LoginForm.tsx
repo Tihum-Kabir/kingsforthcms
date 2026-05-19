@@ -115,7 +115,7 @@ export function LoginForm({ branding }: { branding?: { logoUrl?: string | null, 
                             <img src={branding.logoUrl} alt={branding.siteName || "Kingsforth"} className="max-h-12 w-auto object-contain drop-shadow-md" />
                         </div>
                     ) : (
-                        <div className="w-12 h-12 bg-gradient-to-br from-violet-600 to-cyan-600 rounded-lg flex items-center justify-center shadow-lg shadow-violet-500/20">
+                        <div className="w-12 h-12 bg-linear-to-br from-violet-600 to-cyan-600 rounded-lg flex items-center justify-center shadow-lg shadow-violet-500/20">
                             <Shield className="w-7 h-7 text-white" strokeWidth={2.5} />
                         </div>
                     )}
@@ -213,7 +213,7 @@ export function LoginForm({ branding }: { branding?: { logoUrl?: string | null, 
                                     </div>
                                 </div>
 
-                                <button type="submit" disabled={loading} className="w-full py-3.5 mt-2 bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white font-bold rounded-xl transition-all shadow-lg disabled:opacity-50">
+                                <button type="submit" disabled={loading} className="w-full py-3.5 mt-2 bg-linear-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white font-bold rounded-xl transition-all shadow-lg disabled:opacity-50">
                                     {loading ? 'Processing...' : (view === 'SIGNUP' ? 'Create Account' : 'Sign In')}
                                 </button>
                             </form>
@@ -246,7 +246,7 @@ export function LoginForm({ branding }: { branding?: { logoUrl?: string | null, 
                                         <input id="email" name="email" type="email" required className="w-full pl-11 pr-4 py-3 bg-white dark:bg-black/50 border border-slate-300 dark:border-white/10 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-violet-500" placeholder="you@example.com" />
                                     </div>
                                 </div>
-                                <button type="submit" disabled={loading} className="w-full py-3.5 bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold rounded-xl transition-all shadow-lg disabled:opacity-50">
+                                <button type="submit" disabled={loading} className="w-full py-3.5 bg-linear-to-r from-violet-600 to-cyan-600 text-white font-bold rounded-xl transition-all shadow-lg disabled:opacity-50">
                                     {loading ? 'Sending...' : 'Send Verification Code'}
                                 </button>
                             </form>
@@ -276,7 +276,7 @@ export function LoginForm({ branding }: { branding?: { logoUrl?: string | null, 
                                         </button>
                                     </div>
                                 </div>
-                                <button type="submit" disabled={loading} className="w-full py-3.5 bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold rounded-xl transition-all shadow-lg disabled:opacity-50">
+                                <button type="submit" disabled={loading} className="w-full py-3.5 bg-linear-to-r from-violet-600 to-cyan-600 text-white font-bold rounded-xl transition-all shadow-lg disabled:opacity-50">
                                     {loading ? 'Processing...' : 'Reset Password'}
                                 </button>
                                 

@@ -37,7 +37,7 @@ export default async function ProfilePage() {
 
                 <div className="bg-white/80 dark:bg-[#08080A]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-3xl p-8 shadow-2xl">
                     <div className="flex items-center gap-6 mb-10 pb-10 border-b border-slate-200 dark:border-white/10">
-                        <div className="w-24 h-24 bg-gradient-to-br from-violet-600 to-cyan-600 rounded-full flex items-center justify-center text-3xl font-bold text-white uppercase shadow-lg">
+                        <div className="w-24 h-24 bg-linear-to-br from-violet-600 to-cyan-600 rounded-full flex items-center justify-center text-3xl font-bold text-white uppercase shadow-lg">
                             {user.name ? user.name.charAt(0) : 'U'}
                         </div>
                         <div>

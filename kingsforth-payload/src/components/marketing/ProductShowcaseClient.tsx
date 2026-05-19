@@ -53,7 +53,7 @@ export function ProductShowcaseClient({ features, settings }: { features: Produc
                         </span>
                     </div>
                     <h2 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tight">
-                        <span className="text-transparent bg-clip-text bg-[length:200%_auto] bg-gradient-to-r from-orange-500 via-rose-500 to-orange-500 dark:from-orange-400 dark:via-rose-400 dark:to-orange-400 animate-text-shimmer drop-shadow-[0_2px_10px_rgba(249,115,22,0.2)]">
+                        <span className="text-transparent bg-clip-text bg-[length:200%_auto] bg-linear-to-r from-orange-500 via-rose-500 to-orange-500 dark:from-orange-400 dark:via-rose-400 dark:to-orange-400 animate-text-shimmer drop-shadow-[0_2px_10px_rgba(249,115,22,0.2)]">
                             {title}
                         </span>
                     </h2>
@@ -86,7 +86,7 @@ export function ProductShowcaseClient({ features, settings }: { features: Produc
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="relative max-w-5xl mx-auto mt-16 mb-24 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-[#e5e7eb] dark:border-white/[0.08]"
                     >
-                        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/5 to-rose-500/5 mix-blend-overlay z-10 pointer-events-none"></div>
+                        <div className="absolute inset-0 bg-linear-to-tr from-orange-500/5 to-rose-500/5 mix-blend-overlay z-10 pointer-events-none"></div>
                         {settings.showcaseMedia.mimeType?.includes('video') ? (
                             <video
                                 src={settings.showcaseMedia.url}
@@ -130,7 +130,7 @@ export function ProductShowcaseClient({ features, settings }: { features: Produc
 function AnimatedFeatureSVG({ icon: Icon }: { icon: any }) {
     const bars = [0.55, 0.85, 0.45, 0.95, 0.65, 0.75, 0.50, 0.80];
     return (
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50/20 dark:from-[#060d1a] dark:to-[#040a14] overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-slate-50 to-blue-50/20 dark:from-[#060d1a] dark:to-[#040a14] overflow-hidden">
             {/* Subtle grid */}
             <div className="absolute inset-0 opacity-20 dark:opacity-15" style={{
                 backgroundImage: 'linear-gradient(rgba(34,211,238,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.15) 1px, transparent 1px)',
@@ -165,7 +165,7 @@ function AnimatedFeatureSVG({ icon: Icon }: { icon: any }) {
                     {bars.map((h, i) => (
                         <motion.div
                             key={i}
-                            className="w-[10px] rounded-t-sm bg-gradient-to-t from-blue-600 via-cyan-500 to-cyan-300 dark:from-blue-700 dark:via-cyan-500 dark:to-cyan-300 shadow-[0_0_6px_rgba(34,211,238,0.4)]"
+                            className="w-[10px] rounded-t-sm bg-linear-to-t from-blue-600 via-cyan-500 to-cyan-300 dark:from-blue-700 dark:via-cyan-500 dark:to-cyan-300 shadow-[0_0_6px_rgba(34,211,238,0.4)]"
                             animate={{ height: [`${h * 40}px`, `${Math.max(8, h * 40 - 12 + (i % 3) * 6)}px`, `${h * 40}px`] }}
                             transition={{ duration: 2 + i * 0.18, repeat: Infinity, ease: 'easeInOut', delay: i * 0.12 }}
                         />
@@ -243,7 +243,7 @@ function FeatureBlock({ icon: Icon, title, description, features, imagePosition,
 
                 {/* Image/Visual */}
                 <div className={imagePosition === 'right' ? 'md:order-1' : ''}>
-                    <div className="relative aspect-video bg-[#f3f4f6] dark:bg-gradient-to-br dark:from-[#111] dark:to-[#1a1a1a] rounded-2xl overflow-hidden border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm group">
+                    <div className="relative aspect-video bg-[#f3f4f6] dark:bg-linear-to-br dark:from-[#111] dark:to-[#1a1a1a] rounded-2xl overflow-hidden border border-[#e5e7eb] dark:border-white/[0.06] shadow-sm group">
                         {mediaUrl ? (
                             mediaType === 'video' ? (
                                 <video

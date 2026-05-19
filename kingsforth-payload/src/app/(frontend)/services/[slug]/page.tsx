@@ -182,7 +182,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             </div>
 
             {/* ── HERO ───────────────────────────────────────────── */}
-            <section className={`relative overflow-hidden bg-gradient-to-br ${theme.from} ${theme.via} ${theme.to}`}>
+            <section className={`relative overflow-hidden bg-linear-to-br ${theme.from} ${theme.via} ${theme.to}`}>
                 {/* Decorative glow */}
                 <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full blur-[120px] opacity-20 ${theme.bg}`} />
 
@@ -243,7 +243,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                     <div className="relative rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={heroImageUrl} alt={title} className="w-full aspect-[21/9] object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 to-transparent" />
                     </div>
                 </div>
             )}
@@ -252,7 +252,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             {embedUrl && (
                 <section className="max-w-5xl mx-auto px-6 py-14">
                     <div className="relative group">
-                        <div className={`absolute -inset-3 bg-gradient-to-r ${theme.bg} rounded-[2rem] blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none`} />
+                        <div className={`absolute -inset-3 bg-linear-to-r ${theme.bg} rounded-[2rem] blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none`} />
                         <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl">
                             <iframe src={embedUrl} title={`${title} Overview`}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -288,7 +288,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
                         {/* Connecting line (desktop only) */}
-                        <div className="hidden md:block absolute top-12 left-[calc(16.66%+1rem)] right-[calc(16.66%+1rem)] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
+                        <div className="hidden md:block absolute top-12 left-[calc(16.66%+1rem)] right-[calc(16.66%+1rem)] h-px bg-linear-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
 
                         {howItWorks.map((step, i) => {
                             const StepIcon = getIcon(step.iconName ?? 'zap')
@@ -352,7 +352,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
             {/* ── CTA ─────────────────────────────────────────────── */}
             <section className="max-w-5xl mx-auto px-6 mt-8">
-                <div className={`relative rounded-3xl overflow-hidden bg-gradient-to-br ${theme.from} ${theme.via} ${theme.to} border border-white/[0.08] p-12 md:p-20 text-center`}>
+                <div className={`relative rounded-3xl overflow-hidden bg-linear-to-br ${theme.from} ${theme.via} ${theme.to} border border-white/[0.08] p-12 md:p-20 text-center`}>
                     <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full blur-[80px] opacity-15 ${theme.bg} pointer-events-none`} />
                     <div className="relative z-10">
                         <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6 ${theme.badge}`}>

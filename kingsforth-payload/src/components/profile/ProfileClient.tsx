@@ -91,7 +91,7 @@ export default function ProfileClient({ user }: { user: ProfileData }) {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-6 mt-6 border-t border-slate-200 dark:border-white/10">
-                <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold rounded-xl shadow-lg transition-transform hover:scale-105 disabled:opacity-50">
+                <button type="submit" disabled={loading} className="px-8 py-3 bg-linear-to-r from-violet-600 to-cyan-600 text-white font-bold rounded-xl shadow-lg transition-transform hover:scale-105 disabled:opacity-50">
                     {loading ? 'Saving...' : 'Save Profile Changes'}
                 </button>
                 <button type="button" onClick={handleLogout} className="px-8 py-3 bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold rounded-xl hover:bg-red-200 dark:hover:bg-red-900/40 transition-colors flex items-center justify-center gap-2">

@@ -36,7 +36,7 @@ export function HowItWorksClient({ steps, settings }: HowItWorksClientProps) {
                     className="text-center mb-20 relative z-10 mx-auto max-w-4xl"
                 >
                     <h2 className="text-5xl md:text-6xl lg:text-7xl font-black mb-5 tracking-tight">
-                        <span className="text-transparent bg-clip-text bg-[length:200%_auto] bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 dark:from-cyan-400 dark:via-purple-400 dark:to-cyan-400 animate-text-shimmer drop-shadow-sm">
+                        <span className="text-transparent bg-clip-text bg-[length:200%_auto] bg-linear-to-r from-blue-600 via-purple-500 to-blue-600 dark:from-cyan-400 dark:via-purple-400 dark:to-cyan-400 animate-text-shimmer drop-shadow-sm">
                             {title}
                         </span>
                     </h2>
@@ -59,7 +59,7 @@ export function HowItWorksClient({ steps, settings }: HowItWorksClientProps) {
 
                 {/* Timeline Steps */}
                 <div className="relative">
-                    <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#2563eb]/30 via-[#a855f7]/30 to-[#22d3ee]/30 dark:from-cyan-500/30 dark:via-violet-500/30 dark:to-green-500/30" />
+                    <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-linear-to-b from-[#2563eb]/30 via-[#a855f7]/30 to-[#22d3ee]/30 dark:from-cyan-500/30 dark:via-violet-500/30 dark:to-green-500/30" />
 
                     <div className="space-y-16">
                         {steps.map((step: any, index: number) => (
@@ -89,7 +89,7 @@ export function HowItWorksClient({ steps, settings }: HowItWorksClientProps) {
                     className="mt-20 text-center"
                 >
                     <div className="inline-block px-8 py-6 bg-green-50 dark:bg-green-500/[0.05] border border-green-200 dark:border-green-500/30 rounded-2xl">
-                        <div className="text-4xl md:text-5xl font-bold text-green-600 dark:text-transparent dark:bg-gradient-to-r dark:from-green-400 dark:to-emerald-400 dark:bg-clip-text mb-2">
+                        <div className="text-4xl md:text-5xl font-bold text-green-600 dark:text-transparent dark:bg-linear-to-r dark:from-green-400 dark:to-emerald-400 dark:bg-clip-text mb-2">
                             &lt; 60 seconds
                         </div>
                         <div className="text-[#6b7280] dark:text-[#9ca3af]">Average Threat Response Time</div>
@@ -106,7 +106,7 @@ function StepIllustration({ index, icon: Icon, color }: { index: number; icon: a
     if (type === 0) {
         // Radar / detection sweep
         return (
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-50 to-cyan-50/30 dark:from-[#060d1a] dark:to-[#040b17] overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-slate-50 to-cyan-50/30 dark:from-[#060d1a] dark:to-[#040b17] overflow-hidden">
                 <div className="absolute inset-0 opacity-10 dark:opacity-10" style={{ backgroundImage: 'radial-gradient(circle, rgba(34,211,238,0.3) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
                 <div className="relative flex items-center justify-center w-40 h-40">
                     {/* Expanding radar rings */}

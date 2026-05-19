@@ -64,7 +64,7 @@ export function CoreCapabilitiesClient({ capabilities, settings }: CoreCapabilit
                     className="text-center mb-16 mx-auto max-w-4xl"
                 >
                     <h2 className="text-5xl md:text-6xl lg:text-7xl font-black mb-5 tracking-tight">
-                        <span className="text-transparent bg-clip-text bg-[length:200%_auto] bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 dark:from-emerald-400 dark:via-cyan-400 dark:to-emerald-400 animate-text-shimmer drop-shadow-sm">
+                        <span className="text-transparent bg-clip-text bg-[length:200%_auto] bg-linear-to-r from-emerald-500 via-teal-400 to-emerald-500 dark:from-emerald-400 dark:via-cyan-400 dark:to-emerald-400 animate-text-shimmer drop-shadow-sm">
                             {title}
                         </span>
                     </h2>
@@ -119,13 +119,13 @@ function CapabilityCard({ iconName, title, description, href, gradient, mediaUrl
                                 // eslint-disable-next-line @next/next/no-img-element
                                 <img src={mediaUrl} alt={title} className="w-full h-full object-cover opacity-15 dark:opacity-[0.12] group-hover:opacity-30 dark:group-hover:opacity-20 blur-[2px] transition-opacity duration-500" />
                             )}
-                            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/10 dark:from-[#111] dark:via-[#111]/80 dark:to-[#111]/10"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-white via-white/80 to-white/10 dark:from-[#111] dark:via-[#111]/80 dark:to-[#111]/10"></div>
                         </div>
                     )}
                     
                     <div className="relative z-10 p-8 flex flex-col h-full">
                         {/* Icon */}
-                        <div className={`inline-flex items-center justify-center p-4 rounded-xl bg-gradient-to-br ${gradient} w-16 h-16 shadow-sm mb-6`}>
+                        <div className={`inline-flex items-center justify-center p-4 rounded-xl bg-linear-to-br ${gradient} w-16 h-16 shadow-sm mb-6`}>
                         <Icon className="w-7 h-7 text-white" />
                     </div>
 

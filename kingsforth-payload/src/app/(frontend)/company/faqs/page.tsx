@@ -35,14 +35,14 @@ export default async function FAQsPage() {
         <main className="min-h-screen text-foreground relative z-10 pt-32 pb-24">
             <div className="max-w-4xl mx-auto px-6">
                 {/* Hero */}
-                <div className="text-center mb-16 bg-white/70 dark:bg-black/75 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 dark:border-white/10 p-12 transition-colors duration-700">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 backdrop-blur-xl shadow-lg mb-6">
+                <div className="text-center mb-16 bg-white/70 dark:bg-black/75 rounded-3xl shadow-2xl border border-white/50 dark:border-white/10 p-12 transition-colors duration-700">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 shadow-lg mb-6">
                         <HelpCircle className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                         <span className="text-sm font-semibold text-slate-800 dark:text-gray-200 tracking-wide uppercase">Support Center</span>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-6 transition-colors duration-700">
                         Frequently Asked{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-indigo-600 dark:from-cyan-400 dark:to-indigo-400">
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-600 to-indigo-600 dark:from-cyan-400 dark:to-indigo-400">
                             Questions
                         </span>
                     </h1>

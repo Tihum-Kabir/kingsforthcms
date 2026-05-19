@@ -77,7 +77,7 @@ export function DetailPageLayout({
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={heroImageUrl} alt={heroImageAlt || title}
                                 className="w-full h-full object-cover" loading="eager" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#0a0a0a] via-white/20 dark:via-transparent to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-white dark:from-[#0a0a0a] via-white/20 dark:via-transparent to-transparent" />
                         </div>
                     )}
                     <div className="p-10 md:p-16">
@@ -115,7 +115,7 @@ export function DetailPageLayout({
                     {/* Glowing wrapper — no dark bg, just subtle glow */}
                     <div className="relative group">
                         {/* Ambient glow behind video */}
-                        <div className="absolute -inset-3 bg-gradient-to-r from-cyan-500/20 via-violet-500/10 to-blue-500/20 rounded-[2rem] blur-2xl opacity-60 dark:opacity-40 group-hover:opacity-90 transition-opacity duration-700 pointer-events-none" />
+                        <div className="absolute -inset-3 bg-linear-to-r from-cyan-500/20 via-violet-500/10 to-blue-500/20 rounded-[2rem] blur-2xl opacity-60 dark:opacity-40 group-hover:opacity-90 transition-opacity duration-700 pointer-events-none" />
                         {/* Video frame */}
                         <div className="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-slate-200 dark:ring-white/[0.08] shadow-xl">
                             <iframe
@@ -202,7 +202,7 @@ export function DetailPageLayout({
 
             {/* ── CTA ───────────────────────────────────────────────── */}
             <section className="max-w-5xl mx-auto px-6 mt-16">
-                <div className="relative bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#0c1a2e] rounded-3xl p-12 md:p-20 text-center overflow-hidden border border-white/[0.07]">
+                <div className="relative bg-linear-to-br from-[#0f172a] via-[#1e1b4b] to-[#0c1a2e] rounded-3xl p-12 md:p-20 text-center overflow-hidden border border-white/[0.07]">
                     <div className="absolute inset-0 pointer-events-none">
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-cyan-500/10 rounded-full blur-3xl" />
                         <div className="absolute bottom-0 right-1/4 w-[300px] h-[150px] bg-violet-500/10 rounded-full blur-3xl" />

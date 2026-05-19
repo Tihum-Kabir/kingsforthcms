@@ -93,7 +93,7 @@ export default async function SolutionsPage() {
                                 <Link
                                     key={sol.id}
                                     href={`/solutions/${sol.slug}`}
-                                    className="group relative bg-white/60 dark:bg-white/4 backdrop-blur-xl border border-white/80 dark:border-white/8 rounded-2xl p-10 overflow-hidden hover:border-blue-400/60 dark:hover:border-cyan-500/30 hover:shadow-[0_8px_32px_rgba(37,99,235,0.12)] dark:hover:shadow-[0_8px_32px_rgba(34,211,238,0.08)] transition-all duration-300"
+                                    className="group relative bg-white/60 dark:bg-white/4 border border-white/80 dark:border-white/8 rounded-2xl p-10 overflow-hidden hover:border-blue-400/60 dark:hover:border-cyan-500/30 hover:shadow-[0_8px_32px_rgba(37,99,235,0.12)] dark:hover:shadow-[0_8px_32px_rgba(34,211,238,0.08)] transition-all duration-300"
                                 >
                                     <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-white/6 border border-slate-200 dark:border-white/8 flex items-center justify-center mb-6 group-hover:bg-blue-50 dark:group-hover:bg-cyan-500/10 transition-colors">
                                         <Icon className="w-7 h-7 text-slate-500 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors" />
@@ -134,7 +134,7 @@ export default async function SolutionsPage() {
                                 <Link
                                     key={sol.id}
                                     href={`/solutions/${sol.slug}`}
-                                    className="group relative bg-white/60 dark:bg-white/4 backdrop-blur-xl border border-white/80 dark:border-white/8 rounded-2xl p-10 overflow-hidden hover:border-violet-400/60 dark:hover:border-violet-500/30 hover:shadow-[0_8px_32px_rgba(124,58,237,0.10)] dark:hover:shadow-[0_8px_32px_rgba(124,58,237,0.08)] transition-all duration-300"
+                                    className="group relative bg-white/60 dark:bg-white/4 border border-white/80 dark:border-white/8 rounded-2xl p-10 overflow-hidden hover:border-violet-400/60 dark:hover:border-violet-500/30 hover:shadow-[0_8px_32px_rgba(124,58,237,0.10)] dark:hover:shadow-[0_8px_32px_rgba(124,58,237,0.08)] transition-all duration-300"
                                 >
                                     <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-white/6 border border-slate-200 dark:border-white/8 flex items-center justify-center mb-6 group-hover:bg-violet-50 dark:group-hover:bg-violet-500/10 transition-colors">
                                         <Icon className="w-7 h-7 text-slate-500 dark:text-slate-400 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors" />
@@ -167,7 +167,7 @@ export default async function SolutionsPage() {
 
             {/* CTA */}
             <section className="max-w-5xl mx-auto px-6 pb-24">
-                <div className="bg-white/60 dark:bg-white/4 backdrop-blur-xl border border-white/80 dark:border-white/8 rounded-2xl p-12 md:p-16 text-center shadow-xl">
+                <div className="bg-white/60 dark:bg-white/4 border border-white/80 dark:border-white/8 rounded-2xl p-12 md:p-16 text-center shadow-xl">
                     <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4">
                         Need a custom deployment?
                     </h2>

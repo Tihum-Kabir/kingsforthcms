@@ -23,7 +23,7 @@ export function ParadigmShift({ settings }: { settings?: any }) {
                     className="text-center max-w-5xl mx-auto px-8 py-10 sm:px-12 sm:py-12"
                 >
                     <h2 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 tracking-tighter">
-                        <span className="text-transparent bg-clip-text bg-[length:200%_auto] bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-600 dark:from-cyan-400 dark:via-purple-400 dark:to-cyan-400 animate-text-shimmer drop-shadow-[0_2px_2px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                        <span className="text-transparent bg-clip-text bg-[length:200%_auto] bg-linear-to-r from-blue-600 via-cyan-400 to-blue-600 dark:from-cyan-400 dark:via-purple-400 dark:to-cyan-400 animate-text-shimmer drop-shadow-[0_2px_2px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
                             {title}
                         </span>
                     </h2>
@@ -104,7 +104,7 @@ export function ParadigmShift({ settings }: { settings?: any }) {
                     >
                         <div className="flex-1 relative bg-[#f0fdfa] dark:bg-[#111111] rounded-2xl p-8 border border-cyan-200 dark:border-cyan-400/20 transition-all duration-500 overflow-hidden">
                             <div className="flex items-center gap-3 mb-5 relative z-10">
-                                <div className="w-11 h-11 bg-cyan-100 dark:bg-gradient-to-br dark:from-cyan-500/20 dark:to-violet-500/20 rounded-xl flex items-center justify-center border border-cyan-200 dark:border-cyan-400/20">
+                                <div className="w-11 h-11 bg-cyan-100 dark:bg-linear-to-br dark:from-cyan-500/20 dark:to-violet-500/20 rounded-xl flex items-center justify-center border border-cyan-200 dark:border-cyan-400/20">
                                     <Zap className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
                                 </div>
                                 <div>
@@ -127,11 +127,11 @@ export function ParadigmShift({ settings }: { settings?: any }) {
                             <div className="mt-8 pt-6 border-t border-cyan-200 dark:border-cyan-400/15 relative z-10">
                                 <div className="grid grid-cols-2 gap-4 text-center">
                                     <div>
-                                        <div className="text-3xl font-black text-cyan-600 dark:text-transparent dark:bg-gradient-to-r dark:from-cyan-400 dark:to-violet-400 dark:bg-clip-text tabular-nums">&lt;60s</div>
+                                        <div className="text-3xl font-black text-cyan-600 dark:text-transparent dark:bg-linear-to-r dark:from-cyan-400 dark:to-violet-400 dark:bg-clip-text tabular-nums">&lt;60s</div>
                                         <div className="text-[11px] text-[#9ca3af] mt-1 tracking-wide uppercase">Response Time</div>
                                     </div>
                                     <div>
-                                        <div className="text-3xl font-black text-cyan-600 dark:text-transparent dark:bg-gradient-to-r dark:from-cyan-400 dark:to-violet-400 dark:bg-clip-text tabular-nums">99.9%</div>
+                                        <div className="text-3xl font-black text-cyan-600 dark:text-transparent dark:bg-linear-to-r dark:from-cyan-400 dark:to-violet-400 dark:bg-clip-text tabular-nums">99.9%</div>
                                         <div className="text-[11px] text-[#9ca3af] mt-1 tracking-wide uppercase">Accuracy</div>
                                     </div>
                                 </div>
@@ -156,8 +156,8 @@ export function ParadigmShift({ settings }: { settings?: any }) {
                         className="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center z-20"
                     >
                         <div className="relative w-14 h-14">
-                            <span className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 animate-ping opacity-20" />
-                            <div className="relative w-14 h-14 bg-gradient-to-r from-[#8b5cf6] via-[#3b82f6] to-[#06b6d4] rounded-full flex items-center justify-center shadow-lg">
+                            <span className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-500 to-violet-500 animate-ping opacity-20" />
+                            <div className="relative w-14 h-14 bg-linear-to-r from-[#8b5cf6] via-[#3b82f6] to-[#06b6d4] rounded-full flex items-center justify-center shadow-lg">
                                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                 </svg>

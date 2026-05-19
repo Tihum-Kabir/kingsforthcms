@@ -92,7 +92,7 @@ export function ServiceFeatures({ service }: { service: any }) {
                                 className={`group relative p-1 rounded-[2.5rem] bg-linear-to-b from-white/10 to-white/5 hover:from-cyan-500/40 hover:to-violet-600/40 transition-all duration-500`}
                             >
                                 {/* Persistent Glow Behind */}
-                                <div className={`absolute -inset-4 bg-gradient-to-r ${borderClass.replace('border-', 'from-').replace('/30', '/20')} to-transparent rounded-[3rem] opacity-20 group-hover:opacity-40 blur-2xl transition-opacity duration-500`} />
+                                <div className={`absolute -inset-4 bg-linear-to-r ${borderClass.replace('border-', 'from-').replace('/30', '/20')} to-transparent rounded-[3rem] opacity-20 group-hover:opacity-40 blur-2xl transition-opacity duration-500`} />
 
                                 {/* Inner Card Content */}
                                 <div className="h-full relative p-8 rounded-[2.3rem] bg-[#0b0518] border border-white/10 group-hover:bg-[#130a2a] group-hover:border-transparent transition-all duration-300 overflow-hidden">
@@ -100,18 +100,18 @@ export function ServiceFeatures({ service }: { service: any }) {
                                     <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.08] group-hover:opacity-[0.15] transition-opacity" />
 
                                     {/* Ambient Glow */}
-                                    <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br ${borderClass.replace('border-', 'from-').replace('/30', '/20')} to-transparent opacity-0 group-hover:opacity-100 blur-[80px] transition-all duration-500`} />
+                                    <div className={`absolute top-0 right-0 w-64 h-64 bg-linear-to-br ${borderClass.replace('border-', 'from-').replace('/30', '/20')} to-transparent opacity-0 group-hover:opacity-100 blur-[80px] transition-all duration-500`} />
 
                                     <div className="relative z-10">
                                         {/* Floating Icon Base */}
                                         <div className="mb-8 relative">
-                                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_30px_-5px_rgba(124,58,237,0.4)]">
+                                            <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-white/10 to-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_30px_-5px_rgba(124,58,237,0.4)]">
                                                 <IconComponent className={`w-6 h-6 text-gray-300 ${textClass} transition-colors`} strokeWidth={1.5} />
                                             </div>
                                         </div>
 
                                         {/* Title */}
-                                        <h3 className="text-xl font-semibold text-white mb-3 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all">
+                                        <h3 className="text-xl font-semibold text-white mb-3 tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-white group-hover:to-gray-300 transition-all">
                                             {feature.title}
                                         </h3>
 

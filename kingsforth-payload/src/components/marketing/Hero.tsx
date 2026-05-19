@@ -26,7 +26,7 @@ function InfiniteLogoScrollInline({ partnerLogos, settings }: { partnerLogos?: a
         <div className="w-full relative flex flex-col items-center gap-4 mb-4 mt-10 sm:mt-12 group/scroll pointer-events-none">
             {/* Context Label with modern glassmorphism pill */}
             <div className="flex items-center gap-4">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-gray-400 dark:to-gray-600" />
+                <div className="h-px w-12 bg-linear-to-r from-transparent to-gray-400 dark:to-gray-600" />
                 <div className="px-4 py-2 mt-[-8px]">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -39,14 +39,14 @@ function InfiniteLogoScrollInline({ partnerLogos, settings }: { partnerLogos?: a
                         </p>
                     </motion.div>
                 </div>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-gray-400 dark:to-gray-600" />
+                <div className="h-px w-12 bg-linear-to-l from-transparent to-gray-400 dark:to-gray-600" />
             </div>
 
             <div className="relative w-full max-w-[1200px] mx-auto mt-4 px-4 sm:px-8 group/gallery cursor-pointer">
                 {/* Vibrant ambient glow behind the logos */}
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-40 bg-gradient-to-r from-blue-600/0 via-cyan-400/20 to-violet-600/0 blur-3xl pointer-events-none opacity-60 group-hover/gallery:opacity-100 transition-opacity duration-700 mix-blend-screen" />
+                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-40 bg-linear-to-r from-blue-600/0 via-cyan-400/20 to-violet-600/0 blur-3xl pointer-events-none opacity-60 group-hover/gallery:opacity-100 transition-opacity duration-700 mix-blend-screen" />
                 {/* Secondary accent glow */}
-                <div className="absolute inset-x-20 top-1/2 -translate-y-1/2 h-16 bg-gradient-to-r from-transparent via-fuchsia-500/10 to-transparent blur-2xl pointer-events-none mix-blend-screen" />
+                <div className="absolute inset-x-20 top-1/2 -translate-y-1/2 h-16 bg-linear-to-r from-transparent via-fuchsia-500/10 to-transparent blur-2xl pointer-events-none mix-blend-screen" />
 
                 <div className="infinite-gallery-row relative">
                     <div className="loop-slider loop-slider-40s transition-transform duration-700 ease-out">
@@ -69,7 +69,7 @@ function InfiniteLogoScrollInline({ partnerLogos, settings }: { partnerLogos?: a
             </div>
 
             {/* Subtle Vertical Connection Line */}
-            <div className="w-px h-8 sm:h-10 bg-gradient-to-b from-gray-500/50 via-gray-500/20 to-transparent mt-2 opacity-70 relative">
+            <div className="w-px h-8 sm:h-10 bg-linear-to-b from-gray-500/50 via-gray-500/20 to-transparent mt-2 opacity-70 relative">
                 <div className="absolute top-0 left-[-2px] w-[5px] h-[5px] bg-[#38bdf8] rounded-full shadow-[0_0_10px_#38bdf8] animate-pulse" />
             </div>
         </div>
@@ -85,7 +85,7 @@ const HeroDashboardUI = () => {
             className="relative w-full max-w-[760px] mx-auto mt-12 lg:mt-0 group/db cursor-default z-20"
         >
             {/* Outer Cybernetic Glow */}
-            <div className="absolute -inset-1 bg-gradient-to-b from-cyan-500/20 to-blue-600/0 rounded-xl blur-xl opacity-0 group-hover/db:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+            <div className="absolute -inset-1 bg-linear-to-b from-cyan-500/20 to-blue-600/0 rounded-xl blur-xl opacity-0 group-hover/db:opacity-100 transition-opacity duration-1000 pointer-events-none" />
 
             {/* Background design elements (the subtle brackets in the reference) */}
             <div className="absolute -top-6 -left-6 w-24 h-24 border-t-2 border-l-2 border-cyan-500/30 rounded-tl-3xl shadow-[-8px_-8px_20px_rgba(34,211,238,0.1)] pointer-events-none" />
@@ -130,7 +130,7 @@ const HeroDashboardUI = () => {
 
                                 {/* Animated Sweep */}
                                 <motion.div
-                                    className="absolute inset-x-0 h-[40px] bg-gradient-to-b from-transparent via-cyan-400/20 to-transparent pointer-events-none mix-blend-screen"
+                                    className="absolute inset-x-0 h-[40px] bg-linear-to-b from-transparent via-cyan-400/20 to-transparent pointer-events-none mix-blend-screen"
                                     animate={{ y: ['-100px', '200px'] }}
                                     transition={{ duration: 2.5, ease: 'linear', repeat: Infinity }}
                                 />
@@ -206,7 +206,7 @@ const HeroDashboardUI = () => {
                             {[40, 70, 45, 90, 60, 80, 50, 75, 40].map((h, i) => (
                                 <motion.div
                                     key={i}
-                                    className="w-[12px] sm:w-[14px] rounded-t-sm bg-gradient-to-t from-blue-700 via-cyan-500 to-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.5)]"
+                                    className="w-[12px] sm:w-[14px] rounded-t-sm bg-linear-to-t from-blue-700 via-cyan-500 to-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.5)]"
                                     animate={{ height: [`${h}%`, `${Math.max(20, h - 25 + Math.random() * 15)}%`, `${h}%`] }}
                                     transition={{ duration: 2.5 + (i * 0.15), repeat: Infinity, ease: 'easeInOut' }}
                                 />
@@ -291,16 +291,12 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
 
                             {/* Main Headline */}
                             <h1 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[4rem] xl:text-[4.5rem] font-black tracking-tighter leading-[1.05] break-words uppercase whitespace-pre-line">
-                                {heroSettings?.heroHeadline && (
-                                    <span className="animate-text-shimmer bg-[length:200%_auto] bg-gradient-to-r from-slate-900 via-slate-600 to-slate-900 dark:from-white dark:via-gray-300 dark:to-white bg-clip-text text-transparent drop-shadow-[0_2px_28px_rgba(255,255,255,0.95)] dark:drop-shadow-[0_2px_16px_rgba(255,255,255,0.2)] tracking-tight block pb-1">
-                                        {heroSettings.heroHeadline}
-                                    </span>
-                                )}
-                                {heroSettings?.heroHighlightText && (
-                                    <span className="animate-text-shimmer bg-[length:200%_auto] bg-gradient-to-r from-[#2563eb] via-[#22d3ee] to-[#2563eb] bg-clip-text text-transparent drop-shadow-[0_0_45px_rgba(34,211,238,0.85)] dark:drop-shadow-[0_0_30px_rgba(34,211,238,0.6)] tracking-tight">
-                                        {heroSettings.heroHighlightText}
-                                    </span>
-                                )}
+                                <span className="animate-text-shimmer bg-size-[200%_auto] bg-linear-to-r from-slate-900 via-slate-600 to-slate-900 dark:from-white dark:via-gray-300 dark:to-white bg-clip-text text-transparent drop-shadow-[0_2px_28px_rgba(255,255,255,0.95)] dark:drop-shadow-[0_2px_16px_rgba(255,255,255,0.2)] tracking-tight block pb-1">
+                                    {heroSettings?.heroHeadline || 'AUTONOMOUS\nSECURITY'}
+                                </span>
+                                <span className="animate-text-shimmer bg-size-[200%_auto] bg-linear-to-r from-[#2563eb] via-[#22d3ee] to-[#2563eb] bg-clip-text text-transparent drop-shadow-[0_0_45px_rgba(34,211,238,0.85)] dark:drop-shadow-[0_0_30px_rgba(34,211,238,0.6)] tracking-tight">
+                                    {heroSettings?.heroHighlightText || 'INTELLIGENCE'}
+                                </span>
                             </h1>
 
                             <div className="relative pl-5 sm:pl-6 border-l-2 border-[#1e3a8a]/60">
@@ -311,41 +307,41 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                                     >
                                         <RichText data={heroSettings.heroSubtitle} />
                                     </div>
-                                ) : heroSettings?.heroSubtitle && typeof heroSettings.heroSubtitle === 'string' ? (
+                                ) : (
                                     <p
                                         className="text-slate-700 dark:text-gray-400 font-normal leading-relaxed max-w-[540px] whitespace-pre-line hero-subtitle"
                                         data-size={heroSettings?.heroSubtitleSize || 19}
                                     >
-                                        {heroSettings.heroSubtitle}
+                                        {(heroSettings?.heroSubtitle && typeof heroSettings.heroSubtitle === 'string')
+                                            ? heroSettings.heroSubtitle
+                                            : 'Enterprise AI surveillance and intelligent security operations for critical environments.'}
                                     </p>
-                                ) : null}
+                                )}
                             </div>
 
                             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
 
                                 {/* ── Primary CTA ── */}
-                                {heroSettings?.heroCTAText && (
                                 <Link
                                     href={heroSettings?.heroCTALink || '/contact'}
                                     className="group relative flex items-center justify-center gap-2 h-[52px] sm:h-[56px] px-7 sm:px-9 text-white text-[15px] font-semibold rounded-full transition-all duration-300 hover:scale-[1.02] overflow-hidden"
                                 >
                                     {/* Glow halo */}
-                                    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#4f46e5] via-[#3b82f6] to-[#06b6d4] opacity-50 blur-lg scale-105 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
+                                    <span className="absolute inset-0 rounded-full bg-linear-to-r from-[#4f46e5] via-[#3b82f6] to-[#06b6d4] opacity-50 blur-lg scale-105 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
                                     {/* Fill */}
-                                    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#4338ca] via-[#3b82f6] to-[#0ea5e9]" />
+                                    <span className="absolute inset-0 rounded-full bg-linear-to-r from-[#4338ca] via-[#3b82f6] to-[#0ea5e9]" />
                                     {/* Top gloss */}
-                                    <span className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+                                    <span className="absolute inset-x-4 top-0 h-px bg-linear-to-r from-transparent via-white/50 to-transparent" />
                                     {/* Shimmer */}
-                                    <span className="absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] transition-transform duration-[650ms] ease-in-out bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-15deg]" />
+                                    <span className="absolute inset-0 translate-x-[-110%] group-hover:translate-x-[110%] transition-transform duration-[650ms] ease-in-out bg-linear-to-r from-transparent via-white/15 to-transparent skew-x-[-15deg]" />
                                     {/* Border */}
                                     <span className="absolute inset-0 rounded-full border border-white/15 group-hover:border-white/25 transition-colors duration-300" />
 
                                     <span className="relative z-10 flex items-center gap-2">
-                                        {heroSettings.heroCTAText}
+                                        {heroSettings?.heroCTAText || 'Book a Demo'}
                                         <Zap className="w-4 h-4 fill-white group-hover:scale-110 transition-transform duration-300" />
                                     </span>
                                 </Link>
-                                )}
 
                                 {/* ── Secondary CTA ── */}
                                 {heroSettings?.heroSecondaryCTAText && (
@@ -356,7 +352,7 @@ export function Hero({ partnerLogos, heroSettings, logoScrollSettings }: HeroPro
                                     className="group relative flex items-center justify-center gap-3 h-[52px] sm:h-[56px] px-7 sm:px-9 text-slate-900 dark:text-white/90 text-[15px] font-bold rounded-full transition-all duration-300 hover:scale-[1.02] overflow-hidden"
                                 >
                                     <span className="absolute inset-0 rounded-full bg-slate-100 dark:bg-white/[0.04] group-hover:bg-slate-200 dark:group-hover:bg-white/[0.08] transition-colors duration-300" />
-                                    <span className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                                    <span className="absolute inset-x-4 top-0 h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
                                     <span className="absolute inset-0 rounded-full border border-black/8 dark:border-white/10 group-hover:border-black/15 dark:group-hover:border-white/20 transition-colors duration-300" />
                                     <span className="relative z-10 flex items-center gap-3">
                                         <svg className="w-[30px] h-[21px] shrink-0 drop-shadow-sm group-hover:scale-105 transition-transform duration-300" viewBox="0 0 30 21" fill="none" xmlns="http://www.w3.org/2000/svg">

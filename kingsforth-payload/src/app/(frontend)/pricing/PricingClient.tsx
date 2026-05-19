@@ -67,7 +67,7 @@ export function PricingClient({ tiers, addOns, billingNote }: Props) {
 
             {/* ── Billing Toggle ── */}
             <div className="flex justify-center mb-12">
-                <div className="inline-flex bg-white/5 backdrop-blur-xl rounded-full p-1.5 border border-white/10 shadow-lg">
+                <div className="inline-flex bg-white/5 rounded-full p-1.5 border border-white/10 shadow-lg">
                     {(['monthly', 'annual'] as Billing[]).map((b) => (
                         <button
                             key={b}
@@ -261,7 +261,7 @@ export function PricingClient({ tiers, addOns, billingNote }: Props) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.25 }}
-                        className="mb-16 rounded-2xl border border-white/10 overflow-hidden backdrop-blur-xl bg-white/3"
+                        className="mb-16 rounded-2xl border border-white/10 overflow-hidden bg-white/3"
                     >
                         <div className="px-6 py-4 border-b border-white/8">
                             <h3 className="text-base font-bold text-white">Your Configuration</h3>

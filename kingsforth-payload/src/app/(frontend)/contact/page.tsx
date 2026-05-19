@@ -26,7 +26,7 @@ export default async function ContactPage() {
                 <div className="space-y-10 p-10 bg-white/70 dark:bg-[#03050C]/75 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 dark:border-white/10 transition-colors duration-700">
                     <div>
                         <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 transition-colors duration-700">
-                            Let&apos;s Talk <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-cyan-600 dark:from-violet-400 dark:to-cyan-400">Security</span>
+                            Let&apos;s Talk <span className="text-transparent bg-clip-text bg-linear-to-r from-violet-600 to-cyan-600 dark:from-violet-400 dark:to-cyan-400">Security</span>
                         </h1>
                         <p className="text-xl text-slate-600 dark:text-gray-300 font-light transition-colors duration-700">
                             Our team is ready to assist you with inquiries regarding our intelligence platforms, custom deployments, or support.

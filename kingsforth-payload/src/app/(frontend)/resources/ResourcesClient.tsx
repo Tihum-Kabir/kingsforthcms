@@ -114,7 +114,7 @@ function ResourceCard({ resource }: { resource: any }) {
                         loading="lazy"
                     />
                 ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] dark:from-[#0a0f1c] dark:via-[#1a2332] dark:to-[#0a0f1c] flex items-center justify-center relative">
+                    <div className="w-full h-full bg-linear-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] dark:from-[#0a0f1c] dark:via-[#1a2332] dark:to-[#0a0f1c] flex items-center justify-center relative">
                         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
                         <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#334155] dark:text-[#2d3e56] relative z-10">{resource.category}</span>
                     </div>
@@ -380,7 +380,7 @@ export function ResourcesClient({
                 <div className="border-t border-[#e5e7eb] dark:border-white/[0.06]">
                     <div className="max-w-[1200px] mx-auto px-6 py-14">
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/20 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/20 flex items-center justify-center">
                                 <Globe className="w-4 h-4 text-cyan-500" />
                             </div>
                             <p className="text-sm font-semibold text-[#374151] dark:text-[#d1d5db]">

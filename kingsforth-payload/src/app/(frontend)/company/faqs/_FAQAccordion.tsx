@@ -11,7 +11,7 @@ interface FAQItem {
 function FAQItem({ faq }: { faq: FAQItem }) {
     const [open, setOpen] = useState(false);
     return (
-        <div className="border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden bg-white/70 dark:bg-black/50 backdrop-blur-xl transition-colors duration-700">
+        <div className="border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden bg-white/70 dark:bg-black/50 transition-colors duration-700">
             <button
                 onClick={() => setOpen(!open)}
                 className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"

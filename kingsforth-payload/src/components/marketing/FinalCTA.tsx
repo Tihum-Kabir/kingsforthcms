@@ -77,7 +77,7 @@ export function FinalCTA({ settings }: { settings?: any }) {
                 </div>
 
                 {/* Trust bar */}
-                <div className="flex flex-wrap justify-center items-center gap-8 text-[13px] text-[#4a5568]">
+                <div className="flex flex-wrap justify-center items-center gap-8 text-[15px] text-slate-400">
                     {['No credit card required', 'Free consultation', '24/7 support'].map(text => (
                         <span key={text} className="flex items-center gap-2">
                             <span className="w-1 h-1 rounded-full bg-[#22d3ee]" />

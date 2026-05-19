@@ -87,7 +87,7 @@ export function ContactForm() {
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="w-full bg-gradient-to-r from-[#6ac4f1] to-[#3a9fd0] hover:from-[#5ab3e0] hover:to-[#2a8fb0] text-black font-bold py-4 rounded-lg shadow-[0_0_30px_-5px_rgba(106,196,241,0.4)] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 group border border-[#a2dcf7]/30"
+                    className="w-full bg-linear-to-r from-[#6ac4f1] to-[#3a9fd0] hover:from-[#5ab3e0] hover:to-[#2a8fb0] text-black font-bold py-4 rounded-lg shadow-[0_0_30px_-5px_rgba(106,196,241,0.4)] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 group border border-[#a2dcf7]/30"
                 >
                     {isPending ? (
                         <>

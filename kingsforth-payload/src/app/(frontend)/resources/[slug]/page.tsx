@@ -153,7 +153,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
                 <article className="space-y-8">
 
                     {/* ── HERO CARD ─────────────────────────────────────────── */}
-                    <div className="bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl rounded-3xl shadow-xl border border-slate-200 dark:border-white/[0.07] overflow-hidden">
+                    <div className="bg-white/90 dark:bg-[#0a0a0a]/90 rounded-3xl shadow-xl border border-slate-200 dark:border-white/[0.07] overflow-hidden">
 
                         {/* Cover image */}
                         {coverImageUrl && (
@@ -225,7 +225,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
                                         download={pdfFilename}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-[#ef4444] to-[#dc2626] hover:from-[#dc2626] hover:to-[#b91c1c] text-white font-bold text-sm shadow-lg shadow-red-500/25 hover:shadow-red-500/40 transition-all duration-300 hover:-translate-y-0.5"
+                                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-linear-to-r from-[#ef4444] to-[#dc2626] hover:from-[#dc2626] hover:to-[#b91c1c] text-white font-bold text-sm shadow-lg shadow-red-500/25 hover:shadow-red-500/40 transition-all duration-300 hover:-translate-y-0.5"
                                     >
                                         <Download className="w-4 h-4" />
                                         Download PDF{pdfSize ? ` (${pdfSize})` : ''}
@@ -237,7 +237,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
                                         download={docxFilename}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#1d4ed8] hover:to-[#2563eb] text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-0.5"
+                                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-linear-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#1d4ed8] hover:to-[#2563eb] text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-0.5"
                                     >
                                         <Download className="w-4 h-4" />
                                         Download DOCX{docxSize ? ` (${docxSize})` : ''}
@@ -248,7 +248,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
                                         href={resource.externalLink}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-gradient-to-r from-[#2563eb] to-[#06b6d4] hover:from-[#1d4ed8] hover:to-[#0891b2] text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-0.5"
+                                        className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-linear-to-r from-[#2563eb] to-[#06b6d4] hover:from-[#1d4ed8] hover:to-[#0891b2] text-white font-bold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-0.5"
                                     >
                                         Access Resource <ExternalLink className="w-4 h-4" />
                                     </a>
@@ -273,7 +273,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
 
                     {/* ── RICH TEXT BODY ─────────────────────────────────────── */}
                     {hasRichContent && (
-                        <div className="bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl rounded-3xl shadow-xl border border-slate-200 dark:border-white/[0.07] p-10 md:p-14">
+                        <div className="bg-white/90 dark:bg-[#0a0a0a]/90 rounded-3xl shadow-xl border border-slate-200 dark:border-white/[0.07] p-10 md:p-14">
                             <div className="prose prose-slate dark:prose-invert max-w-none
                                 prose-headings:font-black prose-headings:tracking-tight
                                 prose-h1:text-4xl prose-h2:text-2xl prose-h3:text-xl
@@ -292,7 +292,7 @@ export default async function ResourceDetailPage({ params }: { params: Promise<{
 
                     {/* ── TAGS ───────────────────────────────────────────────── */}
                     {resource.tags && resource.tags.length > 0 && (
-                        <div className="bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-white/[0.07] p-7">
+                        <div className="bg-white/80 dark:bg-[#0a0a0a]/80 rounded-2xl border border-slate-200 dark:border-white/[0.07] p-7">
                             <p className="text-xs font-bold text-slate-400 dark:text-gray-500 uppercase tracking-widest mb-4">Tags</p>
                             <div className="flex flex-wrap gap-2">
                                 {resource.tags.map((tagItem: any, i: number) => (
